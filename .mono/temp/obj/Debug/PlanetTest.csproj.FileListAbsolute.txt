@@ -1,0 +1,9 @@
+C:\Users\Matiss\Documents\PlanetTest\.mono\temp\bin\Debug\PlanetTest.dll
+C:\Users\Matiss\Documents\PlanetTest\.mono\temp\bin\Debug\PlanetTest.pdb
+C:\Users\Matiss\Documents\PlanetTest\.mono\temp\obj\Debug\PlanetTest.csproj.AssemblyReference.cache
+C:\Users\Matiss\Documents\PlanetTest\.mono\temp\obj\Debug\PlanetTest.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Matiss\Documents\PlanetTest\.mono\temp\obj\Debug\PlanetTest.AssemblyInfoInputs.cache
+C:\Users\Matiss\Documents\PlanetTest\.mono\temp\obj\Debug\PlanetTest.AssemblyInfo.cs
+C:\Users\Matiss\Documents\PlanetTest\.mono\temp\obj\Debug\PlanetTest.csproj.CoreCompileInputs.cache
+C:\Users\Matiss\Documents\PlanetTest\.mono\temp\obj\Debug\PlanetTest.dll
+C:\Users\Matiss\Documents\PlanetTest\.mono\temp\obj\Debug\PlanetTest.pdb
