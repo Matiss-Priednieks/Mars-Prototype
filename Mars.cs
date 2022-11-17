@@ -8,7 +8,7 @@ public class Mars : CSGSphere
     // private string b = "text";
     Vector2 mouseDelta;
     bool mouseEntered = false;
-    public float rotationSpeed = 0.5f;
+    public float rotationSpeed = 0.1f;
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -27,6 +27,9 @@ public class Mars : CSGSphere
                 //todo: fix
             }
         }
+        // RotationDegrees += new Vector3(0, rotationSpeed, 0); // demo rotation
+
+
     }
     private void _on_Area_input_event(object camera, object @event, Vector3 position, Vector3 normal, int shape_idx)
     {
