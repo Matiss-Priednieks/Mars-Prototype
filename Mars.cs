@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Mars : CSGSphere
+public class Mars : StaticBody
 {
     // Declare member variables here. Examples:
     // private int a = 2;
@@ -12,7 +12,7 @@ public class Mars : CSGSphere
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        Vector2 test;
+
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -27,7 +27,7 @@ public class Mars : CSGSphere
                 //todo: fix
             }
         }
-        RotationDegrees += new Vector3(0, rotationSpeed, 0); // demo rotation
+        // RotationDegrees += new Vector3(0, rotationSpeed, 0); // demo rotation
 
 
     }
@@ -48,10 +48,6 @@ public class Mars : CSGSphere
         mouseEntered = false;
     }
 
-    private void _on_Area_area_entered(object area)
-    {
-
-    }
 
 
 
