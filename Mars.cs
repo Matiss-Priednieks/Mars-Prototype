@@ -27,7 +27,7 @@ public class Mars : CSGSphere
                 //todo: fix
             }
         }
-        // RotationDegrees += new Vector3(0, rotationSpeed, 0); // demo rotation
+        RotationDegrees += new Vector3(0, rotationSpeed, 0); // demo rotation
 
 
     }
@@ -48,7 +48,10 @@ public class Mars : CSGSphere
         mouseEntered = false;
     }
 
+    private void _on_Area_area_entered(object area)
+    {
 
+    }
 
 
 
