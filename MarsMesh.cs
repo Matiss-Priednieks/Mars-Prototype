@@ -3,11 +3,8 @@ using System;
 
 public class MarsMesh : CSGSphere
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
-
-    // Called when the node enters the scene tree for the first time.
+    Vector2 mouseDelta;
+    bool mouseEntered = false;
     public override void _Ready()
     {
 
@@ -16,5 +13,22 @@ public class MarsMesh : CSGSphere
     private void _on_Area_area_entered(object area)
     {
 
+    }
+
+    private void _on_Area_input_event(object camera, object @event, Vector3 position, Vector3 normal, int shape_idx)
+    {
+        if (@event is InputEventMouseMotion mouseMotion)
+        {
+            mouseDelta = mouseMotion.Relative;
+        }
+    }
+
+    private void _on_Area_mouse_entered()
+    {
+        mouseEntered = true;
+    }
+    private void _on_Area_mouse_exited()
+    {
+        mouseEntered = false;
     }
 }

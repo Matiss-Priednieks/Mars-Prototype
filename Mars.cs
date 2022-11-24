@@ -31,22 +31,7 @@ public class Mars : StaticBody
 
 
     }
-    private void _on_Area_input_event(object camera, object @event, Vector3 position, Vector3 normal, int shape_idx)
-    {
-        if (@event is InputEventMouseMotion mouseMotion)
-        {
-            mouseDelta = mouseMotion.Relative;
-        }
-    }
 
-    private void _on_Area_mouse_entered()
-    {
-        mouseEntered = true;
-    }
-    private void _on_Area_mouse_exited()
-    {
-        mouseEntered = false;
-    }
 
 
 
