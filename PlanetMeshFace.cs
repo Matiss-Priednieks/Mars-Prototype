@@ -1,6 +1,5 @@
 using Godot;
 using System;
-
 public class PlanetMeshFace : MeshInstance
 {
     [Export] Vector3 normal;
@@ -17,8 +16,6 @@ public class PlanetMeshFace : MeshInstance
 
     public void RegenerateMesh()
     {
-        // ArrayMesh[] arrays = new ArrayMesh[(int)ArrayMesh.ArrayType.Max];
-        // Vector3[][] arrays = new Vector3[(int)ArrayMesh.ArrayType.Max][];
         Godot.Collections.Array arrays = new Godot.Collections.Array();
         arrays.Resize((int)ArrayMesh.ArrayType.Max);
         Vector3[] vertexArray;

@@ -23,12 +23,4 @@ public class MarsMesh : CSGSphere
         }
     }
 
-    private void _on_Area_mouse_entered()
-    {
-        mouseEntered = true;
-    }
-    private void _on_Area_mouse_exited()
-    {
-        mouseEntered = false;
-    }
 }

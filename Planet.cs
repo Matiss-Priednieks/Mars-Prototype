@@ -11,6 +11,14 @@ public class Planet : Spatial
             PlanetMeshFace face = child;
             face.RegenerateMesh();
         }
+        if (Engine.EditorHint)
+        {
+            foreach (PlanetMeshFace child in GetChildren())
+            {
+                PlanetMeshFace face = child;
+                face.RegenerateMesh();
+            }
+        }
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
