@@ -1,21 +1,13 @@
 using Godot;
 using System;
+[Tool]
 public class PlanetMeshFace : MeshInstance
 {
     [Export] Vector3 normal;
-    [Export] int Resolution = 5;
-    public override void _Ready()
+
+    public void RegenerateMesh(PlanetData planetData)
     {
-
-    }
-
-    public override void _Process(float delta)
-    {
-
-    }
-
-    public void RegenerateMesh()
-    {
+        int Resolution = planetData.GetResolution();
         Godot.Collections.Array arrays = new Godot.Collections.Array();
         arrays.Resize((int)ArrayMesh.ArrayType.Max);
         Vector3[] vertexArray;
@@ -41,8 +33,10 @@ public class PlanetMeshFace : MeshInstance
                 int pos = i + j * Resolution;
                 Vector2 percent = new Vector2(i, j) / (Resolution - 1);
                 Vector3 pointOnUnitCube = new Vector3(normal + (percent.x - 0.5f) * 2 * axisA + (percent.y - 0.5f) * 2 * axisB);
-                Vector3 pointOnUnitSphere = pointOnUnitCube.Normalized();
+                Vector3 pointOnUnitSphere = pointOnUnitCube.Normalized() * planetData.GetRadius();
+                // vertexArray[pos] = pointOnUnitSphere.Normalized();
                 vertexArray[pos] = pointOnUnitSphere;
+                GD.Print(Coordinates.PointToCoordinate(pointOnUnitSphere.Normalized()).ToVector2());
 
                 if (i != Resolution - 1 && j != Resolution - 1)
                 {
@@ -57,6 +51,7 @@ public class PlanetMeshFace : MeshInstance
                 }
             }
         }
+        //regenerate normals
         for (int a = 0; a < indexArray.Length; a += 3)
         {
             int b = a + 1;
@@ -90,5 +85,9 @@ public class PlanetMeshFace : MeshInstance
         _mesh.AddSurfaceFromArrays(Mesh.PrimitiveType.Triangles, arrays);
         Mesh = _mesh;
     }
+
+    // public Vector3 _UVtoPointOnUnitSphere(Vector3 pointOnUnitSphere){
+
+    // }
 
 }

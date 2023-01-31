@@ -16,6 +16,7 @@ public class Player : RigidBody
     public override void _IntegrateForces(PhysicsDirectBodyState state)
     {
         LocalGravity = state.TotalGravity.Normalized();
+
         var MoveDirection = GetModelOrientedInput();
         if (MoveDirection.Length() > 0.2f)
         {
@@ -28,16 +29,23 @@ public class Player : RigidBody
 
     public Vector3 GetModelOrientedInput()
     {
-        var InputLeftRight = Godot.Input.GetActionStrength("ui_right") - Godot.Input.GetActionStrength("ui_left");
-        var InputForwardBackward = Godot.Input.GetActionStrength("ui_up") - Godot.Input.GetActionStrength("ui_down");
+        // Scale = new Vector3(0.1f, 0.1f, 0.1f);
+        var InputLeftRight = (Godot.Input.GetActionStrength("ui_right") - Godot.Input.GetActionStrength("ui_left"));
+        var InputForwardBackward = (Godot.Input.GetActionStrength("ui_down") - Godot.Input.GetActionStrength("ui_up"));
+
+
         var RawInput = new Vector2(InputLeftRight, InputForwardBackward);
 
         var Input = Vector3.Zero;
 
         Input.x = RawInput.x * Mathf.Sqrt((float)(1.0 - RawInput.y * RawInput.y / 2.0));
-        Input.z = RawInput.y * Mathf.Sqrt((float)(1.0 - RawInput.x * RawInput.x / 2.0));
+        // GD.Print(Input.x);
+
+        Input.z = (RawInput.y * Mathf.Sqrt((float)(1.0 - RawInput.x * RawInput.x / 2.0)));
+        // Input.y = -(RawInput.y * Mathf.Sqrt((float)(1.0 - RawInput.x * RawInput.x / 2.0)));
 
         Input = Transform.basis.Xform(Input);
+        GD.Print(Input);
         return Input;
     }
 
@@ -48,7 +56,7 @@ public class Player : RigidBody
         var RotationQuat = PlayerModel.Transform;
         var newRotationBasis = new Quat(RotationBasis);
 
-        RotationQuat.basis = new Basis(PlayerModel.Transform.basis.RotationQuat().Slerp(newRotationBasis.Normalized(), delta * RotationSpeed));
+        RotationQuat.basis = new Basis(PlayerModel.Transform.basis.RotationQuat().Slerp(-newRotationBasis.Normalized(), delta * RotationSpeed));
         PlayerModel.Transform = RotationQuat;
 
     }

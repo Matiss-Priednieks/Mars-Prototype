@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Mars : RigidBody
+public class Mars : StaticBody
 {
     // Declare member variables here. Examples:
     // private int a = 2;
@@ -11,16 +11,42 @@ public class Mars : RigidBody
     bool MouseEntered = false;
     bool Rotating = false;
     public float rotationSpeed = 0.5f;
-    // Called when the node enters the scene tree for the first time.
+    bool RotatingX, RotatingY, RotatingZ;
+    Tween Snapback;
+
     public override void _Ready()
     {
-
+        RotatingX = false;
+        RotatingY = false;
+        RotatingZ = false;
+        Snapback = GetNode<Tween>("Snapback");
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
-        Translation = new Vector3(0, 0, 0);
+        LocationLock();
+
+        if (Input.IsActionJustPressed("XRot"))
+        {
+            RotatingX = true;
+            RotatingY = false;
+            RotatingZ = false;
+        }
+        if (Input.IsActionJustPressed("YRot"))
+        {
+            RotatingY = true;
+            RotatingX = false;
+            RotatingZ = false;
+        }
+        if (Input.IsActionJustPressed("ZRot"))
+        {
+            RotatingZ = true;
+            RotatingX = false;
+            RotatingY = false;
+        }
+
+
+
         if (Input.IsActionJustPressed("mousepress") && MouseEntered)
         {
             PrevMousePos = GetViewport().GetMousePosition();
@@ -30,21 +56,26 @@ public class Mars : RigidBody
         {
             Rotating = false;
         }
+        if (Input.IsActionJustPressed("ui_escape"))
+        {
+            Snapback.InterpolateProperty(this, "rotation_degrees", RotationDegrees, new Vector3(0, 0, 0), 0.5f, Tween.TransitionType.Elastic, Tween.EaseType.InOut);
+            Snapback.Start();
+        }
 
         if (Rotating)
         {
-            Vector2 Xrotation;
-            Xrotation.x = (NextMousePos.x - PrevMousePos.x);
-            Xrotation.y = -(NextMousePos.y - PrevMousePos.y);
-            Xrotation = Xrotation.Normalized();
             NextMousePos = GetViewport().GetMousePosition();
-            RotateY((NextMousePos.x - PrevMousePos.x) * rotationSpeed * delta);
-            RotateZ(-(NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
-            RotateX(Xrotation.x * Xrotation.y * rotationSpeed * delta);
-            //do one axis rotation at a time by selecting it first. Make it so it's limited to a certain amount of degrees for the Y axis.
+
+            if (RotatingX) RotateX((NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
+            if (RotatingY) RotateY((NextMousePos.x - PrevMousePos.x) * rotationSpeed * delta);
+            if (RotatingZ) RotateZ(-(NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
+            // RotateX((NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
+            // RotateY((NextMousePos.x - PrevMousePos.x) * rotationSpeed * delta);
+            // RotateZ(-(NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
+
             PrevMousePos = NextMousePos;
         }
-        // RotationDegrees += new Vector3(0, rotationSpeed, 0); // demo rotation
+
 
     }
 
@@ -57,7 +88,10 @@ public class Mars : RigidBody
         MouseEntered = false;
     }
 
-
+    private void LocationLock()
+    {
+        Translation = new Vector3(0, 0, 0);
+    }
 
 
 }
