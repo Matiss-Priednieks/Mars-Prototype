@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://textures/temp_textures/5672_mars_6k_color(1).jpg" type="Texture" id=1]
 [ext_resource path="res://PlanetGen.cs" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://MarsMesh.cs" type="Script" id=7]
 [ext_resource path="res://PlanetGen.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/perlinnose.png" type="Texture" id=9]
+[ext_resource path="res://assets/planetmars.glb" type="PackedScene" id=10]
 
 [sub_resource type="PhysicsMaterial" id=12]
 friction = 0.2
@@ -243,6 +244,7 @@ extents = Vector3( 2000, 2000, 2000 )
 script = ExtResource( 2 )
 
 [node name="Mars" type="StaticBody" parent="."]
+visible = false
 physics_material_override = SubResource( 12 )
 script = ExtResource( 4 )
 __meta__ = {
@@ -290,7 +292,7 @@ mesh = SubResource( 13 )
 material/0 = SubResource( 17 )
 
 [node name="MainCam" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.446 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 28.8493 )
 current = true
 
 [node name="OmniLight" type="DirectionalLight" parent="MainCam"]
@@ -309,6 +311,11 @@ gravity = 0.0
 shape = SubResource( 35 )
 
 [node name="CanvasLayer" parent="." instance=ExtResource( 6 )]
+
+[node name="planetmarsmodel" parent="." instance=ExtResource( 10 )]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.707107, -0.707107, 0, 0.707107, -0.707107, 0, 33, 77 )
 
 [connection signal="area_entered" from="Mars/CSGSphere/Area" to="Mars/CSGSphere" method="_on_Area_area_entered"]
 [connection signal="input_event" from="Mars/CSGSphere/Area" to="Mars/CSGSphere" method="_on_Area_input_event"]
