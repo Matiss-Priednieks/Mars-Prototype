@@ -15,7 +15,7 @@ albedo_color = Color( 0.941176, 0.568627, 0.568627, 1 )
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.125508
-height = 0.322851
+height = 0.408658
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 2 )

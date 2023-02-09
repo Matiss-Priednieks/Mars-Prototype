@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://textures/temp_textures/5672_mars_6k_color(1).jpg" type="Texture" id=1]
 [ext_resource path="res://PlanetGen.cs" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://MarsMesh.cs" type="Script" id=7]
 [ext_resource path="res://PlanetGen.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/perlinnose.png" type="Texture" id=9]
+[ext_resource path="res://BetterPlayer.tscn" type="PackedScene" id=10]
 
 [sub_resource type="PhysicsMaterial" id=12]
 friction = 0.2
@@ -310,7 +311,11 @@ shape = SubResource( 35 )
 
 [node name="CanvasLayer" parent="." instance=ExtResource( 6 )]
 
+[node name="Player" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.05463 )
+
 [connection signal="area_entered" from="Mars/CSGSphere/Area" to="Mars/CSGSphere" method="_on_Area_area_entered"]
 [connection signal="input_event" from="Mars/CSGSphere/Area" to="Mars/CSGSphere" method="_on_Area_input_event"]
+[connection signal="input_event" from="Mars/CSGSphere/Area" to="Player" method="_on_Area_input_event"]
 [connection signal="mouse_entered" from="Mars/CSGSphere/Area" to="Mars" method="_on_Area_mouse_entered"]
 [connection signal="mouse_exited" from="Mars/CSGSphere/Area" to="Mars" method="_on_Area_mouse_exited"]
