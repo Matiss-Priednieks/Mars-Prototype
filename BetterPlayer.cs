@@ -9,67 +9,45 @@ public class BetterPlayer : KinematicBody
     float RotationSpeed = 15;
     bool ClickMoving = false;
 
+    Vector3 targetLocation = Vector3.Zero;
+    Vector3 targetNormal = Vector3.One;
     Vector3 LastStrongMoveDirection;
     Mars PlanetMars;
     public override void _Ready()
     {
         PlayerModel = GetNode<Spatial>("Model");
-        PlanetMars = GetParent().GetNode<Mars>("Mars");
+        PlanetMars = GetParent().GetNode<Mars>("../Mars");
         LocalGravity = new Vector3(PlanetMars.GlobalTransform.origin - Transform.basis.y);
-        ClickToMove();
     }
 
     public override void _PhysicsProcess(float delta)
     {
+        // LookAt(Translation, GravityVector());
         // GD.Print(IsOnFloor());
         if (!IsOnFloor())
         {
             Translation += GravityVector();
         }
-        var vel = Vector3.Zero;
-
-        // if (Input.IsActionPressed("ui_up"))
-        // {
-        //     vel -= Transform.basis.y;
-
-        // }
-
-        // if (Input.IsActionPressed("ui_down"))
-        // {
-        //     vel += Transform.basis.y;
-
-        // }
-
-        // if (Input.IsActionPressed("ui_left"))
-        // {
-        //     vel += Transform.basis.x;
-
-        // }
-
-        // if (Input.IsActionPressed("ui_right"))
-        // {
-        //     vel -= Transform.basis.x;
-        // }
+        // var vel = Vector3.Zero;
 
 
-        vel *= MoveSpeed * delta;
+        // vel *= MoveSpeed * delta;
 
-        vel = MoveAndSlide(vel, GravityVector() * -1, true, 4, Mathf.Deg2Rad(40), false);
+        // vel = MoveAndSlide(vel, GravityVector(), true, 4, Mathf.Deg2Rad(40), false);
 
-        // GD.Print(vel);
+        // // GD.Print(vel);
 
-        Transform = Transform.Orthonormalized();
+        // Transform = Transform.Orthonormalized();
 
         if (Transform.basis.y.Normalized().Cross(GravityVector()) != Vector3.Zero)
         {
-            LookAt(PlanetMars.GlobalTransform.origin, Transform.basis.y);
+            LookAt(PlanetMars.GlobalTransform.origin, Transform.basis.y - GravityVector());
         }
         else
         {
-            LookAt(PlanetMars.GlobalTransform.origin, Transform.basis.x);
-
+            LookAt(PlanetMars.GlobalTransform.origin, Transform.basis.x - GravityVector());
         }
-
+        ClickToMove(targetLocation, targetNormal);
     }
 
     public Vector3 GravityVector()
@@ -80,18 +58,24 @@ public class BetterPlayer : KinematicBody
     {
         if (new_event.IsActionReleased("click_to_move"))
         {
-            GD.Print(camera + " " + position);
+            targetNormal = normal;
+            targetLocation = position;
             ClickMoving = true;
         }
     }
 
 
-    public void ClickToMove(Vector3 endLocation)
+    public void ClickToMove(Vector3 endLocation, Vector3 normal)
     {
-        Vector3 diff = Transform.origin - endLocation;
-        if (diff.Length() >= 0.1f)
+        Vector3 diff = endLocation - Transform.origin;
+        if (diff.Length() >= 0.12f && ClickMoving)
         {
-            MoveAndSlide(endLocation);
+            MoveAndSlide(diff, normal);
+            LookAt(diff, normal);
+        }
+        else if (diff.Length() <= 0.12f)
+        {
+            ClickMoving = false;
         }
     }
 }
