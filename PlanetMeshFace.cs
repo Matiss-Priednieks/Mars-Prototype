@@ -35,8 +35,10 @@ public class PlanetMeshFace : MeshInstance
                 Vector3 pointOnUnitCube = new Vector3(normal + (percent.x - 0.5f) * 2 * axisA + (percent.y - 0.5f) * 2 * axisB);
                 Vector3 pointOnUnitSphere = pointOnUnitCube.Normalized() * planetData.GetRadius();
                 // vertexArray[pos] = pointOnUnitSphere.Normalized();
+                // Vector3 pointOnPlanet = planetData.PointOnPlanet(pointOnUnitSphere); //breaks game
+
                 vertexArray[pos] = pointOnUnitSphere;
-                GD.Print(Coordinates.PointToCoordinate(pointOnUnitSphere.Normalized()).ToVector2());
+                // GD.Print(Coordinates.PointToCoordinate(pointOnUnitSphere.Normalized()).ToVector2());
 
                 if (i != Resolution - 1 && j != Resolution - 1)
                 {
