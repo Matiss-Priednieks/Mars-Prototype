@@ -1,16 +1,13 @@
-[gd_resource type="Resource" load_steps=5 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://PlanetData.cs" type="Script" id=1]
-[ext_resource path="res://textures/temp_textures/5672_mars_6k_topo(1).jpg" type="Texture" id=2]
-[ext_resource path="res://textures/temp_textures/5672_mars_6k_color(1).jpg" type="Texture" id=3]
 
-[sub_resource type="OpenSimplexNoise" id=1]
+[sub_resource type="StreamTexture" id=1]
+flags = 23
+load_path = "res://.import/5672_mars_6k_color(1).jpg-daafab49f005f03e57fcbf484f54b662.stex"
 
 [resource]
 script = ExtResource( 1 )
 Radius = 3.0
 Resolution = 10
-UVTex = ExtResource( 3 )
-UVTexHeightMap = ExtResource( 2 )
-NoiseMap = SubResource( 1 )
-Amplitude = 1.0
+UVTex = SubResource( 1 )
