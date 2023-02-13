@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="SphereShape" id=8]
+radius = 49.6414
+
+[node name="GravityField" type="Area"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
+space_override = 3
+gravity_point = true
+gravity_distance_scale = 1.525
+gravity_vec = Vector3( 0, 0, 0 )
+gravity = -10.035
+
+[node name="GravityFieldShape" type="CollisionShape" parent="."]
+shape = SubResource( 8 )

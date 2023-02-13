@@ -10,7 +10,6 @@ public class planetmarslowerpoly : Spatial
     {
         if (@event is InputEventMouseMotion mouseMotion)
         {
-            GD.Print(position);
             mouseDelta = mouseMotion.Relative;
         }
     }
