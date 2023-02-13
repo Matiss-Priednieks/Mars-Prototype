@@ -1,7 +1,7 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://PlanetGen.cs" type="Script" id=1]
-[ext_resource path="res://scenes/PlanetGen.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/planetmarslowerpoly.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/HTTPRequestTest.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/BetterPlayer.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/perlinnose.png" type="Texture" id=5]
@@ -11,61 +11,13 @@
 [ext_resource path="res://MarsMesh.cs" type="Script" id=9]
 [ext_resource path="res://MainCam.cs" type="Script" id=10]
 [ext_resource path="res://Mars.cs" type="Script" id=11]
+[ext_resource path="res://assets/planetmarslowerpoly.cs" type="Script" id=13]
 
 [sub_resource type="PhysicsMaterial" id=12]
 friction = 0.2
 
-[sub_resource type="SpatialMaterial" id=5]
-flags_unshaded = true
-params_cull_mode = 1
-params_grow = true
-params_grow_amount = 0.877
-albedo_color = Color( 1, 0.627451, 0.298039, 1 )
-distance_fade_mode = 1
-distance_fade_min_distance = 5.0
-distance_fade_max_distance = 50.0
-
-[sub_resource type="SpatialMaterial" id=4]
-next_pass = SubResource( 5 )
-flags_unshaded = true
-params_cull_mode = 1
-params_grow = true
-params_grow_amount = 0.213
-albedo_color = Color( 0.243137, 0.109804, 0.027451, 1 )
-distance_fade_mode = 1
-distance_fade_min_distance = 3.0
-distance_fade_max_distance = 50.0
-
-[sub_resource type="SpatialMaterial" id=1]
-next_pass = SubResource( 4 )
-albedo_texture = ExtResource( 6 )
-metallic = 0.36
-normal_enabled = true
-normal_scale = 1.0
-normal_texture = ExtResource( 7 )
-depth_enabled = true
-depth_scale = 0.05
-depth_deep_parallax = false
-depth_flip_tangent = false
-depth_flip_binormal = false
-
 [sub_resource type="SphereShape" id=2]
-radius = 2.7
-
-[sub_resource type="SphereShape" id=8]
-radius = 10.097
-
-[sub_resource type="PanoramaSky" id=6]
-panorama = ExtResource( 8 )
-
-[sub_resource type="Environment" id=7]
-background_mode = 2
-background_sky = SubResource( 6 )
-background_sky_custom_fov = 121.5
-background_energy = 0.3
-
-[sub_resource type="SphereShape" id=11]
-radius = 2.681
+radius = 79.0
 
 [sub_resource type="SphereMesh" id=13]
 radius = 2.8
@@ -238,6 +190,55 @@ nodes/fragment/connections = PoolIntArray( 2, 0, 7, 0, 10, 0, 11, 1, 8, 0, 11, 0
 [sub_resource type="ShaderMaterial" id=17]
 shader = SubResource( 16 )
 
+[sub_resource type="SpatialMaterial" id=5]
+flags_unshaded = true
+params_cull_mode = 1
+params_grow = true
+params_grow_amount = 0.877
+albedo_color = Color( 1, 0.627451, 0.298039, 1 )
+distance_fade_mode = 1
+distance_fade_min_distance = 5.0
+distance_fade_max_distance = 50.0
+
+[sub_resource type="SpatialMaterial" id=4]
+next_pass = SubResource( 5 )
+flags_unshaded = true
+params_cull_mode = 1
+params_grow = true
+params_grow_amount = 0.213
+albedo_color = Color( 0.243137, 0.109804, 0.027451, 1 )
+distance_fade_mode = 1
+distance_fade_min_distance = 3.0
+distance_fade_max_distance = 50.0
+
+[sub_resource type="SpatialMaterial" id=1]
+next_pass = SubResource( 4 )
+albedo_texture = ExtResource( 6 )
+metallic = 0.36
+normal_enabled = true
+normal_scale = 1.0
+normal_texture = ExtResource( 7 )
+depth_enabled = true
+depth_scale = 0.05
+depth_deep_parallax = false
+depth_flip_tangent = false
+depth_flip_binormal = false
+
+[sub_resource type="SphereShape" id=8]
+radius = 50.966
+
+[sub_resource type="PanoramaSky" id=6]
+panorama = ExtResource( 8 )
+
+[sub_resource type="Environment" id=7]
+background_mode = 2
+background_sky = SubResource( 6 )
+background_sky_custom_fov = 121.5
+background_energy = 0.3
+
+[sub_resource type="SphereShape" id=11]
+radius = 2.681
+
 [sub_resource type="BoxShape" id=35]
 extents = Vector3( 2000, 2000, 2000 )
 
@@ -251,16 +252,32 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="CSGSphere" type="CSGSphere" parent="Mars"]
+[node name="planetmarslowerpoly2" parent="Mars" instance=ExtResource( 2 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+script = ExtResource( 13 )
+
+[node name="ClickArea" type="Area" parent="Mars/planetmarslowerpoly2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Mars/planetmarslowerpoly2/ClickArea"]
+shape = SubResource( 2 )
+
+[node name="AtmosphereMesh" type="MeshInstance" parent="Mars/planetmarslowerpoly2"]
+transform = Transform( 29, 0, 0, 0, 29, 0, 0, 0, 29, 0, 0, 0 )
+mesh = SubResource( 13 )
+skeleton = NodePath("")
+material/0 = SubResource( 17 )
+
+[node name="Prototype" type="CSGSphere" parent="Mars"]
+visible = false
 radius = 2.68
 radial_segments = 64
 rings = 32
 material = SubResource( 1 )
 script = ExtResource( 9 )
 
-[node name="Area" type="Area" parent="Mars/CSGSphere"]
+[node name="ClickArea" type="Area" parent="Mars/Prototype"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Mars/CSGSphere/Area"]
+[node name="CollisionShape" type="CollisionShape" parent="Mars/Prototype/ClickArea"]
 shape = SubResource( 2 )
 
 [node name="GravityField" type="Area" parent="Mars"]
@@ -275,13 +292,15 @@ shape = SubResource( 8 )
 [node name="Environment" type="Spatial" parent="Mars"]
 
 [node name="OmniLight" type="OmniLight" parent="Mars/Environment"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.286823, 0.497948, 4.9375 )
-shadow_enabled = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.36638 )
+light_color = Color( 1, 0.694118, 0.423529, 1 )
+light_specular = 0.0
 
-[node name="OmniLight2" type="DirectionalLight" parent="Mars/Environment"]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.286823, 0.497948, -9.67941 )
-light_energy = 0.1
-shadow_enabled = true
+[node name="DirectionalLight" type="DirectionalLight" parent="Mars/Environment"]
+transform = Transform( -1, 0, -8.74228e-08, -1.52855e-14, 1, 1.74846e-07, 8.74228e-08, 1.74846e-07, -1, 0, 0, 5.08735 )
+light_color = Color( 1, 0.764706, 0.513726, 1 )
+light_energy = 0.5
+light_specular = 0.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Mars/Environment"]
 environment = SubResource( 7 )
@@ -290,17 +309,18 @@ environment = SubResource( 7 )
 shape = SubResource( 11 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Mars"]
+visible = false
 mesh = SubResource( 13 )
 material/0 = SubResource( 17 )
 
 [node name="Player" parent="Mars" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.05463 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 40.1342 )
 
 [node name="CameraPivot" type="Spatial" parent="."]
 script = ExtResource( 10 )
 
 [node name="MainCam" type="Camera" parent="CameraPivot"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.446 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 49.8143 )
 current = true
 fov = 90.0
 size = 9.0
@@ -309,12 +329,9 @@ far = 8192.0
 
 [node name="OmniLight" type="DirectionalLight" parent="CameraPivot/MainCam"]
 light_color = Color( 1, 0.854902, 0.768627, 1 )
-light_energy = 0.61
+light_energy = 0.5
 
 [node name="Snapback" type="Tween" parent="CameraPivot/MainCam"]
-
-[node name="PlanetGen" parent="." instance=ExtResource( 2 )]
-visible = false
 
 [node name="Area" type="Area" parent="."]
 space_override = 2
@@ -326,8 +343,13 @@ shape = SubResource( 35 )
 
 [node name="CanvasLayer" parent="." instance=ExtResource( 3 )]
 
-[connection signal="area_entered" from="Mars/CSGSphere/Area" to="Mars/CSGSphere" method="_on_Area_area_entered"]
-[connection signal="input_event" from="Mars/CSGSphere/Area" to="Mars/CSGSphere" method="_on_Area_input_event"]
-[connection signal="input_event" from="Mars/CSGSphere/Area" to="Mars/Player" method="_on_Area_input_event"]
-[connection signal="mouse_entered" from="Mars/CSGSphere/Area" to="CameraPivot" method="_on_Area_mouse_entered"]
-[connection signal="mouse_exited" from="Mars/CSGSphere/Area" to="CameraPivot" method="_on_Area_mouse_exited"]
+[connection signal="input_event" from="Mars/planetmarslowerpoly2/ClickArea" to="Mars/Player" method="_on_Area_input_event"]
+[connection signal="mouse_entered" from="Mars/planetmarslowerpoly2/ClickArea" to="CameraPivot" method="_on_Area_mouse_entered"]
+[connection signal="mouse_exited" from="Mars/planetmarslowerpoly2/ClickArea" to="CameraPivot" method="_on_Area_mouse_exited"]
+[connection signal="area_entered" from="Mars/Prototype/ClickArea" to="Mars/Prototype" method="_on_Area_area_entered"]
+[connection signal="input_event" from="Mars/Prototype/ClickArea" to="Mars/Prototype" method="_on_Area_input_event"]
+[connection signal="input_event" from="Mars/Prototype/ClickArea" to="Mars/Player" method="_on_Area_input_event"]
+[connection signal="mouse_entered" from="Mars/Prototype/ClickArea" to="CameraPivot" method="_on_Area_mouse_entered"]
+[connection signal="mouse_exited" from="Mars/Prototype/ClickArea" to="CameraPivot" method="_on_Area_mouse_exited"]
+
+[editable path="Mars/planetmarslowerpoly2"]
