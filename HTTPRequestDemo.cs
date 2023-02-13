@@ -14,6 +14,7 @@ class HTTPRequestDemo : CanvasLayer
 
     public void OnButtonPressed()
     {
+
         HTTPRequest httpRequest = GetNode<HTTPRequest>("VBoxContainer/HTTPRequest");
         httpRequest.Request("https://api.nasa.gov/insight_weather/?api_key=OcEGj33d2t0Wu7OGgEQCUbPzoX5n0oohJgKwq7ud&feedtype=json&ver=1.0");
     }
@@ -25,12 +26,18 @@ class HTTPRequestDemo : CanvasLayer
 
         WeatherData.Text = weather["validity_checks"].ToString();
 
-        var TestData = weather["validity_checks"] as Dictionary;
+        var TestData = weather as Dictionary;
+
+        GD.Print(TestData);
 
         foreach (var keys in TestData.Keys)
         {
-            var keyName = keys as Dictionary;
-            // GD.Print(keyName.Keys);
+            // var keyName = keys as Dictionary;
+            // var sol = TestData["1219"] as Dictionary;
+            // var solAT = sol["AT"] as Dictionary;
+
+            // GD.Print(solAT["av"]);
+            // GD.Print(weather);
         }
     }
 }
