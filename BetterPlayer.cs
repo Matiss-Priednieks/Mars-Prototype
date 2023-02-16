@@ -9,13 +9,15 @@ public class BetterPlayer : KinematicBody
     float RotationSpeed = 15;
     bool ClickMoving = false;
 
+    [Export(PropertyHint.Range, "1, 100")] int timeScale = 1;
+
     Vector3 targetLocation = Vector3.Zero;
     Vector3 targetNormal = Vector3.One;
     Vector3 LastStrongMoveDirection;
     Spatial PlanetMars;
     public override void _Ready()
     {
-        PlayerModel = GetNode<Spatial>("Model");
+        PlayerModel = GetNode<Spatial>("Rover");
         PlanetMars = GetParent().GetNode<Spatial>("planetmarslowerpoly");
         LocalGravity = new Vector3(PlanetMars.GlobalTransform.origin - Transform.basis.y);
     }
@@ -36,7 +38,9 @@ public class BetterPlayer : KinematicBody
         {
             LookAt(PlanetMars.GlobalTransform.origin, Transform.basis.x - GravityVector());
         }
+
         ClickToMove(targetLocation, targetNormal);
+
     }
 
     public Vector3 GravityVector()
@@ -53,19 +57,24 @@ public class BetterPlayer : KinematicBody
         }
     }
 
-
     public void ClickToMove(Vector3 endLocation, Vector3 normal)
     {
         Vector3 diff = endLocation - Transform.origin;
-        if (diff.Length() >= 0.12f && ClickMoving)
+        diff = diff.Normalized();
+        if (diff.Length() >= 0.15f && ClickMoving)
         {
-            MoveAndSlide(diff, normal);
+            MoveAndSlide(diff * MoveSpeed * timeScale, normal);
             LookAt(diff, normal);
-            GD.Print(Translation);
+            // GD.Print(diff);
         }
         else if (diff.Length() <= 0.12f)
         {
             ClickMoving = false;
         }
+    }
+    public void SetTimeScale(int value)
+    {
+        timeScale = value;
+        GD.Print(timeScale);
     }
 }

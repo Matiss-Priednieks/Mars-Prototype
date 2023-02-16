@@ -1,33 +1,22 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://scenes/Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://BetterPlayer.cs" type="Script" id=2]
+[ext_resource path="res://assets/rover.glb" type="PackedScene" id=3]
 
-[sub_resource type="SpatialMaterial" id=3]
-flags_unshaded = true
-params_cull_mode = 1
-params_grow = true
-params_grow_amount = 0.438
-
-[sub_resource type="SpatialMaterial" id=2]
-next_pass = SubResource( 3 )
-albedo_color = Color( 0.941176, 0.568627, 0.568627, 1 )
-
-[sub_resource type="CapsuleShape" id=1]
-radius = 0.125508
-height = 0.408658
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.575806, 0.450873, 0.331163 )
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 2 )
 
-[node name="Model" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0 )
-
-[node name="Plane" parent="Model/Armature/Skeleton" index="0"]
-material/0 = SubResource( 2 )
-
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.280778, 0 )
 shape = SubResource( 1 )
 
-[editable path="Model"]
+[node name="Rover" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1.91069e-15, -4.37114e-08, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, -4.37114e-08, 0, 0, -0.333 )
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.56754 )
+light_energy = 5.451
+light_indirect_energy = 16.0
+spot_range = 7.717

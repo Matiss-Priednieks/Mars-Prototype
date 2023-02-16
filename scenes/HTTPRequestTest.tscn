@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://HTTPRequestDemo.cs" type="Script" id=1]
 [ext_resource path="res://assets/Aquire-BW0ox.otf" type="DynamicFontData" id=2]
@@ -10,6 +10,13 @@ font_data = ExtResource( 2 )
 
 [sub_resource type="Theme" id=2]
 default_font = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 49
+font_data = ExtResource( 2 )
+
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 3 )
 
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -23,6 +30,7 @@ anchor_bottom = 1.0
 margin_right = 500.0
 
 [node name="Button" type="Button" parent="VBoxContainer"]
+visible = false
 margin_right = 500.0
 margin_bottom = 33.0
 theme = SubResource( 2 )
@@ -31,7 +39,26 @@ text = "Get Weather Data"
 [node name="HTTPRequest" type="HTTPRequest" parent="VBoxContainer"]
 
 [node name="WeatherData" type="Label" parent="VBoxContainer"]
-margin_top = 37.0
 margin_right = 500.0
-margin_bottom = 51.0
+margin_bottom = 14.0
 autowrap = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+anchor_bottom = 1.0
+margin_right = 510.0
+
+[node name="Label" type="Label" parent="VBoxContainer2"]
+margin_right = 510.0
+margin_bottom = 43.0
+theme = SubResource( 4 )
+text = "Time Scale Slider"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer2"]
+margin_top = 47.0
+margin_right = 510.0
+margin_bottom = 63.0
+min_value = 1.0
+value = 1.0
+ticks_on_borders = true
+
+[connection signal="value_changed" from="VBoxContainer2/HSlider" to="." method="_on_HSlider_value_changed"]

@@ -5,10 +5,14 @@ using Godot.Collections;
 class HTTPRequestDemo : CanvasLayer
 {
     Label WeatherData;
+    HSlider SliderData;
+    [Signal] public delegate void UpdateTimeScale(int SliderValue);
     public override void _Ready()
     {
         GetNode("VBoxContainer/HTTPRequest").Connect("request_completed", this, "OnRequestCompleted");
         GetNode("VBoxContainer/Button").Connect("pressed", this, "OnButtonPressed");
+        this.Connect("UpdateTimeScale", GetNode<KinematicBody>("../%Player"), "SetTimeScale");
+        SliderData = GetNode<HSlider>("VBoxContainer2/HSlider");
         WeatherData = GetNode<Label>("VBoxContainer/WeatherData");
     }
 
@@ -39,5 +43,10 @@ class HTTPRequestDemo : CanvasLayer
             // GD.Print(solAT["av"]);
             // GD.Print(weather);
         }
+    }
+
+    public void _on_HSlider_value_changed(float value)
+    {
+        EmitSignal("UpdateTimeScale", SliderData.Value);
     }
 }
