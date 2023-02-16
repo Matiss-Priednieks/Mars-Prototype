@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://HTTPRequestDemo.cs" type="Script" id=1]
 [ext_resource path="res://assets/Aquire-BW0ox.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/penclick.mp3" type="AudioStream" id=3]
+[ext_resource path="res://scenes/SliderClick.cs" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -58,7 +60,16 @@ margin_top = 47.0
 margin_right = 510.0
 margin_bottom = 63.0
 min_value = 1.0
+max_value = 50.0
 value = 1.0
 ticks_on_borders = true
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -5.0
+pitch_scale = 0.8
+script = ExtResource( 4 )
+
 [connection signal="value_changed" from="VBoxContainer2/HSlider" to="." method="_on_HSlider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer2/HSlider" to="AudioStreamPlayer" method="_on_HSlider_value_changed"]
+[connection signal="finished" from="AudioStreamPlayer" to="AudioStreamPlayer" method="_on_AudioStreamPlayer_finished"]

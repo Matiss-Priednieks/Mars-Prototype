@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/penclick.mp3-97a0183a1411dc8cfabef0e8eca14808.mp3str"
+
+[deps]
+
+source_file="res://assets/penclick.mp3"
+dest_files=[ "res://.import/penclick.mp3-97a0183a1411dc8cfabef0e8eca14808.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -9,7 +9,7 @@ public class BetterPlayer : KinematicBody
     float RotationSpeed = 15;
     bool ClickMoving = false;
 
-    [Export(PropertyHint.Range, "1, 100")] int timeScale = 1;
+    [Export(PropertyHint.Range, "1, 50")] int timeScale = 1;
 
     Vector3 targetLocation = Vector3.Zero;
     Vector3 targetNormal = Vector3.One;
