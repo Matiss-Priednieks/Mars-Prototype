@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://PlanetGen.cs" type="Script" id=1]
 [ext_resource path="res://assets/planetmarslowerpoly.tscn" type="PackedScene" id=2]
@@ -12,6 +12,9 @@
 
 [sub_resource type="SphereShape" id=2]
 radius = 85.0
+
+[sub_resource type="SphereShape" id=35]
+radius = 1.6
 
 [sub_resource type="SphereMesh" id=13]
 radius = 2.8
@@ -51,7 +54,7 @@ constant = Color( 0.742188, 0.379338, 0.220337, 1 )
 function = 26
 
 [sub_resource type="VisualShaderNodeScalarOp" id=33]
-default_input_values = [ 0, 0.0, 1, 0.1 ]
+default_input_values = [ 0, 0.0, 1, 0.2 ]
 operator = 2
 
 [sub_resource type="VisualShaderNodeScalarFunc" id=34]
@@ -134,7 +137,7 @@ void fragment() {
 	float n_out17p0 = atan(n_out18p0);
 
 // ScalarOp:20
-	float n_in20p1 = 0.10000;
+	float n_in20p1 = 0.20000;
 	float n_out20p0 = n_out17p0 * n_in20p1;
 
 // Output:0
@@ -148,7 +151,7 @@ void light() {
 
 }
 "
-graph_offset = Vector2( -800.848, -28.2167 )
+graph_offset = Vector2( -125, -27 )
 nodes/fragment/0/position = Vector2( 1240, 40 )
 nodes/fragment/2/node = SubResource( 14 )
 nodes/fragment/2/position = Vector2( -80, 120 )
@@ -212,10 +215,15 @@ transform = Transform( -0.02, 0, 0, 0, -0.02, 0, 0, 0, -0.02, 0, 0, 0 )
 [node name="CollisionShape" type="CollisionShape" parent="planetmarslowerpoly/StaticBody/ClickArea"]
 shape = SubResource( 2 )
 
-[node name="CollisionShape2" parent="planetmarslowerpoly/StaticBody" index="2"]
+[node name="MoveArea" type="Area" parent="planetmarslowerpoly/StaticBody" index="1"]
+
+[node name="CollisionShape" type="CollisionShape" parent="planetmarslowerpoly/StaticBody/MoveArea"]
+shape = SubResource( 35 )
+
+[node name="CollisionShape2" parent="planetmarslowerpoly/StaticBody" index="3"]
 visible = false
 
-[node name="CollisionShape" parent="planetmarslowerpoly/StaticBody" index="3"]
+[node name="CollisionShape" parent="planetmarslowerpoly/StaticBody" index="4"]
 visible = false
 
 [node name="AtmosphereMesh" type="MeshInstance" parent="planetmarslowerpoly"]
@@ -281,5 +289,6 @@ disabled = true
 [connection signal="input_event" from="planetmarslowerpoly/StaticBody/ClickArea" to="Player" method="_on_ClickArea_input_event"]
 [connection signal="mouse_entered" from="planetmarslowerpoly/StaticBody/ClickArea" to="CameraPivot" method="_on_Area_mouse_entered"]
 [connection signal="mouse_exited" from="planetmarslowerpoly/StaticBody/ClickArea" to="CameraPivot" method="_on_Area_mouse_exited"]
+[connection signal="input_event" from="planetmarslowerpoly/StaticBody/MoveArea" to="Player" method="_on_MoveArea_input_event"]
 
 [editable path="planetmarslowerpoly"]
