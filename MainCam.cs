@@ -69,9 +69,6 @@ public class MainCam : Spatial
             if (RotatingX) RotateX((NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
             if (RotatingY) RotateY((NextMousePos.x - PrevMousePos.x) * rotationSpeed * delta);
             if (RotatingZ) RotateZ(-(NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
-            // RotateX((NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
-            // RotateY((NextMousePos.x - PrevMousePos.x) * rotationSpeed * delta);
-            // RotateZ(-(NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
 
             PrevMousePos = NextMousePos;
         }
@@ -79,11 +76,12 @@ public class MainCam : Spatial
 
     }
 
-    private void _on_Area_mouse_entered()
+
+    private void _on_StaticBody_mouse_entered()
     {
         MouseEntered = true;
     }
-    private void _on_Area_mouse_exited()
+    private void _on_StaticBody_mouse_exited()
     {
         MouseEntered = false;
     }

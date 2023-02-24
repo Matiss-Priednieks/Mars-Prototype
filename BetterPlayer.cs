@@ -8,6 +8,7 @@ public class BetterPlayer : KinematicBody
     float MoveSpeed = 0.1f;
     float RotationSpeed = 15;
     bool ClickMoving = false;
+    bool Selected = false;
 
     [Export(PropertyHint.Range, "1, 50")] int timeScale = 1;
 
@@ -15,16 +16,21 @@ public class BetterPlayer : KinematicBody
     Vector3 targetNormal = Vector3.One;
     Vector3 LastStrongMoveDirection;
     Spatial PlanetMars;
+    Material RoverMat;
     public override void _Ready()
     {
         PlayerModel = GetNode<Spatial>("Rover");
         PlanetMars = GetParent().GetNode<Spatial>("planetmarslowerpoly");
         LocalGravity = new Vector3(PlanetMars.GlobalTransform.origin - Transform.basis.y);
+        RoverMat = GetNode<Spatial>("Rover").GetNode<MeshInstance>("Cylinder").GetActiveMaterial(0).NextPass;
     }
 
+    public override void _Process(float delta)
+    {
+        if (Selected) { RoverMat.Set("shader_param/grow", 0.02); } else { RoverMat.Set("shader_param/grow", 0); }
+    }
     public override void _PhysicsProcess(float delta)
     {
-
         if (!IsOnFloor())
         {
             MoveAndCollide(GravityVector());
@@ -47,13 +53,17 @@ public class BetterPlayer : KinematicBody
     {
         return (PlanetMars.Transform.origin - Transform.origin).Normalized();
     }
-    private void _on_ClickArea_input_event(Node camera, InputEvent new_event, Vector3 position, Vector3 normal, int shape_index)
+    private void _on_StaticBody_input_event(Node camera, InputEvent new_event, Vector3 position, Vector3 normal, int shape_index)
     {
-        if (new_event.IsActionReleased("click_to_move"))
+        if (new_event.IsActionReleased("click_to_move") && Selected)
         {
             targetNormal = normal;
             targetLocation = position;
             ClickMoving = true;
+        }
+        if (new_event.IsActionReleased("mousepress") && Selected)
+        {
+            Selected = false;
         }
     }
 
@@ -76,5 +86,15 @@ public class BetterPlayer : KinematicBody
     {
         timeScale = value;
         GD.Print(timeScale);
+    }
+
+
+    private void _on_Player_input_event(Node camera, InputEvent new_event, Vector3 position, Vector3 normal, int shape_index)
+    {
+
+        if (new_event.IsActionReleased("mousepress"))
+        {
+            Selected = true;
+        }
     }
 }

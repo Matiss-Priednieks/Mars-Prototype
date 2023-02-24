@@ -20,3 +20,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.56754 )
 light_energy = 5.451
 light_indirect_energy = 16.0
 spot_range = 7.717
+
+[connection signal="input_event" from="." to="." method="_on_Player_input_event"]
+
+[editable path="Rover"]
