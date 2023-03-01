@@ -9,6 +9,7 @@ public class MissionStation : StaticBody
 
     public override void _Ready()
     {
+        rng.Randomize();
         GetNode<Label3D>("Label3D").Text = MissionList[rng.RandiRange(0, 2)];
     }
 }
