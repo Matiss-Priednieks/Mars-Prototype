@@ -20,8 +20,5 @@ public class PlanetData : Resource
     {
         return UVTex;
     }
-    // public Vector3 PointOnPlanet(Vector3 PointOnUnitSphere)
-    // {
 
-    // }
 }

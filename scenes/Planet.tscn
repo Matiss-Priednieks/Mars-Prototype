@@ -271,7 +271,6 @@ disabled = true
 
 [node name="MissionStation" parent="." instance=ExtResource( 7 )]
 transform = Transform( 0.2, 0, 0, 0, -8.74228e-09, -0.2, 0, 0.2, -8.74228e-09, 0, 0, 39.3068 )
-MissionList = null
 
 [connection signal="input_event" from="planetmarslowerpoly/StaticBody" to="planetmarslowerpoly" method="_on_StaticBody_input_event"]
 [connection signal="input_event" from="planetmarslowerpoly/StaticBody" to="Player" method="_on_StaticBody_input_event"]

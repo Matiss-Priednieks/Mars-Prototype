@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://MissionStation.cs" type="Script" id=1]
-[ext_resource path="res://Missions.tres" type="Resource" id=2]
 [ext_resource path="res://cartographer.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="BoxShape" id=1]
@@ -18,7 +17,6 @@ font_data = ExtResource( 3 )
 [node name="MissionStation" type="StaticBody"]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 script = ExtResource( 1 )
-MissionList = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )
