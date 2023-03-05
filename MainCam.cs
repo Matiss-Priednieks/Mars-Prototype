@@ -76,7 +76,6 @@ public class MainCam : Spatial
 
     }
 
-
     private void _on_StaticBody_mouse_entered()
     {
         MouseEntered = true;
