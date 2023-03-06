@@ -46,13 +46,28 @@ public class MissionStation : StaticBody
         Texture tex;
         if (IsResource)
         {
-            tex = GD.Load<Texture>("assets/" + missionTitle + "_" + missionType + ".png");
+            tex = GD.Load<Texture>("assets/" + missionTitle + "_" + missionType + "_Icon" + ".png");
         }
         else
         {
-            tex = GD.Load<Texture>("assets/" + missionTitle + ".png");
+            tex = GD.Load<Texture>("assets/" + missionTitle + "_Icon" + ".png");
         }
 
         return tex;
+    }
+
+    public PackedScene MissionModelGen(string missionTitle, string missionType, bool isResource)
+    {
+        PackedScene model;
+        if (IsResource)
+        {
+            model = ResourceLoader.Load<PackedScene>("assets/" + missionTitle + "_" + missionType + "_Model" + ".png");
+        }
+        else
+        {
+            model = ResourceLoader.Load<PackedScene>("assets/" + missionTitle + "_Model" + ".png");
+        }
+
+        return model;
     }
 }
