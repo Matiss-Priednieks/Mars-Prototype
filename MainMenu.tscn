@@ -1,0 +1,113 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://cartographer.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/5672_mars_6k_color(1).jpg" type="Texture" id=2]
+
+[sub_resource type="VisualShaderNodeTexture" id=3]
+output_port_for_preview = 0
+texture = ExtResource( 2 )
+
+[sub_resource type="VisualShader" id=4]
+code = "shader_type canvas_item;
+uniform sampler2D tex_frg_2;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Texture:2
+	vec4 tex_frg_2_read = texture(tex_frg_2, UV.xy);
+	vec3 n_out2p0 = tex_frg_2_read.rgb;
+	float n_out2p1 = tex_frg_2_read.a;
+
+// Output:0
+	COLOR.rgb = n_out2p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -732.731, -171.911 )
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2( 340, -20 )
+nodes/fragment/2/node = SubResource( 3 )
+nodes/fragment/2/position = Vector2( -120, -80 )
+nodes/fragment/connections = PoolIntArray( 2, 0, 0, 0 )
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 4 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 50
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+extra_spacing_char = 15
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource( 5 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.517647, 0, 0, 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -189.5
+margin_right = 540.0
+margin_bottom = 189.5
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/VBoxContainer"]
+margin_right = 540.0
+margin_bottom = 123.0
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="CanvasLayer/VBoxContainer/MarginContainer"]
+margin_right = 540.0
+margin_bottom = 123.0
+theme = SubResource( 2 )
+text = "Play"
+flat = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/VBoxContainer"]
+margin_top = 127.0
+margin_right = 540.0
+margin_bottom = 251.0
+size_flags_vertical = 3
+
+[node name="Button2" type="Button" parent="CanvasLayer/VBoxContainer/MarginContainer2"]
+margin_right = 540.0
+margin_bottom = 124.0
+theme = SubResource( 2 )
+text = "Settings"
+flat = true
+
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/VBoxContainer"]
+margin_top = 255.0
+margin_right = 540.0
+margin_bottom = 379.0
+size_flags_vertical = 3
+
+[node name="Button3" type="Button" parent="CanvasLayer/VBoxContainer/MarginContainer3"]
+margin_right = 540.0
+margin_bottom = 124.0
+theme = SubResource( 2 )
+text = "Exit"
+flat = true
