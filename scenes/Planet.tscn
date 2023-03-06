@@ -203,6 +203,9 @@ script = ExtResource( 1 )
 [node name="planetmarslowerpoly" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 script = ExtResource( 13 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2" parent="planetmarslowerpoly/StaticBody" index="1"]
 visible = false
@@ -271,6 +274,9 @@ disabled = true
 
 [node name="MissionStation" parent="." instance=ExtResource( 7 )]
 transform = Transform( 0.2, 0, 0, 0, -8.74228e-09, -0.2, 0, 0.2, -8.74228e-09, 0, 0, 39.3068 )
+
+[node name="MissionStation2" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.191401, -0.0502412, -0.0290068, 0, 0.1, -0.173205, 0.0580135, 0.165758, 0.0957006, -7.91509, 22.8229, 31.202 )
 
 [connection signal="input_event" from="planetmarslowerpoly/StaticBody" to="planetmarslowerpoly" method="_on_StaticBody_input_event"]
 [connection signal="input_event" from="planetmarslowerpoly/StaticBody" to="Player" method="_on_StaticBody_input_event"]

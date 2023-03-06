@@ -5,7 +5,7 @@ using System;
 public class MissionStation : StaticBody
 {
     RandomNumberGenerator rng = new RandomNumberGenerator();
-    [Signal] public delegate void Interacted();
+    [Signal] public delegate void Interacted(InputEvent inputEvent, Vector3 position, string missionList, string missionType, Vector3 Normal);
     string[] MissionList = { "Research", "Resource", "Recovery" };
     string[] ResourceType = { "H2O", "SCRAP" };
     string SelectedMission;
@@ -15,12 +15,14 @@ public class MissionStation : StaticBody
 
     public override void _Ready()
     {
+        this.Connect("Interacted", GetNode<Node>("/root/Interactions"), "InteractionHandler");
+
         rng.Randomize();
         SelectedMission = MissionList[rng.RandiRange(0, 2)];
-        SelectedMissionType = ResourceType[rng.RandiRange(0, 1)];
 
         if (SelectedMission == "Resource")
         {
+            SelectedMissionType = ResourceType[rng.RandiRange(0, 1)];
             IsResource = true;
         }
         else
@@ -35,10 +37,9 @@ public class MissionStation : StaticBody
     }
 
 
-    public void _on_MissionStation_input_event(Node camera, InputEvent inputEvent, Vector3 position, Vector3 Normal, int shape_idx)
+    public void _on_MissionStation_input_event(Node camera, InputEvent inputEvent, Vector3 position, Vector3 normal, int shape_idx)
     {
-        // Interactions.connect("signal", self, "func_name");
-
+        EmitSignal("Interacted", inputEvent, position, SelectedMission, SelectedMissionType, normal);
     }
 
     public Texture MissionTexGen(string missionTitle, string missionType, bool isResource)

@@ -17,17 +17,23 @@ public class BetterPlayer : KinematicBody
     Vector3 LastStrongMoveDirection;
     Spatial PlanetMars;
     Material RoverMat;
+    Label3D MissionLabel;
+
+    string CurrentMission;
+
     public override void _Ready()
     {
         PlayerModel = GetNode<Spatial>("Rover");
         PlanetMars = GetParent().GetNode<Spatial>("planetmarslowerpoly");
         LocalGravity = new Vector3(PlanetMars.GlobalTransform.origin - Transform.basis.y);
         RoverMat = GetNode<Spatial>("Rover").GetNode<MeshInstance>("Cylinder").GetActiveMaterial(0).NextPass;
+        MissionLabel = GetNode<Label3D>("Label3D");
     }
 
     public override void _Process(float delta)
     {
         if (Selected) { RoverMat.Set("shader_param/grow", 0.02); } else { RoverMat.Set("shader_param/grow", 0); }
+        MissionLabel.Text = CurrentMission;
     }
     public override void _PhysicsProcess(float delta)
     {
@@ -95,6 +101,25 @@ public class BetterPlayer : KinematicBody
         if (new_event.IsActionReleased("mousepress"))
         {
             Selected = true;
+        }
+    }
+
+    public void AttemptMission(InputEvent inputEvent, Vector3 position, string selectedMission, string selectedMissionType, Vector3 normal)
+    {
+        if (inputEvent.IsActionReleased("click_to_move") && Selected)
+        {
+            targetNormal = normal;
+            targetLocation = position;
+            ClickMoving = true;
+            GD.Print(selectedMission, selectedMissionType);
+            if (selectedMissionType != null)
+            {
+                CurrentMission = selectedMission + ": " + selectedMissionType;
+            }
+            else
+            {
+                CurrentMission = selectedMission;
+            }
         }
     }
 }
