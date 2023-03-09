@@ -22,6 +22,7 @@ public class Interactions : Node
 
         if (!SignalConnected && GetTree().Root.GetChild(2).Name == MainGameScene)
         {
+            GD.Print("Test");
             this.Connect("InteractionConnector", GetNode<KinematicBody>("../GameScene/Player"), "AttemptMission");
             SignalConnected = true;
         }
