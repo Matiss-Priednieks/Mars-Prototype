@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/rocket_engine_morebass.wav-283360815e07268516fe3d0e17a901ec.sample"
+
+[deps]
+
+source_file="res://assets/audio/rocket_engine_morebass.wav"
+dest_files=[ "res://.import/rocket_engine_morebass.wav-283360815e07268516fe3d0e17a901ec.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

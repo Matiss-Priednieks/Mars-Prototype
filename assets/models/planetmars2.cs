@@ -14,7 +14,7 @@ public class planetmars2 : Spatial
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(float delta)
+    public override void _PhysicsProcess(float delta)
     {
         RotationDegrees += new Vector3(0, -5 * delta, 0);
     }
