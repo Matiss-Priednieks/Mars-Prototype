@@ -19,8 +19,9 @@ public class Interactions : Node
     }
     public override void _Process(float delta)
     {
+        GD.Print(GetTree().Root.GetChild(3).Name);
 
-        if (!SignalConnected && GetTree().Root.GetChild(2).Name == MainGameScene)
+        if (!SignalConnected && GetTree().Root.GetChild(3).Name == MainGameScene)
         {
             GD.Print("Test");
             this.Connect("InteractionConnector", GetNode<KinematicBody>("../GameScene/Player"), "AttemptMission");
