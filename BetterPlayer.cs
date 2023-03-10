@@ -9,6 +9,8 @@ public class BetterPlayer : KinematicBody
     float RotationSpeed = 15;
     bool ClickMoving = false;
     bool Selected = false;
+    bool MissionStarted = false;
+    bool MissionClick = false;
 
     [Export(PropertyHint.Range, "1, 50")] int timeScale = 1;
 
@@ -18,13 +20,15 @@ public class BetterPlayer : KinematicBody
     Spatial PlanetMars;
     Material RoverMat;
     Label3D MissionLabel;
+    string tempMissionTitle;
+    string tempMissionType;
 
     string CurrentMission;
 
     public override void _Ready()
     {
         PlayerModel = GetNode<Spatial>("Rover");
-        PlanetMars = GetParent().GetNode<Spatial>("planetmarslowerpoly");
+        PlanetMars = GetParent().GetNode<Spatial>("Mars");
         LocalGravity = new Vector3(PlanetMars.GlobalTransform.origin - Transform.basis.y);
         RoverMat = GetNode<Spatial>("Rover").GetNode<MeshInstance>("Cylinder").GetActiveMaterial(0).NextPass;
         MissionLabel = GetNode<Label3D>("Label3D");
@@ -44,14 +48,14 @@ public class BetterPlayer : KinematicBody
 
         if (Transform.basis.y.Normalized().Cross(GravityVector()) != Vector3.Zero)
         {
-            LookAt(PlanetMars.GlobalTransform.origin, Transform.basis.y - GravityVector());
+            // LookAt(PlanetMars.GlobalTransform.origin, Transform.basis.y - GravityVector());
         }
         else
         {
-            LookAt(PlanetMars.GlobalTransform.origin, Transform.basis.x - GravityVector());
+            // LookAt(PlanetMars.GlobalTransform.origin, Transform.basis.x - GravityVector());
         }
-
-        ClickToMove(targetLocation, targetNormal);
+        MissionChecker();
+        ClickToMove(targetLocation, targetNormal, MissionClick);
 
     }
 
@@ -61,11 +65,12 @@ public class BetterPlayer : KinematicBody
     }
     private void _on_StaticBody_input_event(Node camera, InputEvent new_event, Vector3 position, Vector3 normal, int shape_index)
     {
-        if (new_event.IsActionReleased("click_to_move") && Selected)
+        if (new_event.IsActionReleased("click_to_move") && Selected && !MissionStarted)
         {
             targetNormal = normal;
             targetLocation = position;
             ClickMoving = true;
+            MissionClick = false;
         }
         if (new_event.IsActionReleased("mousepress") && Selected)
         {
@@ -73,19 +78,28 @@ public class BetterPlayer : KinematicBody
         }
     }
 
-    public void ClickToMove(Vector3 endLocation, Vector3 normal)
+    public void ClickToMove(Vector3 destination, Vector3 normal, bool onMission)
     {
-        Vector3 diff = endLocation - Transform.origin;
-        diff = diff.Normalized();
-        if (diff.Length() >= 0.15f && ClickMoving)
+        Vector3 MovementDirection;
+
+        MovementDirection = destination - Transform.origin;
+        MovementDirection = MovementDirection.Normalized();
+
+        // GD.Print(destination.DistanceTo(Transform.origin));
+        GD.Print(ClickMoving);
+        if (ClickMoving)
         {
-            MoveAndSlide(diff * MoveSpeed * timeScale, normal);
-            LookAt(diff, normal);
-            // GD.Print(diff);
+            MoveAndSlide(MovementDirection * MoveSpeed * timeScale, normal);
+            LookAt(MovementDirection, normal);
         }
-        else if (diff.Length() <= 0.12f)
+        if ((destination.DistanceTo(Transform.origin) <= 0.5f && MissionClick) || destination.DistanceTo(Transform.origin) <= 0.1f)
         {
+            GD.Print("Stopped");
             ClickMoving = false;
+            if (MissionClick)
+            {
+                MissionStarted = true;
+            }
         }
     }
     public void SetTimeScale(int value)
@@ -106,20 +120,43 @@ public class BetterPlayer : KinematicBody
 
     public void AttemptMission(InputEvent inputEvent, Vector3 position, string selectedMission, string selectedMissionType, Vector3 normal)
     {
-        if (inputEvent.IsActionReleased("click_to_move") && Selected)
+        if (inputEvent.IsActionReleased("click_to_move") && Selected && !MissionStarted)
         {
             targetNormal = normal;
             targetLocation = position;
             ClickMoving = true;
+            MissionClick = true;
+            tempMissionTitle = selectedMission;
+            tempMissionType = selectedMissionType;
+        }
+    }
 
-            if (selectedMissionType != null)
+
+    public async void MissionChecker()
+    {
+        if (MissionStarted)
+        {
+            if (tempMissionType != null)
             {
-                CurrentMission = selectedMission + ": " + selectedMissionType;
+                CurrentMission = tempMissionTitle + ": " + tempMissionType;
             }
             else
             {
-                CurrentMission = selectedMission;
+                CurrentMission = tempMissionTitle;
             }
+            ClickMoving = false;
+            await ToSignal(GetTree().CreateTimer(5), "timeout");
+
+
+
+
+            MissionStarted = false;
+            MissionClick = false;
+        }
+        else
+        {
+            CurrentMission = "";
+
         }
     }
 }

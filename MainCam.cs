@@ -11,12 +11,12 @@ public class MainCam : Spatial
     bool MouseEntered = false;
     bool Rotating = false;
     public float rotationSpeed = 0.5f;
-    bool RotatingX, RotatingY, RotatingZ;
+    bool RotatingLock, RotatingY, RotatingZ;
     Tween Snapback;
 
     public override void _Ready()
     {
-        RotatingX = false;
+        RotatingLock = false;
         RotatingY = false;
         RotatingZ = false;
         Snapback = GetNode<Tween>("MainCam/Snapback");
@@ -28,31 +28,16 @@ public class MainCam : Spatial
 
         if (Input.IsActionJustPressed("XRot"))
         {
-            RotatingX = true;
-            RotatingY = false;
-            RotatingZ = false;
-        }
-        if (Input.IsActionJustPressed("YRot"))
-        {
-            RotatingY = true;
-            RotatingX = false;
-            RotatingZ = false;
-        }
-        if (Input.IsActionJustPressed("ZRot"))
-        {
-            RotatingZ = true;
-            RotatingX = false;
-            RotatingY = false;
+            RotatingLock = !RotatingLock;
         }
 
 
-
-        if (Input.IsActionJustPressed("mousepress") && MouseEntered)
+        if (Input.IsActionJustPressed("rotate") && MouseEntered)
         {
             PrevMousePos = GetViewport().GetMousePosition();
             Rotating = true;
         }
-        if (Input.IsActionJustReleased("mousepress"))
+        if (Input.IsActionJustReleased("rotate"))
         {
             Rotating = false;
         }
@@ -66,9 +51,13 @@ public class MainCam : Spatial
         {
             NextMousePos = GetViewport().GetMousePosition();
 
-            if (RotatingX) RotateX((NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
-            if (RotatingY) RotateY((NextMousePos.x - PrevMousePos.x) * rotationSpeed * delta);
-            if (RotatingZ) RotateZ(-(NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
+            if (RotatingLock)
+            {
+                RotateX(-(NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
+                RotateY(-(NextMousePos.x - PrevMousePos.x) * rotationSpeed * delta);
+                RotateZ(-(NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
+            }
+
 
             PrevMousePos = NextMousePos;
         }

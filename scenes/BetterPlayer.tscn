@@ -25,7 +25,7 @@ shape = SubResource( 1 )
 transform = Transform( 1.91069e-15, -4.37114e-08, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, -4.37114e-08, 0, 0, -0.333 )
 
 [node name="SpotLight" type="SpotLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.56754 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.000473142, 0.273057, -0.033165 )
 light_energy = 5.451
 light_indirect_energy = 16.0
 spot_range = 7.717
