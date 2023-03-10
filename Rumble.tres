@@ -1,0 +1,54 @@
+[gd_resource type="Animation" format=2]
+
+[resource]
+resource_name = "Rumble"
+length = 0.1
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("rocket:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.0319988, 0.0652256, 0.1 ),
+"transitions": PoolRealArray( -0.5, -2, 1.93187, 0.5 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0.202, 0, -0.237 ), Vector3( 0, 0.064, 0 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("rocket:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.0319988, 0.0652256, 0.1 ),
+"transitions": PoolRealArray( -2, -0.5, -2, 0.5 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ), Vector3( 1.01, 1.01, 1.01 ), Vector3( 0.999, 0.999, 0.999 ), Vector3( 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("rocket/Particles:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.0305311, 0.0680012, 0.0693889, 0.1 ),
+"transitions": PoolRealArray( -0.5, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( -0.3, 0, 0.2 ), Vector3( 0, 0.5, 0 ), Vector3( 0, 0.478315, -0.00867391 ), Vector3( 0, 0, -0.2 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("rocket/Particles:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.0346945, 0.0693889, 0.1 ),
+"transitions": PoolRealArray( -0.5, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.961, 0.935, 0.908 ), Vector3( 1, 1, 1 ), Vector3( 1, 1, 1 ), Vector3( 1.051, 1.03, 0.954 ) ]
+}

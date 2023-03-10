@@ -111,7 +111,7 @@ public class BetterPlayer : KinematicBody
             targetNormal = normal;
             targetLocation = position;
             ClickMoving = true;
-            GD.Print(selectedMission, selectedMissionType);
+
             if (selectedMissionType != null)
             {
                 CurrentMission = selectedMission + ": " + selectedMissionType;
