@@ -1,23 +1,12 @@
-# Martian-Strategy-Sim
-FYP for college
+# On To Mars
 
+### Final Year Project for a Computer Science Bachelors degree @ Technological University of Dublin.
+![OnToMars-Menu-Master-BG](https://user-images.githubusercontent.com/71713484/224450499-d5c5d5dd-3065-4a05-8b23-5e292afce2be.png)
 
-## NASA InSight API
-Before delving into the planet generation, I first needed to figure out how to use the NASA Api for the weather on Mars.
-There is great documentation on about the API, which is what I will be using to understand, and display the data in a nice and understandable way in Unity or Python.
-Getting access to the API is as simple as signing up with an email and password and you're given access to an API key that you can make HTTPS requests to the service with.
+# What is this project about?
+This project is a video game that initially had inspirations drawn from real-time strategy games like the Warcraft franchise, Starcraft franchise and more. It has since evolved into a game with more resource management elements and a more relaxed atmosphere.
 
-The API returns back a JSON file with all of the data that it collects from the InSight Mars Lander, this data being labelled and explained using a demo key.
+It was originally intended to be a completely realistic representation of Mars with accurate weather based off of NASA's InSight API, however this has changed as NASA's InSight lander was decomissioned in late December of 2022, consequently the API has no longer provides useful data.
 
-### What are all of these variables?
-This section is mainly dedicated to going through what each of the variables in the JSON file refer to.
-1. "Sol" refers to a "day" on mars, indicated by a number like "259" or "1240". Each previous day should be accessible.
-2. "AT" This shows the Atmospheric temperature data on that day.
-3. "HWS" refers to the Horizontal wind speed data on that day.
-4. "PRE" refers to Pressure.
-5. "WD" is a dictionary of arrays? of the Wind Direction. More details here https://api.nasa.gov/assets/insight/InSight%20Weather%20API%20Documentation.pdf
-6. "First_UTC" shows season and UTC time range.
-
-## Examples of what NASA has made
-
-1. https://eyes.nasa.gov/apps/solar-system/#/home
+### v0.1a
+![19XZ8nVn6y](https://user-images.githubusercontent.com/71713484/224451989-85d47a6b-6c72-47e8-a6af-ad3148a5e8a6.png)
