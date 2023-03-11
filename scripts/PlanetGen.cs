@@ -1,0 +1,17 @@
+using Godot;
+using System;
+using System.Net;
+using System.IO;
+public class PlanetGen : Spatial
+{
+    public override void _Ready()
+    {
+
+    }
+
+    public override void _Process(float delta)
+    {
+
+    }
+
+}

@@ -18,9 +18,9 @@ config/icon="res://assets/OnToMars-Medium-withbackground-2.0.png"
 
 [autoload]
 
-Coordinates="*res://Coordinates.cs"
-Interactions="*res://Interactions.cs"
-MaterialCacher="*res://MaterialCacher.cs"
+Coordinates="*res://scripts/Coordinates.cs"
+Interactions="*res://scripts/Interactions.cs"
+MaterialCacher="*res://scripts/MaterialCacher.cs"
 
 [display]
 
@@ -88,4 +88,4 @@ quality/filters/anisotropic_filter_level=16
 quality/filters/msaa=2
 quality/filters/use_fxaa=true
 quality/filters/use_debanding=true
-environment/default_environment="res://default_env.tres"
+environment/default_environment="res://assets/default_env.tres"
