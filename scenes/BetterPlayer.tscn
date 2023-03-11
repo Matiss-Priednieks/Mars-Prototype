@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/rover.glb" type="PackedScene" id=3]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.575806, 0.450873, 0.331163 )
+extents = Vector3( 0.575806, 0.494116, 0.567437 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 50
@@ -19,19 +19,20 @@ font_data = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, -1, -4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1.91069e-15, 0, 0.0417656, 0.461901 )
 shape = SubResource( 1 )
 
 [node name="Rover" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1.91069e-15, -4.37114e-08, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, -4.37114e-08, 0, 0, -0.333 )
+transform = Transform( -4.37114e-08, 0, -1, -1, -4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1.91069e-15, 0, 0.0417656, -0.00814521 )
 
 [node name="SpotLight" type="SpotLight" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.000473142, 0.273057, -0.033165 )
+transform = Transform( -4.37114e-08, -1, 8.74746e-15, 4.37114e-08, -1.06581e-14, -1, 1, -4.37114e-08, 4.37114e-08, -0.0272319, 0.186709, 0.355654 )
 light_energy = 5.451
 light_indirect_energy = 16.0
 spot_range = 7.717
 
 [node name="Label3D" type="Label3D" parent="."]
-transform = Transform( -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0.668386, 0.791919 )
+transform = Transform( -1, -8.74228e-08, -3.82137e-15, 8.74228e-08, -1, -8.74228e-08, 3.82137e-15, -8.74228e-08, 1, 0.569242, -0.584683, 1.24786 )
 text = "Default Text"
 font = SubResource( 2 )
 

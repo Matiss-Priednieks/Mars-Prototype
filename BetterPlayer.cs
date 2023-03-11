@@ -46,14 +46,7 @@ public class BetterPlayer : KinematicBody
             MoveAndCollide(GravityVector());
         }
 
-        if (Transform.basis.y.Normalized().Cross(GravityVector()) != Vector3.Zero)
-        {
-            // LookAt(PlanetMars.GlobalTransform.origin, Transform.basis.y - GravityVector());
-        }
-        else
-        {
-            // LookAt(PlanetMars.GlobalTransform.origin, Transform.basis.x - GravityVector());
-        }
+
         MissionChecker();
         ClickToMove(targetLocation, targetNormal, MissionClick);
 
@@ -90,7 +83,7 @@ public class BetterPlayer : KinematicBody
         if (ClickMoving)
         {
             MoveAndSlide(MovementDirection * MoveSpeed * timeScale, normal);
-            LookAt(MovementDirection, normal);
+            LookAt(MovementDirection, -GravityVector());
         }
         if ((destination.DistanceTo(Transform.origin) <= 0.5f && MissionClick) || destination.DistanceTo(Transform.origin) <= 0.1f)
         {
