@@ -9,11 +9,15 @@ public class BetterPlayer : KinematicBody
     float RotationSpeed = 15;
     bool ClickMoving = false;
     bool Selected = false;
-    bool MissionStarted = false;
+    bool isMissionStarted = false;
     bool MissionClick = false;
 
     [Export(PropertyHint.Range, "1, 50")] int timeScale = 1;
 
+    [Signal]
+    public delegate void MissionComplete(string missionName, string missionID);
+    [Signal]
+    public delegate void MissionStarted(string missionName, string missionID);
     Vector3 targetLocation = Vector3.Zero;
     Vector3 targetNormal = Vector3.One;
     Vector3 LastStrongMoveDirection;
@@ -24,9 +28,12 @@ public class BetterPlayer : KinematicBody
     string tempMissionType;
 
     string CurrentMission;
+    string MissionID;
 
     public override void _Ready()
     {
+        this.Connect("MissionStarted", GetNode<Spatial>("../MissionGenerator"), "MissionStarted");
+        this.Connect("MissionComplete", GetNode<Spatial>("../MissionGenerator"), "MissionCompleted");
         PlayerModel = GetNode<Spatial>("Rover");
         PlanetMars = GetParent().GetNode<Spatial>("Mars");
         LocalGravity = new Vector3(PlanetMars.GlobalTransform.origin - Transform.basis.y);
@@ -58,7 +65,7 @@ public class BetterPlayer : KinematicBody
     }
     private void _on_StaticBody_input_event(Node camera, InputEvent new_event, Vector3 position, Vector3 normal, int shape_index)
     {
-        if (new_event.IsActionReleased("click_to_move") && Selected && !MissionStarted)
+        if (new_event.IsActionReleased("click_to_move") && Selected && !isMissionStarted)
         {
             targetNormal = normal;
             targetLocation = position;
@@ -89,7 +96,7 @@ public class BetterPlayer : KinematicBody
             ClickMoving = false;
             if (MissionClick)
             {
-                MissionStarted = true;
+                isMissionStarted = true;
             }
         }
     }
@@ -109,9 +116,9 @@ public class BetterPlayer : KinematicBody
         }
     }
 
-    public void AttemptMission(InputEvent inputEvent, Vector3 position, string selectedMission, string selectedMissionType, Vector3 normal)
+    public void AttemptMission(InputEvent inputEvent, Vector3 position, string selectedMission, string selectedMissionType, Vector3 normal, string missionID)
     {
-        if (inputEvent.IsActionReleased("click_to_move") && Selected && !MissionStarted)
+        if (inputEvent.IsActionReleased("click_to_move") && Selected && !isMissionStarted)
         {
             targetNormal = normal;
             targetLocation = position;
@@ -119,13 +126,14 @@ public class BetterPlayer : KinematicBody
             MissionClick = true;
             tempMissionTitle = selectedMission;
             tempMissionType = selectedMissionType;
+            MissionID = missionID;
         }
     }
 
 
     public async void MissionChecker()
     {
-        if (MissionStarted)
+        if (isMissionStarted)
         {
             if (tempMissionType != null)
             {
@@ -136,12 +144,16 @@ public class BetterPlayer : KinematicBody
                 CurrentMission = tempMissionTitle;
             }
             ClickMoving = false;
+            // EmitSignal("MissionStarted", CurrentMission, MissionID);
             await ToSignal(GetTree().CreateTimer(5), "timeout");
 
+            //make a timer node start counting here.
+            EmitSignal("MissionComplete", CurrentMission, MissionID);
 
 
 
-            MissionStarted = false;
+
+            isMissionStarted = false;
             MissionClick = false;
         }
         else

@@ -5,7 +5,7 @@ using System;
 public class MissionStation : StaticBody
 {
     RandomNumberGenerator rng = new RandomNumberGenerator();
-    [Signal] public delegate void Interacted(InputEvent inputEvent, Vector3 position, string missionList, string missionType, Vector3 Normal);
+    [Signal] public delegate void Interacted(InputEvent inputEvent, Vector3 position, string missionList, string missionType, Vector3 Normal, string MissionID);
     string[] MissionList = { "Research", "Resource", "Recovery" };
     string[] ResourceType = { "H2O", "SCRAP" };
     string SelectedMission;
@@ -39,7 +39,8 @@ public class MissionStation : StaticBody
 
     public void _on_MissionStation_input_event(Node camera, InputEvent inputEvent, Vector3 position, Vector3 normal, int shape_idx)
     {
-        EmitSignal("Interacted", inputEvent, position, SelectedMission, SelectedMissionType, normal);
+        var missionID = "M" + Translation.Length();
+        EmitSignal("Interacted", inputEvent, position, SelectedMission, SelectedMissionType, normal, missionID);
     }
 
     public Texture MissionTexGen(string missionTitle, string missionType, bool isResource)
@@ -84,6 +85,31 @@ public class MissionStation : StaticBody
         else
         {
             IsResource = false;
+        }
+    }
+
+    public void RegenType()
+    {
+        SelectedMissionType = ResourceType[rng.RandiRange(0, 1)];
+    }
+
+    public string GetMissionType()
+    {
+        return SelectedMissionType;
+    }
+    public string GetMission()
+    {
+        return SelectedMissionType;
+    }
+    public string GetMissionName()
+    {
+        if (SelectedMission == "Resource")
+        {
+            return SelectedMission + ": " + SelectedMissionType;
+        }
+        else
+        {
+            return SelectedMission;
         }
     }
 }

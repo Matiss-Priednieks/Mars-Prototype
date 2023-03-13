@@ -4,7 +4,7 @@ using System;
 public class Interactions : Node
 {
 
-    [Signal] public delegate void InteractionConnector(InputEvent inputEvent, Vector3 position, string selectedMission, string selectedMissionType);
+    [Signal] public delegate void InteractionConnector(InputEvent inputEvent, Vector3 position, string selectedMission, string selectedMissionType, string missionID);
     bool SignalConnected = false;
     string MainGameScene = "GameScene";
 
@@ -13,10 +13,11 @@ public class Interactions : Node
 
     }
 
-    public void InteractionHandler(InputEvent inputEvent, Vector3 position, string missionList, string missionType, Vector3 normal)
+    public void InteractionHandler(InputEvent inputEvent, Vector3 position, string missionList, string missionType, Vector3 normal, string missionID)
     {
-        EmitSignal("InteractionConnector", inputEvent, position, missionList, missionType, normal);
+        EmitSignal("InteractionConnector", inputEvent, position, missionList, missionType, normal, missionID);
     }
+
     public override void _Process(float delta)
     {
         if (!SignalConnected && GetTree().Root.GetChild(3).Name == MainGameScene)
