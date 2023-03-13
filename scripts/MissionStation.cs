@@ -31,9 +31,9 @@ public class MissionStation : StaticBody
         }
 
 
-        GetNode<Label3D>("Label3D").Text = SelectedMission;
+        GetNode<Label3D>("LabelContainer/Label3D").Text = SelectedMission;
 
-        GetNode<Sprite3D>("Sprite3D").Texture = MissionTexGen(SelectedMission, SelectedMissionType, IsResource);
+        GetNode<Sprite3D>("LabelContainer/Sprite3D").Texture = MissionTexGen(SelectedMission, SelectedMissionType, IsResource);
     }
 
 
@@ -72,4 +72,18 @@ public class MissionStation : StaticBody
         return model;
     }
 
+
+    public void PickRandomMission()
+    {
+        SelectedMission = MissionList[rng.RandiRange(0, 2)];
+        if (SelectedMission == "Resource")
+        {
+            SelectedMissionType = ResourceType[rng.RandiRange(0, 1)];
+            IsResource = true;
+        }
+        else
+        {
+            IsResource = false;
+        }
+    }
 }

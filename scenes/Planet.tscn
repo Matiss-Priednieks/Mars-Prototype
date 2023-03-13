@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://scripts/PlanetGen.cs" type="Script" id=1]
 [ext_resource path="res://assets/planet_atmosphere.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://assets/models/Mars.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scripts/MainCam.cs" type="Script" id=10]
 [ext_resource path="res://assets/models/MarsPlanet.cs" type="Script" id=11]
+[ext_resource path="res://scenes/MissionGenerator.cs" type="Script" id=12]
 
 [sub_resource type="SphereMesh" id=13]
 radius = 2.8
@@ -275,6 +276,7 @@ disabled = true
 [node name="CanvasLayer" parent="." instance=ExtResource( 3 )]
 
 [node name="Missions" type="Spatial" parent="."]
+script = ExtResource( 12 )
 
 [node name="MissionStation" parent="Missions" instance=ExtResource( 7 )]
 transform = Transform( 0.2, 0, 0, 0, -8.74228e-09, -0.2, 0, 0.2, -8.74228e-09, 0, 0, 38.3955 )
@@ -297,4 +299,3 @@ transform = Transform( 0.0168372, 0.19245, 0.0517638, -0.199239, 0.0174312, 0, -
 [connection signal="mouse_exited" from="Mars/StaticBody" to="CameraPivot" method="_on_StaticBody_mouse_exited"]
 
 [editable path="Mars"]
-[editable path="Missions/MissionStation"]

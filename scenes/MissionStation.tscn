@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/MissionStation.cs" type="Script" id=1]
-[ext_resource path="res://assets/scrap.png" type="Texture" id=2]
+[ext_resource path="res://assets/Resource_SCRAP_Icon.png" type="Texture" id=2]
 [ext_resource path="res://assets/cartographer.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://scenes/LabelContainer.cs" type="Script" id=4]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -25,16 +26,19 @@ shape = SubResource( 1 )
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 2 )
 
-[node name="Label3D" type="Label3D" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.03437, -2.42509 )
+[node name="LabelContainer" type="Spatial" parent="."]
+script = ExtResource( 4 )
+
+[node name="Label3D" type="Label3D" parent="LabelContainer"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.96392, -2.42509 )
 outline_render_priority = 1
 modulate = Color( 1, 1, 1, 0.486275 )
 outline_modulate = Color( 0, 0, 0, 0.486275 )
 text = "Default Text"
 font = SubResource( 3 )
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform( 0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0, 1.07813, -0.0877908 )
+[node name="Sprite3D" type="Sprite3D" parent="LabelContainer"]
+transform = Transform( 0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0, 2.00768, 0.239204 )
 modulate = Color( 1, 1, 1, 0.898039 )
 texture = ExtResource( 2 )
 

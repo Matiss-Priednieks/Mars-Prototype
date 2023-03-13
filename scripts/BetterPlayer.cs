@@ -78,8 +78,6 @@ public class BetterPlayer : KinematicBody
         MovementDirection = destination - Transform.origin;
         MovementDirection = MovementDirection.Normalized();
 
-        // GD.Print(destination.DistanceTo(Transform.origin));
-        GD.Print(ClickMoving);
         if (ClickMoving)
         {
             MoveAndSlide(MovementDirection * MoveSpeed * timeScale, normal);
