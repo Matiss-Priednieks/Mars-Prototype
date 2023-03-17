@@ -210,6 +210,7 @@ public class BetterPlayer : KinematicBody
         tempMissionType = "";
         CurrentMission = "";
         MissionProgress = "";
+        MissionID = "";
     }
 
     public void GetMissionReward(string missionName)

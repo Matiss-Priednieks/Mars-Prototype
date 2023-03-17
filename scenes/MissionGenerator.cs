@@ -109,16 +109,20 @@ public class MissionGenerator : Spatial
     {
         for (int i = 0; i < MissionList.Count; i++)
         {
-            GD.Print(missionID + "M" + MissionList[i].Translation.Length() + "\n" + missionName + MissionList[i].GetMissionName() + "\n");
+            var missionElements = (Label)UI.GetNode<VBoxContainer>("RightUI").GetNode<MarginContainer>("MarginContainer").GetNode<VBoxContainer>("MissionsList").GetChild(i);
+            GD.Print(missionElements.Text);
             if (missionID.Equals("M" + MissionList[i].Translation.Length()) && missionName.Contains(MissionList[i].GetMissionName()))
             {
-                GD.Print("removal successful");
+                // GD.Print("removal successful");
                 var removedMission = MissionList[i];
+                if (missionElements.Text.Contains(MissionList[i].GetMissionName()))
+                {
+                    missionElements.QueueFree();
+                }
                 MissionList.RemoveAt(i);
                 removedMission.QueueFree();
             }
         }
-        UpdateMissionList(missionName, missionID);
     }
 
 
@@ -134,16 +138,5 @@ public class MissionGenerator : Spatial
         }
     }
 
-    public void UpdateMissionList(string missionName, string missionID)
-    {
-        for (int i = 0; i < UI.GetNode<VBoxContainer>("RightUI").GetNode<MarginContainer>("MarginContainer").GetNode<VBoxContainer>("MissionsList").GetChildCount(); i++)
-        {
-            var missionElements = (Label)UI.GetNode<VBoxContainer>("RightUI").GetNode<MarginContainer>("MarginContainer").GetNode<VBoxContainer>("MissionsList").GetChild(i);
-            if (missionElements.Text.Contains(missionName) && missionID.Equals("M" + MissionList[i].Translation.Length()))
-            {
-                missionElements.QueueFree();
-            }
-        }
-    }
 
 }
