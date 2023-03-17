@@ -12,8 +12,9 @@ public class MissionGenerator : Spatial
     float[] MissionRatios = { 0.33f, 0.25f, 0.17f }; // mission spawn chances: 50% resources(25% per type), 33% research, 17% recovery. This is so mission amount can be changed dynamically.
 
     Vector3[] MissionLocations;
+    System.Collections.Generic.List<MissionStation> MissionList;
 
-    MissionStation[] MissionList;
+    // MissionStation[] MissionList;
 
     PackedScene MissionScene;
     Spatial PlanetMars;
@@ -23,8 +24,13 @@ public class MissionGenerator : Spatial
     {
         PlanetMars = GetParent().GetNode<Spatial>("Mars");
         MissionScene = (PackedScene)ResourceLoader.Load("res://scenes/MissionStation.tscn");
+
         MissionLocations = new Vector3[NumOfTotalMissions];
-        MissionList = new MissionStation[NumOfTotalMissions];
+
+        MissionList = new System.Collections.Generic.List<MissionStation>();
+
+        // MissionList = new MissionStation[NumOfTotalMissions];
+
         TotalResearchMissions = (NumOfTotalMissions * MissionRatios[0]);
         TotalScrapMissions = (NumOfTotalMissions * MissionRatios[1]);
         TotalH2OMissions = (NumOfTotalMissions * MissionRatios[1]);
@@ -52,7 +58,8 @@ public class MissionGenerator : Spatial
 
 
             newMission.Translation = MissionLocations[i];
-            MissionList[i] = newMission;
+            // MissionList[i] = newMission;
+            MissionList.Add(newMission);
             AddChild(newMission);
             newMission.LookAt((GlobalTranslation - Translation).Normalized() * -1, Vector3.Down);
         }
@@ -65,16 +72,13 @@ public class MissionGenerator : Spatial
 
     public void MissionCompleted(string missionName, string missionID)
     {
-        GD.Print(missionID + "\n");
-        for (int i = 0; i < MissionList.Length; i++)
+        for (int i = 0; i < MissionList.Count; i++)
         {
-            GD.Print("M" + MissionList[i].Translation.Length());
-            if (missionID.Equals("M" + MissionList[i].Translation.Length()))
+            if (missionID.Equals("M" + MissionList[i].Translation.Length()) && missionName == MissionList[i].GetMissionName())
             {
-                MissionList[i].QueueFree();
-                MissionList[i] = null;
-
-                //TODO: rewrite this system. Currently broken and likely needs a full rewrite to work properly.
+                var removedMission = MissionList[i];
+                MissionList.RemoveAt(i);
+                removedMission.QueueFree();
             }
         }
     }
@@ -82,9 +86,5 @@ public class MissionGenerator : Spatial
     {
 
     }
-    //  // Called every frame. 'delta' is the elapsed time since the previous frame.
-    //  public override void _Process(float delta)
-    //  {
-    //      
-    //  }
+
 }

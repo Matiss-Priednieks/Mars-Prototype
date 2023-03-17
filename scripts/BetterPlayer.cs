@@ -24,27 +24,45 @@ public class BetterPlayer : KinematicBody
     Spatial PlanetMars;
     Material RoverMat;
     Label3D MissionLabel;
+    Label3D MissionProgressLabel;
+    AudioStreamPlayer3D RoverMovementSound;
+    AudioStreamPlayer3D MissionCompleteSound;
+    Timer MissionTimer;
     string tempMissionTitle;
     string tempMissionType;
 
     string CurrentMission;
     string MissionID;
 
+    string MissionProgress;
+
     public override void _Ready()
     {
-        this.Connect("MissionStarted", GetNode<Spatial>("../MissionGenerator"), "MissionStarted");
         this.Connect("MissionComplete", GetNode<Spatial>("../MissionGenerator"), "MissionCompleted");
         PlayerModel = GetNode<Spatial>("Rover");
         PlanetMars = GetParent().GetNode<Spatial>("Mars");
         LocalGravity = new Vector3(PlanetMars.GlobalTransform.origin - Transform.basis.y);
         RoverMat = GetNode<Spatial>("Rover").GetNode<MeshInstance>("Cylinder").GetActiveMaterial(0).NextPass;
-        MissionLabel = GetNode<Label3D>("Label3D");
+        MissionLabel = GetNode<Label3D>("Mission");
+        MissionProgressLabel = GetNode<Label3D>("MissionProgress");
+        RoverMovementSound = GetNode<AudioStreamPlayer3D>("RoverMovement");
+        MissionCompleteSound = GetNode<AudioStreamPlayer3D>("MissionCompletedSound");
+        MissionTimer = GetNode<Timer>("MissionTimer");
     }
 
     public override void _Process(float delta)
     {
         if (Selected) { RoverMat.Set("shader_param/grow", 0.02); } else { RoverMat.Set("shader_param/grow", 0); }
         MissionLabel.Text = CurrentMission;
+        MissionProgressLabel.Text = MissionProgress;
+        if (isMissionStarted)
+        {
+            MissionProgress = (100 - ((int)MissionTimer.TimeLeft * 20)).ToString() + "%";
+        }
+        else
+        {
+            MissionProgress = "";
+        }
     }
     public override void _PhysicsProcess(float delta)
     {
@@ -54,7 +72,7 @@ public class BetterPlayer : KinematicBody
         }
 
 
-        MissionChecker();
+
         ClickToMove(targetLocation, targetNormal, MissionClick);
 
     }
@@ -71,6 +89,7 @@ public class BetterPlayer : KinematicBody
             targetLocation = position;
             ClickMoving = true;
             MissionClick = false;
+            RoverMovementSound.Play();
         }
         if (new_event.IsActionReleased("mousepress") && Selected)
         {
@@ -90,20 +109,23 @@ public class BetterPlayer : KinematicBody
             MoveAndSlide(MovementDirection * MoveSpeed * timeScale, normal);
             LookAt(MovementDirection, -GravityVector());
         }
-        if ((destination.DistanceTo(Transform.origin) <= 0.5f && MissionClick) || destination.DistanceTo(Transform.origin) <= 0.1f)
+        if (((destination.DistanceTo(Transform.origin) <= 0.5f && onMission) || destination.DistanceTo(Transform.origin) <= 0.1f) && ClickMoving)
         {
             GD.Print("Stopped");
             ClickMoving = false;
-            if (MissionClick)
+            RoverMovementSound.Stop();
+            if (onMission)
             {
                 isMissionStarted = true;
+                MissionChecker();
+                onMission = false;
             }
         }
     }
     public void SetTimeScale(int value)
     {
         timeScale = value;
-        GD.Print(timeScale);
+        // GD.Print(timeScale);
     }
 
 
@@ -123,6 +145,7 @@ public class BetterPlayer : KinematicBody
             targetNormal = normal;
             targetLocation = position;
             ClickMoving = true;
+            RoverMovementSound.Play();
             MissionClick = true;
             tempMissionTitle = selectedMission;
             tempMissionType = selectedMissionType;
@@ -131,10 +154,11 @@ public class BetterPlayer : KinematicBody
     }
 
 
-    public async void MissionChecker()
+    public void MissionChecker()
     {
         if (isMissionStarted)
         {
+            EmitSignal("MissionStarted", CurrentMission, MissionID);
             if (tempMissionType != null)
             {
                 CurrentMission = tempMissionTitle + ": " + tempMissionType;
@@ -144,22 +168,24 @@ public class BetterPlayer : KinematicBody
                 CurrentMission = tempMissionTitle;
             }
             ClickMoving = false;
-            // EmitSignal("MissionStarted", CurrentMission, MissionID);
-            await ToSignal(GetTree().CreateTimer(5), "timeout");
-
-            //make a timer node start counting here.
-            EmitSignal("MissionComplete", CurrentMission, MissionID);
-
-
-
-
-            isMissionStarted = false;
-            MissionClick = false;
+            RoverMovementSound.Stop();
         }
-        else
-        {
-            CurrentMission = "";
+    }
+    public void _on_Player_MissionStarted(string CurrentMission, string MissionID)
+    {
+        MissionTimer.Start();
+        GD.Print("?");
+        //signals are firing nonstop for some reason?
+    }
 
-        }
+    public void _on_MissionTimer_timeout()
+    {
+        EmitSignal("MissionComplete", CurrentMission, MissionID);
+        MissionCompleteSound.Play();
+
+        isMissionStarted = false;
+        MissionClick = false;
+        CurrentMission = "";
+        MissionProgress = "";
     }
 }
