@@ -1,2 +1,2 @@
-﻿51685
-C:/Program Files (x86)/Godot_v3.5-stable_mono_win64/GodotMono3.5.exe
+﻿34651
+/home/gurki/Documents/Godot_v3.5-stable_mono_x11_64/Godot_v3.5-stable_mono_x11.64
