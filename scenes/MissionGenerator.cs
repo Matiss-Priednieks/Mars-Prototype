@@ -3,8 +3,12 @@ using System;
 
 public class MissionGenerator : Spatial
 {
-    RandomNumberGenerator rng = new RandomNumberGenerator();
     [Export] int NumOfTotalMissions = 12;
+    RandomNumberGenerator rng = new RandomNumberGenerator();
+    PackedScene MissionScene;
+    System.Collections.Generic.List<MissionStation> MissionList;
+    CanvasLayer UI;
+
     float TotalScrapMissions = 0;
     float TotalH2OMissions = 0;
     float TotalResearchMissions = 0;
@@ -12,18 +16,16 @@ public class MissionGenerator : Spatial
     float[] MissionRatios = { 0.33f, 0.25f, 0.17f }; // mission spawn chances: 50% resources(25% per type), 33% research, 17% recovery. This is so mission amount can be changed dynamically.
 
     Vector3[] MissionLocations;
-    System.Collections.Generic.List<MissionStation> MissionList;
-
-    // MissionStation[] MissionList;
-
-    PackedScene MissionScene;
     Spatial PlanetMars;
     Vector2 ResourceMissions = Vector2.Zero; // x is H2O and y is Scrap
 
     public override void _Ready()
     {
+        UI = GetParent().GetNode<CanvasLayer>("UI");
         PlanetMars = GetParent().GetNode<Spatial>("Mars");
         MissionScene = (PackedScene)ResourceLoader.Load("res://scenes/MissionStation.tscn");
+        string[] MissionTypeList = { "Research", "Resource", "Recovery" };
+        string[] ResourceType = { "H2O", "SCRAP" };
 
         MissionLocations = new Vector3[NumOfTotalMissions];
 
@@ -35,7 +37,6 @@ public class MissionGenerator : Spatial
         TotalScrapMissions = (NumOfTotalMissions * MissionRatios[1]);
         TotalH2OMissions = (NumOfTotalMissions * MissionRatios[1]);
         TotalRecoveryMissions = (NumOfTotalMissions * MissionRatios[2]);
-        // GD.Print(TotalRecoveryMissions + TotalResearchMissions + TotalResourceMissions);
 
 
         for (int i = 0; i < NumOfTotalMissions; i++)
@@ -43,7 +44,6 @@ public class MissionGenerator : Spatial
             rng.Randomize();
             MissionLocations[i] = new Vector3(rng.RandiRange(-1000, 1000), rng.RandiRange(-1000, 1000), rng.RandiRange(-1000, 1000)).Normalized();
 
-            GD.Print(MissionLocations[i]);
             if (i != 0)
             {
                 if (MissionLocations[i].DistanceTo(MissionLocations[i - 1]) <= 0.2f)
@@ -57,12 +57,47 @@ public class MissionGenerator : Spatial
             var newMission = MissionScene.Instance<MissionStation>();
 
 
+
             newMission.Translation = MissionLocations[i];
             // MissionList[i] = newMission;
             MissionList.Add(newMission);
             AddChild(newMission);
             newMission.LookAt((GlobalTranslation - Translation).Normalized() * -1, Vector3.Down);
         }
+
+
+        int researchQuota = 0;
+        int h2oQuota = 0;
+        int scrapQuota = 0;
+        int recoveryQuota = 0;
+        for (int i = 0; i < NumOfTotalMissions; i++)
+        {
+            if (researchQuota < TotalResearchMissions)
+            {
+                var isResource = false;
+                MissionList[i].SetMission(MissionTypeList[0], "", isResource);
+                researchQuota++;
+            }
+            else if (h2oQuota < TotalH2OMissions)
+            {
+                var isResource = true;
+                MissionList[i].SetMission(MissionTypeList[1], ResourceType[0], isResource);
+                h2oQuota++;
+            }
+            else if (scrapQuota < TotalScrapMissions)
+            {
+                var isResource = true;
+                MissionList[i].SetMission(MissionTypeList[1], ResourceType[1], isResource);
+                scrapQuota++;
+            }
+            else if (recoveryQuota < TotalRecoveryMissions)
+            {
+                var isResource = false;
+                MissionList[i].SetMission(MissionTypeList[2], "", isResource);
+                recoveryQuota++;
+            }
+        }
+        PopulateMissionList();
 
     }
     public override void _PhysicsProcess(float delta)
@@ -74,17 +109,41 @@ public class MissionGenerator : Spatial
     {
         for (int i = 0; i < MissionList.Count; i++)
         {
-            if (missionID.Equals("M" + MissionList[i].Translation.Length()) && missionName == MissionList[i].GetMissionName())
+            GD.Print(missionID + "M" + MissionList[i].Translation.Length() + "\n" + missionName + MissionList[i].GetMissionName() + "\n");
+            if (missionID.Equals("M" + MissionList[i].Translation.Length()) && missionName.Contains(MissionList[i].GetMissionName()))
             {
+                GD.Print("removal successful");
                 var removedMission = MissionList[i];
                 MissionList.RemoveAt(i);
                 removedMission.QueueFree();
             }
         }
+        UpdateMissionList(missionName, missionID);
     }
-    public void MissionStarted(string MissionName, string missionID)
-    {
 
+
+    public void PopulateMissionList()
+    {
+        for (int i = 0; i < MissionList.Count; i++)
+        {
+            var missionLabel = (PackedScene)ResourceLoader.Load("res://scenes/MissionUIItem.tscn");
+            var missionLabelInstance = missionLabel.Instance<Label>();
+            missionLabelInstance.Text = MissionList[i].GetMissionName();
+            missionLabelInstance.Align = Label.AlignEnum.Right;
+            UI.GetNode<VBoxContainer>("RightUI").GetNode<MarginContainer>("MarginContainer").GetNode<VBoxContainer>("MissionsList").AddChild(missionLabelInstance);
+        }
+    }
+
+    public void UpdateMissionList(string missionName, string missionID)
+    {
+        for (int i = 0; i < UI.GetNode<VBoxContainer>("RightUI").GetNode<MarginContainer>("MarginContainer").GetNode<VBoxContainer>("MissionsList").GetChildCount(); i++)
+        {
+            var missionElements = (Label)UI.GetNode<VBoxContainer>("RightUI").GetNode<MarginContainer>("MarginContainer").GetNode<VBoxContainer>("MissionsList").GetChild(i);
+            if (missionElements.Text.Contains(missionName) && missionID.Equals("M" + MissionList[i].Translation.Length()))
+            {
+                missionElements.QueueFree();
+            }
+        }
     }
 
 }

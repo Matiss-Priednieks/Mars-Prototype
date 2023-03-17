@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/MissionUIItemTheme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/PT Astra Sans_Regular.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 50
+outline_size = 3
+outline_color = Color( 0.666667, 0.172549, 0.172549, 1 )
+use_mipmaps = true
+use_filter = true
+extra_spacing_char = 2
+font_data = ExtResource( 2 )
+
+[node name="Label" type="Label"]
+margin_right = 40.0
+margin_bottom = 14.0
+theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Example Mission Item"

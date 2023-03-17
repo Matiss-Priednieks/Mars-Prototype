@@ -6,34 +6,16 @@ public class MissionStation : StaticBody
 {
     RandomNumberGenerator rng = new RandomNumberGenerator();
     [Signal] public delegate void Interacted(InputEvent inputEvent, Vector3 position, string missionList, string missionType, Vector3 Normal, string MissionID);
-    string[] MissionList = { "Research", "Resource", "Recovery" };
-    string[] ResourceType = { "H2O", "SCRAP" };
+
     string SelectedMission;
     string SelectedMissionType;
-    bool IsResource = false;
-
 
     public override void _Ready()
     {
         this.Connect("Interacted", GetNode<Node>("/root/Interactions"), "InteractionHandler");
 
         rng.Randomize();
-        SelectedMission = MissionList[rng.RandiRange(0, 2)];
 
-        if (SelectedMission == "Resource")
-        {
-            SelectedMissionType = ResourceType[rng.RandiRange(0, 1)];
-            IsResource = true;
-        }
-        else
-        {
-            IsResource = false;
-        }
-
-
-        GetNode<Label3D>("LabelContainer/Label3D").Text = SelectedMission;
-
-        GetNode<Sprite3D>("LabelContainer/Sprite3D").Texture = MissionTexGen(SelectedMission, SelectedMissionType, IsResource);
     }
 
 
@@ -46,7 +28,7 @@ public class MissionStation : StaticBody
     public Texture MissionTexGen(string missionTitle, string missionType, bool isResource)
     {
         Texture tex;
-        if (IsResource)
+        if (isResource)
         {
             tex = GD.Load<Texture>("assets/" + missionTitle + "_" + missionType + "_Icon" + ".png");
         }
@@ -61,7 +43,7 @@ public class MissionStation : StaticBody
     public PackedScene MissionModelGen(string missionTitle, string missionType, bool isResource)
     {
         PackedScene model;
-        if (IsResource)
+        if (isResource)
         {
             model = ResourceLoader.Load<PackedScene>("assets/" + missionTitle + "_" + missionType + "_Model" + ".png");
         }
@@ -69,28 +51,17 @@ public class MissionStation : StaticBody
         {
             model = ResourceLoader.Load<PackedScene>("assets/" + missionTitle + "_Model" + ".png");
         }
-
         return model;
     }
 
 
-    public void PickRandomMission()
+    public void SetMission(string missionType, string missionResourceType, bool isResource)
     {
-        SelectedMission = MissionList[rng.RandiRange(0, 2)];
-        if (SelectedMission == "Resource")
-        {
-            SelectedMissionType = ResourceType[rng.RandiRange(0, 1)];
-            IsResource = true;
-        }
-        else
-        {
-            IsResource = false;
-        }
-    }
+        SelectedMission = missionType;
+        SelectedMissionType = missionResourceType;
+        GetNode<Label3D>("LabelContainer/Label3D").Text = SelectedMission;
 
-    public void RegenType()
-    {
-        SelectedMissionType = ResourceType[rng.RandiRange(0, 1)];
+        GetNode<Sprite3D>("LabelContainer/Sprite3D").Texture = MissionTexGen(SelectedMission, SelectedMissionType, isResource);
     }
 
     public string GetMissionType()
@@ -99,7 +70,7 @@ public class MissionStation : StaticBody
     }
     public string GetMission()
     {
-        return SelectedMissionType;
+        return SelectedMission;
     }
     public string GetMissionName()
     {

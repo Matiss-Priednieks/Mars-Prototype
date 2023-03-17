@@ -1,0 +1,122 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://scripts/HTTPRequestDemo.cs" type="Script" id=1]
+[ext_resource path="res://assets/Aquire-BW0ox.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/penclick.mp3" type="AudioStream" id=3]
+[ext_resource path="res://scripts/SliderClick.cs" type="Script" id=4]
+[ext_resource path="res://assets/MainMenuButtons.tres" type="Theme" id=5]
+[ext_resource path="res://scripts/FPSLabel.cs" type="Script" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_vertical_guides_": [ 512.0 ]
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+visible = false
+anchor_bottom = 1.0
+margin_right = 500.0
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+visible = false
+margin_right = 500.0
+margin_bottom = 33.0
+theme = SubResource( 2 )
+text = "Get Weather Data"
+
+[node name="HTTPRequest" type="HTTPRequest" parent="VBoxContainer"]
+
+[node name="WeatherData" type="Label" parent="VBoxContainer"]
+margin_right = 500.0
+margin_bottom = 14.0
+autowrap = true
+
+[node name="LeftUI" type="VBoxContainer" parent="."]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 761.0
+margin_bottom = 97.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="HSplitContainer" type="VSplitContainer" parent="LeftUI"]
+margin_right = 741.0
+margin_bottom = 77.0
+
+[node name="Label" type="Label" parent="LeftUI/HSplitContainer"]
+margin_right = 741.0
+margin_bottom = 49.0
+size_flags_horizontal = 15
+size_flags_vertical = 11
+theme = ExtResource( 5 )
+text = "Time Scale Slider"
+
+[node name="HSlider" type="HSlider" parent="LeftUI/HSplitContainer"]
+margin_top = 61.0
+margin_right = 741.0
+margin_bottom = 77.0
+min_value = 1.0
+max_value = 50.0
+value = 1.0
+ticks_on_borders = true
+
+[node name="RightUI" type="VBoxContainer" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -779.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = 92.0
+grow_horizontal = 0
+alignment = 2
+
+[node name="FPSLabel" type="Label" parent="RightUI"]
+margin_top = 19.0
+margin_right = 759.0
+margin_bottom = 68.0
+size_flags_horizontal = 3
+theme = ExtResource( 5 )
+text = "FPS"
+align = 2
+script = ExtResource( 6 )
+
+[node name="MarginContainer" type="MarginContainer" parent="RightUI"]
+margin_top = 72.0
+margin_right = 759.0
+margin_bottom = 72.0
+
+[node name="ColorRect" type="ColorRect" parent="RightUI/MarginContainer"]
+margin_right = 759.0
+color = Color( 0, 0, 0, 0.643137 )
+
+[node name="MissionsList" type="VBoxContainer" parent="RightUI/MarginContainer"]
+margin_right = 759.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -5.0
+pitch_scale = 0.8
+script = ExtResource( 4 )
+
+[node name="MissionsLeft" type="Label" parent="."]
+margin_left = 20.0
+margin_top = 1020.0
+margin_right = 1900.0
+margin_bottom = 564.0
+theme = ExtResource( 5 )
+text = "Missions Left"
+align = 1
+autowrap = true
+
+[connection signal="value_changed" from="LeftUI/HSplitContainer/HSlider" to="." method="_on_HSlider_value_changed"]
+[connection signal="value_changed" from="LeftUI/HSplitContainer/HSlider" to="AudioStreamPlayer" method="_on_HSlider_value_changed"]
+[connection signal="finished" from="AudioStreamPlayer" to="AudioStreamPlayer" method="_on_AudioStreamPlayer_finished"]

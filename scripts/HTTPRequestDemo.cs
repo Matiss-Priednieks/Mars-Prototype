@@ -12,7 +12,7 @@ class HTTPRequestDemo : CanvasLayer
         GetNode("VBoxContainer/HTTPRequest").Connect("request_completed", this, "OnRequestCompleted");
         GetNode("VBoxContainer/Button").Connect("pressed", this, "OnButtonPressed");
         this.Connect("UpdateTimeScale", GetNode<KinematicBody>("../%Player"), "SetTimeScale");
-        SliderData = GetNode<HSlider>("VBoxContainer2/HSlider");
+        SliderData = GetNode<HSlider>("LeftUI/HSplitContainer/HSlider");
         WeatherData = GetNode<Label>("VBoxContainer/WeatherData");
     }
 
