@@ -7,10 +7,10 @@ public class MainCam : Spatial
     // private int a = 2;
     // private string b = "text";
     Vector2 MouseDelta;
-    Vector2 NextMousePos, PrevMousePos;
+    Vector3 NextMousePos, PrevMousePos;
     bool MouseEntered = false;
     bool Rotating = false;
-    public float rotationSpeed = 0.5f;
+    public float rotationSpeed = 0.1f;
     bool RotatingLock, RotatingY, RotatingZ;
     Tween Snapback;
 
@@ -34,12 +34,13 @@ public class MainCam : Spatial
 
         if (Input.IsActionJustPressed("rotate") && MouseEntered)
         {
-            PrevMousePos = GetViewport().GetMousePosition();
+            PrevMousePos = new Vector3(GetViewport().GetMousePosition().x, GetViewport().GetMousePosition().y, 0);
             Rotating = true;
         }
         if (Input.IsActionJustReleased("rotate"))
         {
             Rotating = false;
+            PrevMousePos = Vector3.Zero;
         }
         if (Input.IsActionJustPressed("ui_escape"))
         {
@@ -49,19 +50,32 @@ public class MainCam : Spatial
 
         if (Rotating)
         {
-            NextMousePos = GetViewport().GetMousePosition();
+            NextMousePos = new Vector3(GetViewport().GetMousePosition().x, GetViewport().GetMousePosition().y, 0);
+            Vector3 cameraRotation = RotationDegrees;
+            NextMousePos.x += cameraRotation.y;
+            NextMousePos.y += cameraRotation.x;
+            NextMousePos.z += cameraRotation.z;
+            PrevMousePos.x += cameraRotation.y;
+            PrevMousePos.y += cameraRotation.x;
+            PrevMousePos.z += cameraRotation.z;
+
 
             if (RotatingLock)
             {
-                RotateX(-(NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
-                RotateY(-(NextMousePos.x - PrevMousePos.x) * rotationSpeed * delta);
-                RotateZ(-(NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
+                Vector3 rotation = (NextMousePos - PrevMousePos) * rotationSpeed * delta;
+                // RotateX(-(NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
+                // RotateY((NextMousePos.x - PrevMousePos.x) * rotationSpeed * delta);
+                // RotateZ(-(NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
+                GlobalTransform = GlobalTransform.Rotated(new Vector3(1, 0, 0), -rotation.x);
+                GlobalTransform = GlobalTransform.Rotated(new Vector3(0, 1, 0), -rotation.y);
+                GlobalTransform = GlobalTransform.Rotated(new Vector3(0, 0, 1), -rotation.z);
+                PrevMousePos = NextMousePos;
             }
-
-
-            PrevMousePos = NextMousePos;
         }
-
+        else
+        {
+            NextMousePos = Vector3.Zero;
+        }
 
     }
 
