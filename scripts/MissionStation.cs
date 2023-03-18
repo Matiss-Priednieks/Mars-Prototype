@@ -21,7 +21,7 @@ public class MissionStation : StaticBody
 
     public void _on_MissionStation_input_event(Node camera, InputEvent inputEvent, Vector3 position, Vector3 normal, int shape_idx)
     {
-        var missionID = "M" + Translation.Length();
+        var missionID = "M" + Translation.Length() + Rotation.Length();
         EmitSignal("Interacted", inputEvent, position, SelectedMission, SelectedMissionType, normal, missionID);
     }
 

@@ -111,7 +111,7 @@ public class MissionGenerator : Spatial
         {
             var missionElements = (Label)UI.GetNode<VBoxContainer>("RightUI").GetNode<MarginContainer>("MarginContainer").GetNode<VBoxContainer>("MissionsList").GetChild(i);
             GD.Print(missionElements.Text);
-            if (missionID.Equals("M" + MissionList[i].Translation.Length()) && missionName.Contains(MissionList[i].GetMissionName()))
+            if (missionID.Equals("M" + MissionList[i].Translation.Length() + MissionList[i].Rotation.Length()) && missionName.Contains(MissionList[i].GetMissionName()))
             {
                 // GD.Print("removal successful");
                 var removedMission = MissionList[i];

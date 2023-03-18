@@ -85,6 +85,7 @@ quality/driver/fallback_to_gles2=true
 threads/thread_model=2
 quality/shadows/filter_mode=2
 quality/filters/anisotropic_filter_level=16
+gles3/shaders/shader_compilation_mode=1
 quality/filters/msaa=2
 quality/filters/use_fxaa=true
 quality/filters/use_debanding=true
