@@ -10,13 +10,12 @@ public class MainCam : Spatial
     Vector3 NextMousePos, PrevMousePos;
     bool MouseEntered = false;
     bool Rotating = false;
-    public float rotationSpeed = 0.1f;
-    bool RotatingLock, RotatingY, RotatingZ;
+    public float rotationSpeed = 0.3f;
+    bool RotatingY, RotatingZ;
     Tween Snapback;
 
     public override void _Ready()
     {
-        RotatingLock = false;
         RotatingY = false;
         RotatingZ = false;
         Snapback = GetNode<Tween>("MainCam/Snapback");
@@ -24,13 +23,6 @@ public class MainCam : Spatial
 
     public override void _Process(float delta)
     {
-
-
-        if (Input.IsActionJustPressed("XRot"))
-        {
-            RotatingLock = !RotatingLock;
-        }
-
 
         if (Input.IsActionJustPressed("rotate") && MouseEntered)
         {
@@ -51,26 +43,10 @@ public class MainCam : Spatial
         if (Rotating)
         {
             NextMousePos = new Vector3(GetViewport().GetMousePosition().x, GetViewport().GetMousePosition().y, 0);
-            Vector3 cameraRotation = RotationDegrees;
-            NextMousePos.x += cameraRotation.y;
-            NextMousePos.y += cameraRotation.x;
-            NextMousePos.z += cameraRotation.z;
-            PrevMousePos.x += cameraRotation.y;
-            PrevMousePos.y += cameraRotation.x;
-            PrevMousePos.z += cameraRotation.z;
-
-
-            if (RotatingLock)
-            {
-                Vector3 rotation = (NextMousePos - PrevMousePos) * rotationSpeed * delta;
-                // RotateX(-(NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
-                // RotateY((NextMousePos.x - PrevMousePos.x) * rotationSpeed * delta);
-                // RotateZ(-(NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
-                GlobalTransform = GlobalTransform.Rotated(new Vector3(1, 0, 0), -rotation.x);
-                GlobalTransform = GlobalTransform.Rotated(new Vector3(0, 1, 0), -rotation.y);
-                GlobalTransform = GlobalTransform.Rotated(new Vector3(0, 0, 1), -rotation.z);
-                PrevMousePos = NextMousePos;
-            }
+            // RotateX(-(NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
+            RotateY((NextMousePos.x - PrevMousePos.x) * rotationSpeed * delta);
+            RotateZ(-(NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
+            PrevMousePos = NextMousePos;
         }
         else
         {
