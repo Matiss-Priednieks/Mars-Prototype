@@ -272,7 +272,7 @@ visible = false
 shape = SubResource( 8 )
 disabled = true
 
-[node name="UI" parent="." instance=ExtResource( 3 )]
+[node name="GUI" parent="." instance=ExtResource( 3 )]
 
 [node name="MissionGenerator" type="Spatial" parent="."]
 script = ExtResource( 12 )

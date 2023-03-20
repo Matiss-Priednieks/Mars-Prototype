@@ -1,6 +1,6 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://scripts/HTTPRequestDemo.cs" type="Script" id=1]
+[ext_resource path="res://scripts/GUI.cs" type="Script" id=1]
 [ext_resource path="res://assets/Aquire-BW0ox.otf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/penclick.mp3" type="AudioStream" id=3]
 [ext_resource path="res://scripts/SliderClick.cs" type="Script" id=4]
@@ -10,6 +10,9 @@
 [ext_resource path="res://assets/Resource_H2O_Icon.png" type="Texture" id=8]
 [ext_resource path="res://assets/Research_Icon.png" type="Texture" id=9]
 [ext_resource path="res://assets/Recovery_Icon.png" type="Texture" id=10]
+[ext_resource path="res://assets/MissionUIItemTheme.tres" type="Theme" id=11]
+[ext_resource path="res://scenes/ProgressBarTheme.tres" type="Theme" id=12]
+[ext_resource path="res://scenes/MissionProgressBar.cs" type="Script" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -76,7 +79,7 @@ ticks_on_borders = true
 [node name="RightUI" type="VBoxContainer" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -779.0
+margin_left = -397.0
 margin_top = 20.0
 margin_right = -20.0
 margin_bottom = 92.0
@@ -85,7 +88,7 @@ alignment = 2
 
 [node name="FPSLabel" type="Label" parent="RightUI"]
 margin_top = 19.0
-margin_right = 759.0
+margin_right = 377.0
 margin_bottom = 68.0
 size_flags_horizontal = 3
 theme = ExtResource( 5 )
@@ -95,15 +98,15 @@ script = ExtResource( 6 )
 
 [node name="MarginContainer" type="MarginContainer" parent="RightUI"]
 margin_top = 72.0
-margin_right = 759.0
+margin_right = 377.0
 margin_bottom = 72.0
 
 [node name="ColorRect" type="ColorRect" parent="RightUI/MarginContainer"]
-margin_right = 759.0
+margin_right = 377.0
 color = Color( 0, 0, 0, 0.643137 )
 
 [node name="MissionsList" type="VBoxContainer" parent="RightUI/MarginContainer"]
-margin_right = 759.0
+margin_right = 377.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
@@ -111,137 +114,133 @@ volume_db = -5.0
 pitch_scale = 0.8
 script = ExtResource( 4 )
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+[node name="ResourceUI" type="MarginContainer" parent="."]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -441.0
-margin_top = -274.0
+margin_left = -401.0
+margin_top = -377.0
 
-[node name="Resources" type="Label" parent="VBoxContainer2"]
-margin_right = 441.0
-margin_bottom = 49.0
-theme = ExtResource( 5 )
+[node name="ColorRect" type="ColorRect" parent="ResourceUI"]
+margin_right = 401.0
+margin_bottom = 377.0
+color = Color( 0.0431373, 0.0431373, 0.0431373, 0.470588 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ResourceUI"]
+margin_right = 401.0
+margin_bottom = 377.0
+rect_min_size = Vector2( 401, 377 )
+
+[node name="Label" type="Label" parent="ResourceUI/VBoxContainer"]
+margin_right = 401.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 192, 14 )
+theme = ExtResource( 11 )
 text = "Resources"
 align = 1
-autowrap = true
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer2"]
-margin_top = 53.0
-margin_right = 441.0
-margin_bottom = 105.0
+[node name="ResourceGrid" type="GridContainer" parent="ResourceUI/VBoxContainer"]
+margin_top = 44.0
+margin_right = 401.0
+margin_bottom = 377.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+columns = 2
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer2/VSeparator"]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_left = 72.0
-margin_top = -35.0
-margin_right = 147.0
-margin_bottom = 35.0
-texture = ExtResource( 7 )
-expand = true
-
-[node name="Label" type="Label" parent="VBoxContainer2/VSeparator"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -187.0
-margin_top = -24.5
-margin_bottom = 24.5
-theme = ExtResource( 5 )
-text = "w.i.p"
-align = 1
-
-[node name="VSeparator2" type="VSeparator" parent="VBoxContainer2"]
-margin_top = 109.0
-margin_right = 441.0
-margin_bottom = 161.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer2/VSeparator2"]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_left = 72.0
-margin_top = -35.0
-margin_right = 147.0
-margin_bottom = 35.0
+[node name="TextureRect" type="TextureRect" parent="ResourceUI/VBoxContainer/ResourceGrid"]
+margin_right = 75.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 75, 75 )
 texture = ExtResource( 8 )
 expand = true
 
-[node name="Label" type="Label" parent="VBoxContainer2/VSeparator2"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -187.0
-margin_top = -24.5
-margin_bottom = 24.5
-theme = ExtResource( 5 )
-text = "w.i.p"
-align = 1
+[node name="H2O" type="Label" parent="ResourceUI/VBoxContainer/ResourceGrid"]
+margin_left = 79.0
+margin_top = 17.0
+margin_right = 97.0
+margin_bottom = 57.0
+theme = ExtResource( 11 )
+text = "0"
 
-[node name="VSeparator3" type="VSeparator" parent="VBoxContainer2"]
-margin_top = 165.0
-margin_right = 441.0
-margin_bottom = 217.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+[node name="TextureRect2" type="TextureRect" parent="ResourceUI/VBoxContainer/ResourceGrid"]
+margin_top = 79.0
+margin_right = 75.0
+margin_bottom = 154.0
+rect_min_size = Vector2( 75, 75 )
+texture = ExtResource( 7 )
+expand = true
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer2/VSeparator3"]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_left = 72.0
-margin_top = -35.0
-margin_right = 147.0
-margin_bottom = 35.0
+[node name="SCRAP" type="Label" parent="ResourceUI/VBoxContainer/ResourceGrid"]
+margin_left = 79.0
+margin_top = 96.0
+margin_right = 97.0
+margin_bottom = 136.0
+theme = ExtResource( 11 )
+text = "0"
+
+[node name="TextureRect3" type="TextureRect" parent="ResourceUI/VBoxContainer/ResourceGrid"]
+margin_top = 158.0
+margin_right = 75.0
+margin_bottom = 233.0
+rect_min_size = Vector2( 75, 75 )
 texture = ExtResource( 9 )
 expand = true
 
-[node name="Label" type="Label" parent="VBoxContainer2/VSeparator3"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -187.0
-margin_top = -24.5
-margin_bottom = 24.5
-theme = ExtResource( 5 )
-text = "w.i.p"
-align = 1
+[node name="RESEARCH" type="Label" parent="ResourceUI/VBoxContainer/ResourceGrid"]
+margin_left = 79.0
+margin_top = 175.0
+margin_right = 97.0
+margin_bottom = 215.0
+theme = ExtResource( 11 )
+text = "0"
 
-[node name="VSeparator4" type="VSeparator" parent="VBoxContainer2"]
-margin_top = 221.0
-margin_right = 441.0
-margin_bottom = 274.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer2/VSeparator4"]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_left = 72.0
-margin_top = -35.0
-margin_right = 147.0
-margin_bottom = 35.0
+[node name="TextureRect4" type="TextureRect" parent="ResourceUI/VBoxContainer/ResourceGrid"]
+margin_top = 237.0
+margin_right = 75.0
+margin_bottom = 312.0
+rect_min_size = Vector2( 75, 75 )
 texture = ExtResource( 10 )
 expand = true
 
-[node name="Label" type="Label" parent="VBoxContainer2/VSeparator4"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -187.0
-margin_top = -24.5
-margin_bottom = 24.5
-theme = ExtResource( 5 )
-text = "w.i.p"
-align = 1
+[node name="RECOVERY" type="Label" parent="ResourceUI/VBoxContainer/ResourceGrid"]
+margin_left = 79.0
+margin_top = 254.0
+margin_right = 97.0
+margin_bottom = 294.0
+theme = ExtResource( 11 )
+text = "0"
+
+[node name="ExtraInfo" type="VBoxContainer" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = -132.0
+margin_right = 487.0
+margin_bottom = -14.0
+theme = ExtResource( 12 )
+
+[node name="MissionProgressBar" type="ProgressBar" parent="ExtraInfo"]
+margin_right = 467.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+theme = ExtResource( 12 )
+script = ExtResource( 13 )
+
+[node name="MissionProgress" type="Label" parent="ExtraInfo"]
+visible = false
+margin_top = 34.0
+margin_right = 724.0
+margin_bottom = 74.0
+theme = ExtResource( 11 )
+text = "Mission progress"
+
+[node name="Fuel" type="Label" parent="ExtraInfo"]
+margin_top = 34.0
+margin_right = 467.0
+margin_bottom = 74.0
+theme = ExtResource( 11 )
+text = "Fuel: "
 
 [connection signal="value_changed" from="LeftUI/HSplitContainer/HSlider" to="." method="_on_HSlider_value_changed"]
 [connection signal="value_changed" from="LeftUI/HSplitContainer/HSlider" to="AudioStreamPlayer" method="_on_HSlider_value_changed"]

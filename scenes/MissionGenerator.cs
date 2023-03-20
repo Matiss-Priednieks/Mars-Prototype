@@ -21,7 +21,7 @@ public class MissionGenerator : Spatial
 
     public override void _Ready()
     {
-        UI = GetParent().GetNode<CanvasLayer>("UI");
+        UI = GetParent().GetNode<CanvasLayer>("GUI");
         PlanetMars = GetParent().GetNode<Spatial>("Mars");
         MissionScene = (PackedScene)ResourceLoader.Load("res://scenes/MissionStation.tscn");
         string[] MissionTypeList = { "Research", "Resource", "Recovery" };

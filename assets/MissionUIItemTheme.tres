@@ -1,6 +1,14 @@
-[gd_resource type="Theme" load_steps=2 format=2]
+[gd_resource type="Theme" load_steps=3 format=2]
 
-[ext_resource path="res://assets/MissionUIItemFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/PT Astra Sans_Bold.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=1]
+size = 35
+outline_size = 3
+outline_color = Color( 0.666667, 0.172549, 0.172549, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 1 )
 
 [resource]
-default_font = ExtResource( 1 )
+default_font = SubResource( 1 )

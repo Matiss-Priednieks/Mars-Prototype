@@ -8,6 +8,7 @@ public class BetterPlayer : KinematicBody
     public delegate void MissionComplete(string missionName, string missionID);
     [Signal]
     public delegate void MissionStarted(string missionName, string missionID);
+    [Signal] public delegate void MissionRewards(string rewardType, int rewardAmount);
     [Export(PropertyHint.Range, "1, 50")] int timeScale = 1;
 
     //object references
@@ -17,6 +18,7 @@ public class BetterPlayer : KinematicBody
     Label3D MissionLabel;
     Label3D MissionProgressLabel;
     Label FuelLabel;
+    ProgressBar MissionProgressBar;
     AudioStreamPlayer3D RoverMovementSound;
     AudioStreamPlayer3D MissionCompleteSound;
     Timer MissionTimer;
@@ -30,6 +32,7 @@ public class BetterPlayer : KinematicBody
     int H2O = 0;
     int Scrap = 0;
     int ResearchPoints = 0;
+    int Recovery = 0;
 
     double Fuel = 100;
 
@@ -43,17 +46,19 @@ public class BetterPlayer : KinematicBody
     string tempMissionType;
     string CurrentMission;
     string MissionID;
-    string MissionProgress;
+    int MissionProgress;
 
     public override void _Ready()
     {
         this.Connect("MissionComplete", GetNode<Spatial>("../MissionGenerator"), "MissionCompleted");
+        this.Connect("MissionRewards", GetNode<CanvasLayer>("../GUI"), "UpdateResources");
 
         //object references
         PlayerModel = GetNode<Spatial>("Rover");
         MissionLabel = GetNode<Label3D>("Mission");
         MissionTimer = GetNode<Timer>("MissionTimer");
-        FuelLabel = GetNode<Label>("CanvasLayer/Fuel");
+        FuelLabel = GetNode<Label>("../GUI/ExtraInfo/Fuel");
+        MissionProgressBar = GetNode<ProgressBar>("../GUI/ExtraInfo/MissionProgressBar");
         PlanetMars = GetParent().GetNode<Spatial>("Mars");
         MissionProgressLabel = GetNode<Label3D>("MissionProgress");
         RoverMovementSound = GetNode<AudioStreamPlayer3D>("RoverMovement");
@@ -68,14 +73,16 @@ public class BetterPlayer : KinematicBody
     {
         if (Selected) { RoverMat.Set("shader_param/grow", 0.02); } else { RoverMat.Set("shader_param/grow", 0); }
         MissionLabel.Text = CurrentMission;
-        MissionProgressLabel.Text = MissionProgress;
+        // MissionProgressLabel.Text = MissionProgress;
+        MissionProgressBar.Value = MissionProgress;
         if (isMissionStarted)
         {
-            MissionProgress = (100 - ((int)MissionTimer.TimeLeft * 20)).ToString() + "%";
+            MissionProgress = (100 - ((int)MissionTimer.TimeLeft * 20));
+            // MissionProgress = (100 - ((int)MissionTimer.TimeLeft * 10)).ToString() + "%";
         }
         else
         {
-            MissionProgress = "";
+            MissionProgress = 0;
         }
         Fuel = Math.Round(Fuel, 2);
         FuelLabel.Text = "Fuel: " + Math.Round(Fuel, 0).ToString();
@@ -131,7 +138,7 @@ public class BetterPlayer : KinematicBody
                 MoveAndSlide(MovementDirection * MoveSpeed * timeScale, normal);
             }
             LookAt(MovementDirection, -GravityVector());
-            if (Fuel > 0) Fuel -= 0.01f;
+            if (Fuel > 0) Fuel -= 0.01f * (timeScale * 0.15f);
         }
         if (((destination.DistanceTo(Transform.origin) <= 0.5f && onMission) || destination.DistanceTo(Transform.origin) <= 0.1f) && ClickMoving)
         {
@@ -209,7 +216,7 @@ public class BetterPlayer : KinematicBody
         tempMissionTitle = "";
         tempMissionType = "";
         CurrentMission = "";
-        MissionProgress = "";
+        MissionProgress = 0;
         MissionID = "";
     }
 
@@ -219,20 +226,24 @@ public class BetterPlayer : KinematicBody
         {
             if (missionName.Contains("H2O"))
             {
-                //give h2o
+                H2O++;
+                EmitSignal("MissionRewards", "H2O", H2O);
             }
             else
             {
-                //give scrap
+                Scrap++;
+                EmitSignal("MissionRewards", "Scrap", Scrap);
             }
         }
-        else if (missionName.Equals("Research"))
+        else if (missionName.Contains("Research"))
         {
-            //give research points
+            ResearchPoints++;
+            EmitSignal("MissionRewards", "Research", ResearchPoints);
         }
-        else if (missionName.Equals("Recovery"))
+        else if (missionName.Contains("Recovery"))
         {
-            //give recovery points
+            Recovery++;
+            EmitSignal("MissionRewards", "Recovery", Recovery);
         }
     }
 }
