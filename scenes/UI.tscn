@@ -260,7 +260,6 @@ theme = ExtResource( 5 )
 text = "Fuel: "
 
 [node name="ResearchAndDev" type="Panel" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -310,9 +309,18 @@ text = "Research Electrolysis | 4 Research Points"
 margin_top = 58.0
 margin_right = 600.0
 margin_bottom = 112.0
-text = "Recover Rover | 2 Recovery Points"
+text = "Recover Rover | 2 Recovery Points + 3 Scrap"
+
+[node name="CraftFuel" type="Button" parent="ResearchAndDev/RnDButtons"]
+margin_top = 116.0
+margin_right = 600.0
+margin_bottom = 170.0
+text = "Craft Fuel | 1 H2O -> 20 Fuel"
 
 [connection signal="value_changed" from="LeftUI/HSplitContainer/HSlider" to="." method="_on_HSlider_value_changed"]
 [connection signal="value_changed" from="LeftUI/HSplitContainer/HSlider" to="AudioStreamPlayer" method="_on_HSlider_value_changed"]
 [connection signal="finished" from="AudioStreamPlayer" to="AudioStreamPlayer" method="_on_AudioStreamPlayer_finished"]
 [connection signal="pressed" from="ResearchAndDev/TextureButton" to="." method="CloseRDMenu"]
+[connection signal="pressed" from="ResearchAndDev/RnDButtons/Research" to="." method="_on_Research_pressed"]
+[connection signal="pressed" from="ResearchAndDev/RnDButtons/Recovery" to="." method="_on_Recovery_pressed"]
+[connection signal="pressed" from="ResearchAndDev/RnDButtons/CraftFuel" to="." method="_on_CraftFuel_pressed"]

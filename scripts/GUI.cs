@@ -6,18 +6,22 @@ class GUI : CanvasLayer
 {
     HSlider SliderData;
     [Signal] public delegate void UpdateTimeScale(int SliderValue);
+    [Signal] public delegate void ResearchFuel();
+    [Signal] public delegate void AddFuel();
 
     Label H2O, Scrap, Research, Recovery, WeatherData;
     int H2Ocount, Scrapcount, Researchcount, Recoverycount;
     Panel ResearchAndDev;
 
-    Button ResearchButton, RecoveryButton;
+    Button ResearchButton, RecoveryButton, FuelButton;
     public override void _Ready()
     {
         GetNode("VBoxContainer/HTTPRequest").Connect("request_completed", this, "OnRequestCompleted");
         GetNode("VBoxContainer/Button").Connect("pressed", this, "OnButtonPressed");
 
         this.Connect("UpdateTimeScale", GetNode<KinematicBody>("../%Player"), "SetTimeScale");
+        this.Connect("ResearchFuel", GetNode<KinematicBody>("../%Player"), "SetResearchComplete");
+        this.Connect("AddFuel", GetNode<KinematicBody>("../%Player"), "AddFuel");
 
         ResearchAndDev = GetNode<Panel>("ResearchAndDev");
         SliderData = GetNode<HSlider>("LeftUI/HSplitContainer/HSlider");
@@ -29,6 +33,7 @@ class GUI : CanvasLayer
 
         ResearchButton = ResearchAndDev.GetNode<Button>("RnDButtons/Research");
         RecoveryButton = ResearchAndDev.GetNode<Button>("RnDButtons/Recovery");
+        FuelButton = ResearchAndDev.GetNode<Button>("RnDButtons/CraftFuel");
 
     }
 
@@ -121,8 +126,30 @@ class GUI : CanvasLayer
         {
             RecoveryButton.Disabled = true;
         }
+        if (H2Ocount > 0)
+        {
+            FuelButton.Disabled = false;
+        }
+        else
+        {
+            FuelButton.Disabled = true;
+        }
     }
 
+    public void _on_Research_pressed()
+    {
+        EmitSignal("ResearchFuel");
+        Researchcount = 0;
+    }
 
+    public void _on_Recovery_pressed()
+    {
+
+    }
+
+    public void _on_CraftFuel_pressed()
+    {
+        EmitSignal("AddFuel");
+    }
 
 }

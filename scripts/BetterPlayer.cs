@@ -23,7 +23,7 @@ public class BetterPlayer : KinematicBody
 
     // floats and bools
     float MoveSpeed = 0.1f;
-    bool ClickMoving, Selected, isMissionStarted, MissionClick = false;
+    bool ClickMoving, Selected, isMissionStarted, MissionClick, ResearchComplete = false;
 
     int H2O, Scrap, ResearchPoints, Recovery = 0;
 
@@ -83,8 +83,6 @@ public class BetterPlayer : KinematicBody
             MoveAndCollide(GravityVector());
         }
 
-
-
         ClickToMove(targetLocation, targetNormal, MissionClick);
 
     }
@@ -127,7 +125,7 @@ public class BetterPlayer : KinematicBody
                 MoveAndSlide(MovementDirection * MoveSpeed * timeScale, normal);
             }
             LookAt(MovementDirection, -GravityVector());
-            if (Fuel > 0) Fuel -= 0.01f * (timeScale * 0.15f);
+            // if (Fuel > 0) Fuel -= 0.01f * (timeScale * 0.15f);
         }
         if (((destination.DistanceTo(Transform.origin) <= 0.5f && onMission) || destination.DistanceTo(Transform.origin) <= 0.1f) && ClickMoving)
         {
@@ -234,5 +232,14 @@ public class BetterPlayer : KinematicBody
             Recovery++;
             EmitSignal("MissionRewards", "Recovery", Recovery);
         }
+    }
+
+    public void SetResearchComplete()
+    {
+        ResearchComplete = true;
+    }
+    public void AddFuel()
+    {
+        Fuel += 20;
     }
 }

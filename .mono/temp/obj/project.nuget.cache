@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "gnm37CMsS1aeTZlt1tvhi+CdzCcKSmeEfut1Ym7vVLF0UFY2BD13FcKzJeoNRIk0FwcEfKsyADwjcE373LQe7A==",
+  "dgSpecHash": "lh3H2FYNTNrXZ1qV8aXsgDvHS9j7FyKxb1XQJ3iReEjhaXVY4/89rvtpC2ew531cOFlnev3PC51cX/RGUg98+g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Matiss\\Documents\\On To Mars\\OnToMars.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/home/gurki/Desktop/FYP/Mars-Prototype/OnToMars.csproj",
+  "expectedPackageFiles": [
+    "/home/gurki/.nuget/packages/microsoft.netframework.referenceassemblies/1.0.2/microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
+    "/home/gurki/.nuget/packages/microsoft.netframework.referenceassemblies.net472/1.0.2/microsoft.netframework.referenceassemblies.net472.1.0.2.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -6,16 +6,19 @@ public class MissionStation : StaticBody
 {
     RandomNumberGenerator rng = new RandomNumberGenerator();
     [Signal] public delegate void Interacted(InputEvent inputEvent, Vector3 position, string missionList, string missionType, Vector3 Normal, string MissionID);
+    [Signal] public delegate void IntersectingWithPlanet(StaticBody stationObject, StaticBody intersectingbody);
+    [Signal] public delegate void NotIntersectingWithPlanet(StaticBody stationObject, StaticBody notintersectingbody);
 
     string SelectedMission;
     string SelectedMissionType;
+    bool Intersecting = false;
 
     public override void _Ready()
     {
         this.Connect("Interacted", GetNode<Node>("/root/Interactions"), "InteractionHandler");
-
+        this.Connect("IntersectingWithPlanet", GetParent(), "Intersecting");
+        this.Connect("NotIntersectingWithPlanet", GetParent(), "NotIntersecting");
         rng.Randomize();
-
     }
 
 
@@ -81,6 +84,23 @@ public class MissionStation : StaticBody
         else
         {
             return SelectedMission;
+        }
+    }
+    public void InternalCollisionChecker(StaticBody body)
+    {
+        if (body is MarsCollisionScript planet)
+        {
+            Intersecting = true;
+            EmitSignal("IntersectingWithPlanet", this, body);
+
+        }
+    }
+    public void _on_InternalCollisionChecker_body_exited(StaticBody body)
+    {
+        if (body is MarsCollisionScript planet)
+        {
+            Intersecting = false;
+            EmitSignal("NotIntersectingWithPlanet", this, body);
         }
     }
 }

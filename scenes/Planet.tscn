@@ -277,7 +277,6 @@ disabled = true
 [node name="MissionGenerator" type="Spatial" parent="."]
 script = ExtResource( 12 )
 
-[connection signal="input_event" from="Mars/StaticBody" to="Mars" method="_on_StaticBody_input_event"]
 [connection signal="input_event" from="Mars/StaticBody" to="Player" method="_on_StaticBody_input_event"]
 [connection signal="mouse_entered" from="Mars/StaticBody" to="CameraPivot" method="_on_StaticBody_mouse_entered"]
 [connection signal="mouse_exited" from="Mars/StaticBody" to="CameraPivot" method="_on_StaticBody_mouse_exited"]

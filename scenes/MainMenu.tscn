@@ -1,7 +1,6 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://assets/MainMenuButtons.tres" type="Theme" id=1]
-[ext_resource path="res://assets/5672_mars_6k_color(1).jpg" type="Texture" id=2]
 [ext_resource path="res://scripts/MenuScript.cs" type="Script" id=3]
 [ext_resource path="res://assets/models/rocket.glb" type="PackedScene" id=4]
 [ext_resource path="res://assets/Rumble.tres" type="Animation" id=5]
@@ -16,48 +15,6 @@
 [ext_resource path="res://scripts/Resolution.cs" type="Script" id=14]
 [ext_resource path="res://scripts/Settings.cs" type="Script" id=15]
 [ext_resource path="res://assets/UITheme.tres" type="Theme" id=16]
-
-[sub_resource type="VisualShaderNodeTexture" id=3]
-output_port_for_preview = 0
-texture = ExtResource( 2 )
-
-[sub_resource type="VisualShader" id=4]
-code = "shader_type canvas_item;
-uniform sampler2D tex_frg_2;
-
-
-
-void vertex() {
-// Output:0
-
-}
-
-void fragment() {
-// Texture:2
-	vec4 tex_frg_2_read = texture(tex_frg_2, UV.xy);
-	vec3 n_out2p0 = tex_frg_2_read.rgb;
-	float n_out2p1 = tex_frg_2_read.a;
-
-// Output:0
-	COLOR.rgb = n_out2p0;
-
-}
-
-void light() {
-// Output:0
-
-}
-"
-graph_offset = Vector2( -732.731, -171.911 )
-mode = 1
-flags/light_only = false
-nodes/fragment/0/position = Vector2( 340, -20 )
-nodes/fragment/2/node = SubResource( 3 )
-nodes/fragment/2/position = Vector2( -120, -80 )
-nodes/fragment/connections = PoolIntArray( 2, 0, 0, 0 )
-
-[sub_resource type="ShaderMaterial" id=5]
-shader = SubResource( 4 )
 
 [sub_resource type="Animation" id=20]
 resource_name = "MenuSwap"
@@ -315,13 +272,6 @@ __meta__ = {
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource( 3 )
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-visible = false
-material = SubResource( 5 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.517647, 0, 0, 1 )
-
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
 anchor_left = 1.0
 anchor_right = 1.0
@@ -337,10 +287,10 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -629.0
-margin_top = -178.5
-margin_right = -89.0
-margin_bottom = 200.5
+margin_left = 1291.0
+margin_top = 361.5
+margin_right = 1831.0
+margin_bottom = 740.5
 theme = ExtResource( 16 )
 custom_constants/separation = 0
 
@@ -393,10 +343,10 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = 80.0
-margin_top = -178.0
-margin_right = 620.0
-margin_bottom = 183.5
+margin_left = 2000.0
+margin_top = 362.0
+margin_right = 2540.0
+margin_bottom = 723.5
 theme = ExtResource( 16 )
 script = ExtResource( 15 )
 

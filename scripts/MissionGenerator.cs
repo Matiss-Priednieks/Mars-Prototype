@@ -11,13 +11,20 @@ public class MissionGenerator : Spatial
 
     float TotalScrapMissions, TotalH2OMissions, TotalResearchMissions, TotalRecoveryMissions = 0;
     float[] MissionRatios = { 0.33f, 0.25f, 0.17f }; // mission spawn chances: 50% resources(25% per type), 33% research, 17% recovery. This is so mission amount can be changed dynamically.
-
+    float DistanceFromCenter = 38.82f;
     Vector3[] MissionLocations;
+    Vector3[] MissionAdjustedLocations;
     Spatial PlanetMars;
     Vector2 ResourceMissions = Vector2.Zero; // x is H2O and y is Scrap
+    bool isIntersecting = false;
+    System.Collections.Generic.List<bool> AllIntersections;
+    System.Collections.Generic.List<StaticBody> AllCollisionBodies;
+    float adjustedDistance;
 
     public override void _Ready()
     {
+        adjustedDistance = DistanceFromCenter;
+
         UI = GetParent().GetNode<CanvasLayer>("GUI");
         PlanetMars = GetParent().GetNode<Spatial>("Mars");
         MissionScene = (PackedScene)ResourceLoader.Load("res://scenes/MissionStation.tscn");
@@ -25,7 +32,10 @@ public class MissionGenerator : Spatial
         string[] ResourceType = { "H2O", "SCRAP" };
 
         MissionLocations = new Vector3[NumOfTotalMissions];
+        MissionAdjustedLocations = new Vector3[NumOfTotalMissions];
 
+        AllCollisionBodies = new System.Collections.Generic.List<StaticBody>();
+        AllIntersections = new System.Collections.Generic.List<bool>();
         MissionList = new System.Collections.Generic.List<MissionStation>();
 
         // MissionList = new MissionStation[NumOfTotalMissions];
@@ -48,7 +58,9 @@ public class MissionGenerator : Spatial
                     MissionLocations[i] = new Vector3(rng.RandiRange(-1000, 1000), rng.RandiRange(-1000, 1000), rng.RandiRange(-1000, 1000)).Normalized();
                 }
             }
-            MissionLocations[i] = MissionLocations[i] * 38.8f;
+            MissionAdjustedLocations = (Vector3[])MissionLocations.Clone();
+            MissionLocations[i] = MissionLocations[i] * DistanceFromCenter;
+
 
 
             var newMission = MissionScene.Instance<MissionStation>();
@@ -99,6 +111,15 @@ public class MissionGenerator : Spatial
     }
     public override void _PhysicsProcess(float delta)
     {
+        // TODO: Fix this, do it via passing missonstation object in and checking if it's intersecting.
+        // code below doesn't work as intended.
+
+        // adjustedDistance += 0.0006f;
+        // for (int i = 0; i < MissionList.Count; i++)
+        // {
+        //     MissionList[i].Translation = new Vector3(MissionAdjustedLocations[i].Normalized() * adjustedDistance);
+        //     GD.Print(adjustedDistance);
+        // }
 
     }
 
@@ -135,5 +156,13 @@ public class MissionGenerator : Spatial
         }
     }
 
+    public void Intersecting(bool intersecting, StaticBody body)
+    {
 
+    }
+
+    public void NotIntersecting(bool intersecting, StaticBody body)
+    {
+
+    }
 }
