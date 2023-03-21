@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://assets/MainMenuButtons.tres" type="Theme" id=1]
 [ext_resource path="res://assets/5672_mars_6k_color(1).jpg" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://assets/OnToMars-Menu-Master-NOBG.png" type="Texture" id=13]
 [ext_resource path="res://scripts/Resolution.cs" type="Script" id=14]
 [ext_resource path="res://scripts/Settings.cs" type="Script" id=15]
+[ext_resource path="res://assets/UITheme.tres" type="Theme" id=16]
 
 [sub_resource type="VisualShaderNodeTexture" id=3]
 output_port_for_preview = 0
@@ -322,10 +323,12 @@ anchor_bottom = 1.0
 color = Color( 0.517647, 0, 0, 1 )
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
-margin_left = 1202.0
-margin_top = 102.0
-margin_right = 1906.0
-margin_bottom = 498.0
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -709.0
+margin_top = 84.0
+margin_right = -5.0
+margin_bottom = 480.0
 texture = ExtResource( 13 )
 expand = true
 
@@ -334,19 +337,21 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = 1291.0
-margin_top = 361.5
-margin_right = 1831.0
-margin_bottom = 740.5
+margin_left = -629.0
+margin_top = -178.5
+margin_right = -89.0
+margin_bottom = 200.5
+theme = ExtResource( 16 )
+custom_constants/separation = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MainMenu"]
-margin_right = 539.0
-margin_bottom = 123.0
+margin_right = 540.0
+margin_bottom = 126.0
 size_flags_vertical = 3
 
 [node name="Button" type="Button" parent="CanvasLayer/MainMenu/MarginContainer"]
-margin_right = 539.0
-margin_bottom = 123.0
+margin_right = 540.0
+margin_bottom = 126.0
 focus_mode = 0
 theme = ExtResource( 1 )
 enabled_focus_mode = 0
@@ -354,14 +359,14 @@ text = "Play"
 flat = true
 
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MainMenu"]
-margin_top = 127.0
-margin_right = 539.0
-margin_bottom = 251.0
+margin_top = 126.0
+margin_right = 540.0
+margin_bottom = 252.0
 size_flags_vertical = 3
 
 [node name="Settings" type="Button" parent="CanvasLayer/MainMenu/MarginContainer2"]
-margin_right = 539.0
-margin_bottom = 124.0
+margin_right = 540.0
+margin_bottom = 126.0
 focus_mode = 0
 theme = ExtResource( 1 )
 enabled_focus_mode = 0
@@ -369,14 +374,14 @@ text = "Settings"
 flat = true
 
 [node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/MainMenu"]
-margin_top = 255.0
-margin_right = 539.0
+margin_top = 252.0
+margin_right = 540.0
 margin_bottom = 379.0
 size_flags_vertical = 3
 
 [node name="ExitButton" type="Button" parent="CanvasLayer/MainMenu/MarginContainer3"]
-margin_right = 539.0
-margin_bottom = 124.0
+margin_right = 540.0
+margin_bottom = 127.0
 focus_mode = 0
 theme = ExtResource( 1 )
 enabled_focus_mode = 0
@@ -388,19 +393,20 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = 2000.0
-margin_top = 362.0
-margin_right = 2540.0
-margin_bottom = 723.5
+margin_left = 80.0
+margin_top = -178.0
+margin_right = 620.0
+margin_bottom = 183.5
+theme = ExtResource( 16 )
 script = ExtResource( 15 )
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Settings"]
-margin_right = 539.0
+margin_right = 540.0
 margin_bottom = 117.0
 size_flags_vertical = 3
 
 [node name="Resolution" type="Button" parent="CanvasLayer/Settings/MarginContainer"]
-margin_right = 539.0
+margin_right = 540.0
 margin_bottom = 117.0
 focus_mode = 0
 theme = ExtResource( 1 )
@@ -411,12 +417,12 @@ script = ExtResource( 14 )
 
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Settings"]
 margin_top = 121.0
-margin_right = 539.0
+margin_right = 540.0
 margin_bottom = 239.0
 size_flags_vertical = 3
 
 [node name="Fullscreen" type="Button" parent="CanvasLayer/Settings/MarginContainer2"]
-margin_right = 539.0
+margin_right = 540.0
 margin_bottom = 118.0
 focus_mode = 0
 theme = ExtResource( 1 )
@@ -426,12 +432,12 @@ flat = true
 
 [node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Settings"]
 margin_top = 243.0
-margin_right = 539.0
+margin_right = 540.0
 margin_bottom = 361.0
 size_flags_vertical = 3
 
 [node name="BackButton" type="Button" parent="CanvasLayer/Settings/MarginContainer3"]
-margin_right = 539.0
+margin_right = 540.0
 margin_bottom = 118.0
 focus_mode = 0
 theme = ExtResource( 1 )

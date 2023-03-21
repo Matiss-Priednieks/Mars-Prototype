@@ -10,7 +10,7 @@
 [ext_resource path="res://assets/models/Mars.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scripts/MainCam.cs" type="Script" id=10]
 [ext_resource path="res://assets/models/MarsPlanet.cs" type="Script" id=11]
-[ext_resource path="res://scenes/MissionGenerator.cs" type="Script" id=12]
+[ext_resource path="res://scripts/MissionGenerator.cs" type="Script" id=12]
 
 [sub_resource type="SphereMesh" id=13]
 radius = 2.8

@@ -12,40 +12,30 @@ public class BetterPlayer : KinematicBody
     [Export(PropertyHint.Range, "1, 50")] int timeScale = 1;
 
     //object references
-    Spatial PlayerModel;
-    Spatial PlanetMars;
+    Spatial PlayerModel, PlanetMars;
     Material RoverMat;
     Label3D MissionLabel;
-    Label3D MissionProgressLabel;
+
     Label FuelLabel;
     ProgressBar MissionProgressBar;
-    AudioStreamPlayer3D RoverMovementSound;
-    AudioStreamPlayer3D MissionCompleteSound;
+    AudioStreamPlayer3D RoverMovementSound, MissionCompleteSound;
     Timer MissionTimer;
 
     // floats and bools
     float MoveSpeed = 0.1f;
-    bool ClickMoving = false;
-    bool Selected = false;
-    bool isMissionStarted = false;
-    bool MissionClick = false;
-    int H2O = 0;
-    int Scrap = 0;
-    int ResearchPoints = 0;
-    int Recovery = 0;
+    bool ClickMoving, Selected, isMissionStarted, MissionClick = false;
+
+    int H2O, Scrap, ResearchPoints, Recovery = 0;
 
     double Fuel = 100;
 
     //vectors
-    Vector3 LocalGravity;
-    Vector3 targetLocation = Vector3.Zero;
+    Vector3 LocalGravity, targetLocation = Vector3.Zero;
     Vector3 targetNormal = Vector3.One;
 
     // strings
-    string tempMissionTitle;
-    string tempMissionType;
-    string CurrentMission;
-    string MissionID;
+    string tempMissionTitle, tempMissionType, CurrentMission, MissionID;
+
     int MissionProgress;
 
     public override void _Ready()
@@ -57,10 +47,10 @@ public class BetterPlayer : KinematicBody
         PlayerModel = GetNode<Spatial>("Rover");
         MissionLabel = GetNode<Label3D>("Mission");
         MissionTimer = GetNode<Timer>("MissionTimer");
-        FuelLabel = GetNode<Label>("../GUI/ExtraInfo/Fuel");
-        MissionProgressBar = GetNode<ProgressBar>("../GUI/ExtraInfo/MissionProgressBar");
+        FuelLabel = GetNode<Label>("../GUI/ExtraInfo/MarginContainer/Fuel");
+        MissionProgressBar = GetNode<ProgressBar>("../GUI/ExtraInfo/MarginContainer/MissionProgressBar");
         PlanetMars = GetParent().GetNode<Spatial>("Mars");
-        MissionProgressLabel = GetNode<Label3D>("MissionProgress");
+
         RoverMovementSound = GetNode<AudioStreamPlayer3D>("RoverMovement");
         MissionCompleteSound = GetNode<AudioStreamPlayer3D>("MissionCompletedSound");
         RoverMat = GetNode<Spatial>("Rover").GetNode<MeshInstance>("Cylinder").GetActiveMaterial(0).NextPass;
@@ -73,12 +63,11 @@ public class BetterPlayer : KinematicBody
     {
         if (Selected) { RoverMat.Set("shader_param/grow", 0.02); } else { RoverMat.Set("shader_param/grow", 0); }
         MissionLabel.Text = CurrentMission;
-        // MissionProgressLabel.Text = MissionProgress;
+
         MissionProgressBar.Value = MissionProgress;
         if (isMissionStarted)
         {
             MissionProgress = (100 - ((int)MissionTimer.TimeLeft * 20));
-            // MissionProgress = (100 - ((int)MissionTimer.TimeLeft * 10)).ToString() + "%";
         }
         else
         {

@@ -11,10 +11,10 @@ config_version=4
 [application]
 
 config/name="OnToMars"
-run/main_scene="res://scenes/Planet.tscn"
+run/main_scene="res://scenes/MainMenu.tscn"
 boot_splash/image="res://assets/OnToMars-Menu-Master-BG.png"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
-config/icon="res://assets/OnToMars-Medium-withbackground-2.0.png"
+config/icon="res://assets/OnToMarsIcon.png"
 
 [autoload]
 
@@ -72,6 +72,16 @@ zoom_out={
 rotate={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":3,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+R&D={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":82,"unicode":0,"echo":false,"script":null)
+ ]
+}
+HideUI={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":0,"physical_scancode":85,"unicode":0,"echo":false,"script":null)
  ]
 }
 

@@ -43,7 +43,7 @@ public class MainCam : Spatial
         if (Rotating)
         {
             NextMousePos = new Vector3(GetViewport().GetMousePosition().x, GetViewport().GetMousePosition().y, 0);
-            // RotateX(-(NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
+            RotateX(-(NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
             RotateY((NextMousePos.x - PrevMousePos.x) * rotationSpeed * delta);
             RotateZ(-(NextMousePos.y - PrevMousePos.y) * rotationSpeed * delta);
             PrevMousePos = NextMousePos;
