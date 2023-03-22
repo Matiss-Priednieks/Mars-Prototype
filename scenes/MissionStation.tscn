@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/MissionStation.cs" type="Script" id=1]
 [ext_resource path="res://assets/Resource_SCRAP_Icon.png" type="Texture" id=2]
@@ -10,6 +10,13 @@ extents = Vector3( 1.07991, 1.07294, 1.93242 )
 [sub_resource type="CubeMesh" id=2]
 size = Vector3( 2, 2, 3.392 )
 
+[sub_resource type="SpatialMaterial" id=5]
+emission_enabled = true
+emission = Color( 1, 1, 1, 1 )
+emission_energy = 1.1
+emission_operator = 0
+emission_on_uv2 = false
+
 [sub_resource type="DynamicFont" id=3]
 size = 150
 outline_size = 4
@@ -18,7 +25,7 @@ use_filter = true
 font_data = ExtResource( 3 )
 
 [sub_resource type="BoxShape" id=4]
-extents = Vector3( 0.792565, 0.843195, 1.55405 )
+extents = Vector3( 0.792565, 0.843195, 2.50506 )
 
 [node name="MissionStation" type="StaticBody"]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
@@ -29,7 +36,9 @@ visible = false
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.256742 )
 mesh = SubResource( 2 )
+material/0 = SubResource( 5 )
 
 [node name="LabelContainer" type="Spatial" parent="."]
 transform = Transform( -1, -3.33067e-15, -9.31323e-08, -9.31323e-08, 4.37114e-08, 1, 0, 1, -4.37114e-08, 0, 0.888945, 0.962005 )
@@ -50,8 +59,10 @@ texture = ExtResource( 2 )
 [node name="InternalCollisionChecker" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="InternalCollisionChecker"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.05353 )
 shape = SubResource( 4 )
 
 [connection signal="input_event" from="." to="." method="_on_MissionStation_input_event"]
 [connection signal="body_entered" from="InternalCollisionChecker" to="." method="InternalCollisionChecker"]
 [connection signal="body_exited" from="InternalCollisionChecker" to="." method="_on_InternalCollisionChecker_body_exited"]
+[connection signal="input_event" from="InternalCollisionChecker" to="." method="_on_InternalCollisionChecker_input_event"]

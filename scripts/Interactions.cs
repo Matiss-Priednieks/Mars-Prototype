@@ -8,11 +8,6 @@ public class Interactions : Node
     bool SignalConnected = false;
     string MainGameScene = "GameScene";
 
-    public override void _Ready()
-    {
-
-    }
-
     public void InteractionHandler(InputEvent inputEvent, Vector3 position, string missionList, string missionType, Vector3 normal, string missionID)
     {
         EmitSignal("InteractionConnector", inputEvent, position, missionList, missionType, normal, missionID);

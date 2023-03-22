@@ -6,23 +6,26 @@ public class MissionStation : StaticBody
 {
     RandomNumberGenerator rng = new RandomNumberGenerator();
     [Signal] public delegate void Interacted(InputEvent inputEvent, Vector3 position, string missionList, string missionType, Vector3 Normal, string MissionID);
-    [Signal] public delegate void IntersectingWithPlanet(StaticBody stationObject, StaticBody intersectingbody);
-    [Signal] public delegate void NotIntersectingWithPlanet(StaticBody stationObject, StaticBody notintersectingbody);
+
 
     string SelectedMission;
     string SelectedMissionType;
-    bool Intersecting = false;
+    public bool Intersecting = false;
 
     public override void _Ready()
     {
         this.Connect("Interacted", GetNode<Node>("/root/Interactions"), "InteractionHandler");
-        this.Connect("IntersectingWithPlanet", GetParent(), "Intersecting");
-        this.Connect("NotIntersectingWithPlanet", GetParent(), "NotIntersecting");
+
         rng.Randomize();
     }
 
 
     public void _on_MissionStation_input_event(Node camera, InputEvent inputEvent, Vector3 position, Vector3 normal, int shape_idx)
+    {
+        var missionID = "M" + Translation.Length() + Rotation.Length();
+        EmitSignal("Interacted", inputEvent, position, SelectedMission, SelectedMissionType, normal, missionID);
+    }
+    public void _on_InternalCollisionChecker_input_event(Node camera, InputEvent inputEvent, Vector3 position, Vector3 normal, int shape_idx)
     {
         var missionID = "M" + Translation.Length() + Rotation.Length();
         EmitSignal("Interacted", inputEvent, position, SelectedMission, SelectedMissionType, normal, missionID);
@@ -91,8 +94,6 @@ public class MissionStation : StaticBody
         if (body is MarsCollisionScript planet)
         {
             Intersecting = true;
-            EmitSignal("IntersectingWithPlanet", this, body);
-
         }
     }
     public void _on_InternalCollisionChecker_body_exited(StaticBody body)
@@ -100,7 +101,6 @@ public class MissionStation : StaticBody
         if (body is MarsCollisionScript planet)
         {
             Intersecting = false;
-            EmitSignal("NotIntersectingWithPlanet", this, body);
         }
     }
 }

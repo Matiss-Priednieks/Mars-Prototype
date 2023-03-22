@@ -11,7 +11,7 @@ public class MissionGenerator : Spatial
 
     float TotalScrapMissions, TotalH2OMissions, TotalResearchMissions, TotalRecoveryMissions = 0;
     float[] MissionRatios = { 0.33f, 0.25f, 0.17f }; // mission spawn chances: 50% resources(25% per type), 33% research, 17% recovery. This is so mission amount can be changed dynamically.
-    float DistanceFromCenter = 38.82f;
+    float DistanceFromCenter = 38.84f;
     Vector3[] MissionLocations;
     Vector3[] MissionAdjustedLocations;
     Spatial PlanetMars;
@@ -23,7 +23,7 @@ public class MissionGenerator : Spatial
 
     public override void _Ready()
     {
-        adjustedDistance = DistanceFromCenter;
+        // adjustedDistance = DistanceFromCenter;
 
         UI = GetParent().GetNode<CanvasLayer>("GUI");
         PlanetMars = GetParent().GetNode<Spatial>("Mars");
@@ -111,16 +111,14 @@ public class MissionGenerator : Spatial
     }
     public override void _PhysicsProcess(float delta)
     {
-        // TODO: Fix this, do it via passing missonstation object in and checking if it's intersecting.
-        // code below doesn't work as intended.
-
-        // adjustedDistance += 0.0006f;
-        // for (int i = 0; i < MissionList.Count; i++)
-        // {
-        //     MissionList[i].Translation = new Vector3(MissionAdjustedLocations[i].Normalized() * adjustedDistance);
-        //     GD.Print(adjustedDistance);
-        // }
-
+        for (int i = 0; i < MissionList.Count; i++)
+        {
+            if (MissionList[i].Intersecting)
+            {
+                adjustedDistance += 0.005f;
+                MissionList[i].Translation += new Vector3(MissionAdjustedLocations[i].Normalized() * adjustedDistance);
+            }
+        }
     }
 
     public void MissionCompleted(string missionName, string missionID)
@@ -131,7 +129,6 @@ public class MissionGenerator : Spatial
             GD.Print(missionElements.Text);
             if (missionID.Equals("M" + MissionList[i].Translation.Length() + MissionList[i].Rotation.Length()) && missionName.Contains(MissionList[i].GetMissionName()))
             {
-                // GD.Print("removal successful");
                 var removedMission = MissionList[i];
                 if (missionElements.Text.Contains(MissionList[i].GetMissionName()))
                 {
@@ -156,13 +153,4 @@ public class MissionGenerator : Spatial
         }
     }
 
-    public void Intersecting(bool intersecting, StaticBody body)
-    {
-
-    }
-
-    public void NotIntersecting(bool intersecting, StaticBody body)
-    {
-
-    }
 }

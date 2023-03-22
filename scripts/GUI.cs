@@ -150,6 +150,7 @@ class GUI : CanvasLayer
     public void _on_CraftFuel_pressed()
     {
         EmitSignal("AddFuel");
+        H2Ocount--;
     }
 
 }

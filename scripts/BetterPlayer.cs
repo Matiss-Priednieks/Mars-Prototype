@@ -237,9 +237,12 @@ public class BetterPlayer : KinematicBody
     public void SetResearchComplete()
     {
         ResearchComplete = true;
+        ResearchPoints = 0;
     }
     public void AddFuel()
     {
         Fuel += 20;
+        H2O--;
+        EmitSignal("MissionRewards", "H2O", H2O);
     }
 }
