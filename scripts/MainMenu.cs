@@ -9,7 +9,7 @@ public class MainMenu : Spatial
     public override void _Ready()
     {
         LaunchPt2 = GetNode<AnimationPlayer>("rocket/LaunchPt2");
-        MenuSwapper = GetNode<AnimationPlayer>("CanvasLayer/MenuSwapper");
+        MenuSwapper = GetNode<AnimationPlayer>("CanvasLayer/Panel/MenuSwapper");
     }
     public void _on_Button_pressed()
     {

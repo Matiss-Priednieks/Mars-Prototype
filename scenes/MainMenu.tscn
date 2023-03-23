@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://assets/MainMenuButtons.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/MenuScript.cs" type="Script" id=3]
@@ -16,6 +16,19 @@
 [ext_resource path="res://scripts/Settings.cs" type="Script" id=15]
 [ext_resource path="res://assets/UITheme.tres" type="Theme" id=16]
 
+[sub_resource type="StyleBoxFlat" id=23]
+bg_color = Color( 1, 0, 0.164706, 0.109804 )
+border_width_left = 40
+border_width_top = 40
+border_width_right = 40
+border_width_bottom = 40
+border_color = Color( 1, 0.329412, 0, 0.509804 )
+border_blend = true
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
 [sub_resource type="Animation" id=20]
 resource_name = "MenuSwap"
 length = 0.5
@@ -29,7 +42,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 0.5, 0.5 ),
 "update": 0,
-"values": [ Vector2( 2000, 362 ), Vector2( 1291, 362 ) ]
+"values": [ Vector2( 1207, 226 ), Vector2( 207, 217.5 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("MainMenu:rect_position")
@@ -41,7 +54,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 0.5, 0.5 ),
 "update": 0,
-"values": [ Vector2( 1291, 361.5 ), Vector2( 2000, 361.5 ) ]
+"values": [ Vector2( 207, 217.5 ), Vector2( 1207, 226 ) ]
 }
 
 [sub_resource type="Animation" id=22]
@@ -57,7 +70,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 0.5, 0.5 ),
 "update": 0,
-"values": [ Vector2( 1291, 362 ), Vector2( 2000, 362 ) ]
+"values": [ Vector2( 207, 217.5 ), Vector2( 1207, 226 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("MainMenu:rect_position")
@@ -69,7 +82,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 0.5, 0.5 ),
 "update": 0,
-"values": [ Vector2( 2000, 361.5 ), Vector2( 1291, 361.5 ) ]
+"values": [ Vector2( 1207, 226 ), Vector2( 207, 217.5 ) ]
 }
 
 [sub_resource type="Animation" id=21]
@@ -84,7 +97,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 2000, 362 ) ]
+"values": [ Vector2( 1207, 226 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("MainMenu:rect_position")
@@ -96,7 +109,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 1291, 361.5 ) ]
+"values": [ Vector2( 207, 217.5 ) ]
 }
 
 [sub_resource type="Animation" id=13]
@@ -272,38 +285,47 @@ __meta__ = {
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource( 3 )
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -709.0
-margin_top = 84.0
-margin_right = -5.0
-margin_bottom = 480.0
-texture = ExtResource( 13 )
-expand = true
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="MainMenu" type="VBoxContainer" parent="CanvasLayer"]
+[node name="Panel" type="Panel" parent="CanvasLayer"]
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = 1291.0
-margin_top = 361.5
-margin_right = 1831.0
-margin_bottom = 740.5
+margin_left = -1070.0
+margin_top = -327.0
+margin_right = -116.0
+margin_bottom = 327.0
+theme = ExtResource( 16 )
+custom_styles/panel = SubResource( 23 )
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Panel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -352.0
+margin_top = -60.0
+margin_right = 352.0
+margin_bottom = 336.0
+texture = ExtResource( 13 )
+expand = true
+
+[node name="MainMenu" type="VBoxContainer" parent="CanvasLayer/Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 207.0
+margin_top = 217.5
+margin_right = 747.0
+margin_bottom = 596.5
 theme = ExtResource( 16 )
 custom_constants/separation = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MainMenu"]
-margin_right = 540.0
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Panel/MainMenu"]
+margin_right = 539.0
 margin_bottom = 126.0
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="CanvasLayer/MainMenu/MarginContainer"]
-margin_right = 540.0
+[node name="Button" type="Button" parent="CanvasLayer/Panel/MainMenu/MarginContainer"]
+margin_right = 539.0
 margin_bottom = 126.0
 focus_mode = 0
 theme = ExtResource( 1 )
@@ -311,14 +333,14 @@ enabled_focus_mode = 0
 text = "Play"
 flat = true
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MainMenu"]
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Panel/MainMenu"]
 margin_top = 126.0
-margin_right = 540.0
+margin_right = 539.0
 margin_bottom = 252.0
 size_flags_vertical = 3
 
-[node name="Settings" type="Button" parent="CanvasLayer/MainMenu/MarginContainer2"]
-margin_right = 540.0
+[node name="Settings" type="Button" parent="CanvasLayer/Panel/MainMenu/MarginContainer2"]
+margin_right = 539.0
 margin_bottom = 126.0
 focus_mode = 0
 theme = ExtResource( 1 )
@@ -326,14 +348,14 @@ enabled_focus_mode = 0
 text = "Settings"
 flat = true
 
-[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/MainMenu"]
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Panel/MainMenu"]
 margin_top = 252.0
-margin_right = 540.0
+margin_right = 539.0
 margin_bottom = 379.0
 size_flags_vertical = 3
 
-[node name="ExitButton" type="Button" parent="CanvasLayer/MainMenu/MarginContainer3"]
-margin_right = 540.0
+[node name="ExitButton" type="Button" parent="CanvasLayer/Panel/MainMenu/MarginContainer3"]
+margin_right = 539.0
 margin_bottom = 127.0
 focus_mode = 0
 theme = ExtResource( 1 )
@@ -341,24 +363,24 @@ enabled_focus_mode = 0
 text = "Exit"
 flat = true
 
-[node name="Settings" type="VBoxContainer" parent="CanvasLayer"]
-anchor_left = 1.0
+[node name="Settings" type="VBoxContainer" parent="CanvasLayer/Panel"]
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 2000.0
-margin_top = 362.0
-margin_right = 2540.0
-margin_bottom = 723.5
+margin_left = 1207.0
+margin_top = 226.0
+margin_right = 1747.0
+margin_bottom = 587.499
 theme = ExtResource( 16 )
 script = ExtResource( 15 )
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Settings"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Panel/Settings"]
 margin_right = 540.0
 margin_bottom = 117.0
 size_flags_vertical = 3
 
-[node name="Resolution" type="Button" parent="CanvasLayer/Settings/MarginContainer"]
+[node name="Resolution" type="Button" parent="CanvasLayer/Panel/Settings/MarginContainer"]
 margin_right = 540.0
 margin_bottom = 117.0
 focus_mode = 0
@@ -368,13 +390,13 @@ text = "Resolution"
 flat = true
 script = ExtResource( 14 )
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Settings"]
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Panel/Settings"]
 margin_top = 121.0
 margin_right = 540.0
 margin_bottom = 239.0
 size_flags_vertical = 3
 
-[node name="Fullscreen" type="Button" parent="CanvasLayer/Settings/MarginContainer2"]
+[node name="Fullscreen" type="Button" parent="CanvasLayer/Panel/Settings/MarginContainer2"]
 margin_right = 540.0
 margin_bottom = 118.0
 focus_mode = 0
@@ -383,13 +405,13 @@ enabled_focus_mode = 0
 text = "Fullscreen"
 flat = true
 
-[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Settings"]
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Panel/Settings"]
 margin_top = 243.0
 margin_right = 540.0
 margin_bottom = 361.0
 size_flags_vertical = 3
 
-[node name="BackButton" type="Button" parent="CanvasLayer/Settings/MarginContainer3"]
+[node name="BackButton" type="Button" parent="CanvasLayer/Panel/Settings/MarginContainer3"]
 margin_right = 540.0
 margin_bottom = 118.0
 focus_mode = 0
@@ -398,7 +420,7 @@ enabled_focus_mode = 0
 text = "Back"
 flat = true
 
-[node name="MenuSwapper" type="AnimationPlayer" parent="CanvasLayer"]
+[node name="MenuSwapper" type="AnimationPlayer" parent="CanvasLayer/Panel"]
 anims/MenuSwap = SubResource( 20 )
 anims/MenuSwapBack = SubResource( 22 )
 anims/RESET = SubResource( 21 )
@@ -455,10 +477,10 @@ script = ExtResource( 7 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.39722, 49.2688, -142.418 )
 script = ExtResource( 12 )
 
-[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/Button" to="." method="_on_Button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer2/Settings" to="." method="_on_Settings_pressed"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer3/ExitButton" to="." method="_on_ExitButton_pressed"]
-[connection signal="pressed" from="CanvasLayer/Settings/MarginContainer/Resolution" to="CanvasLayer/Settings" method="_on_Resolution_pressed"]
-[connection signal="pressed" from="CanvasLayer/Settings/MarginContainer2/Fullscreen" to="CanvasLayer/Settings" method="_on_Fullscreen_pressed"]
-[connection signal="pressed" from="CanvasLayer/Settings/MarginContainer3/BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MainMenu/MarginContainer/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MainMenu/MarginContainer2/Settings" to="." method="_on_Settings_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MainMenu/MarginContainer3/ExitButton" to="." method="_on_ExitButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/Settings/MarginContainer/Resolution" to="CanvasLayer/Panel/Settings" method="_on_Resolution_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/Settings/MarginContainer2/Fullscreen" to="CanvasLayer/Panel/Settings" method="_on_Fullscreen_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/Settings/MarginContainer3/BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="animation_finished" from="rocket/LaunchPt2" to="." method="_on_LaunchPt2_animation_finished"]

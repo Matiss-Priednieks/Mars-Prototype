@@ -212,6 +212,8 @@ visible = false
 planet_radius = 41.0
 atmosphere_height = 2.0
 sun_path = NodePath("../../Environment/DirectionalLight")
+shader_params/u_day_color0 = Color( 0.764706, 0.160784, 0.231373, 1 )
+shader_params/u_day_color1 = Color( 0.690196, 0.403922, 0.231373, 1 )
 shader_params/u_night_color1 = Color( 0.223529, 0.0823529, 0, 1 )
 
 [node name="AtmosphereMesh" type="MeshInstance" parent="Mars"]

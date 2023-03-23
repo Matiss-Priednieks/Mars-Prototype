@@ -247,7 +247,7 @@ margin_bottom = 105.0
 
 [node name="MissionProgressBar" type="ProgressBar" parent="ExtraInfo/MarginContainer"]
 margin_right = 460.0
-margin_bottom = 37.0
+margin_bottom = 44.0
 rect_min_size = Vector2( 30, 30 )
 theme = ExtResource( 5 )
 script = ExtResource( 13 )
