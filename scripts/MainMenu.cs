@@ -5,16 +5,26 @@ public class MainMenu : Spatial
 {
     AnimationPlayer LaunchPt2;
     AnimationPlayer MenuSwapper;
+    VBoxContainer MainMenuBox, Settings;
 
+    Tween MenuSwap, SettingsSwap;
+    int Direction = 1;
     public override void _Ready()
     {
         LaunchPt2 = GetNode<AnimationPlayer>("rocket/LaunchPt2");
-        MenuSwapper = GetNode<AnimationPlayer>("CanvasLayer/Panel/MenuSwapper");
+
+        MenuSwap = GetNode<Tween>("CanvasLayer/Panel/MenuSwap");
+        SettingsSwap = GetNode<Tween>("CanvasLayer/Panel/SettingsSwap");
+
+        MainMenuBox = GetNode<VBoxContainer>("CanvasLayer/Panel/MainMenu");
+        Settings = GetNode<VBoxContainer>("CanvasLayer/Panel/Settings");
+
+
+
     }
     public void _on_Button_pressed()
     {
         LaunchPt2.Play("LaunchOffScreen");
-
     }
 
     public void _on_LaunchPt2_animation_finished(string anim)
@@ -24,18 +34,26 @@ public class MainMenu : Spatial
 
     public void _on_Settings_pressed()
     {
-        MenuSwapper.Play("MenuSwap");
+        MenuSwap.InterpolateProperty(MainMenuBox, "rect_position", MainMenuBox.RectPosition, new Vector2(MainMenuBox.RectPosition.x + 1000, MainMenuBox.RectPosition.y), 1.5f, Tween.TransitionType.Circ, Tween.EaseType.InOut);
+        SettingsSwap.InterpolateProperty(Settings, "rect_position", Settings.RectPosition, new Vector2(Settings.RectPosition.x - 1000, Settings.RectPosition.y), 1.5f, Tween.TransitionType.Circ, Tween.EaseType.InOut);
+        MenuSwap.Start();
+        SettingsSwap.Start();
     }
 
     public void _on_BackButton_pressed()
     {
-        MenuSwapper.Play("MenuSwapBack");
+        MenuSwap.InterpolateProperty(MainMenuBox, "rect_position", MainMenuBox.RectPosition, new Vector2(MainMenuBox.RectPosition.x - 1000, MainMenuBox.RectPosition.y), 1.5f, Tween.TransitionType.Circ, Tween.EaseType.InOut);
+        SettingsSwap.InterpolateProperty(Settings, "rect_position", Settings.RectPosition, new Vector2(Settings.RectPosition.x + 1000, Settings.RectPosition.y), 1.5f, Tween.TransitionType.Circ, Tween.EaseType.InOut);
+        MenuSwap.Start();
+        SettingsSwap.Start();
+
     }
 
     public void _on_ExitButton_pressed()
     {
         GetTree().Quit();
     }
+
 
 
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://assets/MainMenuButtons.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/MenuScript.cs" type="Script" id=3]
@@ -28,89 +28,6 @@ corner_radius_top_left = 30
 corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
-
-[sub_resource type="Animation" id=20]
-resource_name = "MenuSwap"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("Settings:rect_position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 0.5, 0.5 ),
-"update": 0,
-"values": [ Vector2( 1207, 226 ), Vector2( 207, 217.5 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("MainMenu:rect_position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 0.5, 0.5 ),
-"update": 0,
-"values": [ Vector2( 207, 217.5 ), Vector2( 1207, 226 ) ]
-}
-
-[sub_resource type="Animation" id=22]
-resource_name = "MenuSwapBack"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("Settings:rect_position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 0.5, 0.5 ),
-"update": 0,
-"values": [ Vector2( 207, 217.5 ), Vector2( 1207, 226 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("MainMenu:rect_position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 0.5, 0.5 ),
-"update": 0,
-"values": [ Vector2( 1207, 226 ), Vector2( 207, 217.5 ) ]
-}
-
-[sub_resource type="Animation" id=21]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("Settings:rect_position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 1207, 226 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("MainMenu:rect_position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 207, 217.5 ) ]
-}
 
 [sub_resource type="Animation" id=13]
 length = 0.001
@@ -312,20 +229,20 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 207.0
-margin_top = 217.5
-margin_right = 747.0
-margin_bottom = 596.5
+margin_left = -270.0
+margin_top = -109.5
+margin_right = 270.0
+margin_bottom = 269.5
 theme = ExtResource( 16 )
 custom_constants/separation = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Panel/MainMenu"]
-margin_right = 539.0
+margin_right = 540.0
 margin_bottom = 126.0
 size_flags_vertical = 3
 
 [node name="Button" type="Button" parent="CanvasLayer/Panel/MainMenu/MarginContainer"]
-margin_right = 539.0
+margin_right = 540.0
 margin_bottom = 126.0
 focus_mode = 0
 theme = ExtResource( 1 )
@@ -335,12 +252,12 @@ flat = true
 
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Panel/MainMenu"]
 margin_top = 126.0
-margin_right = 539.0
+margin_right = 540.0
 margin_bottom = 252.0
 size_flags_vertical = 3
 
 [node name="Settings" type="Button" parent="CanvasLayer/Panel/MainMenu/MarginContainer2"]
-margin_right = 539.0
+margin_right = 540.0
 margin_bottom = 126.0
 focus_mode = 0
 theme = ExtResource( 1 )
@@ -350,12 +267,12 @@ flat = true
 
 [node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Panel/MainMenu"]
 margin_top = 252.0
-margin_right = 539.0
+margin_right = 540.0
 margin_bottom = 379.0
 size_flags_vertical = 3
 
 [node name="ExitButton" type="Button" parent="CanvasLayer/Panel/MainMenu/MarginContainer3"]
-margin_right = 539.0
+margin_right = 540.0
 margin_bottom = 127.0
 focus_mode = 0
 theme = ExtResource( 1 )
@@ -368,10 +285,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 1207.0
-margin_top = 226.0
-margin_right = 1747.0
-margin_bottom = 587.499
+margin_left = 730.0
+margin_top = -101.0
+margin_right = 1270.0
+margin_bottom = 260.499
 theme = ExtResource( 16 )
 script = ExtResource( 15 )
 
@@ -420,10 +337,9 @@ enabled_focus_mode = 0
 text = "Back"
 flat = true
 
-[node name="MenuSwapper" type="AnimationPlayer" parent="CanvasLayer/Panel"]
-anims/MenuSwap = SubResource( 20 )
-anims/MenuSwapBack = SubResource( 22 )
-anims/RESET = SubResource( 21 )
+[node name="MenuSwap" type="Tween" parent="CanvasLayer/Panel"]
+
+[node name="SettingsSwap" type="Tween" parent="CanvasLayer/Panel"]
 
 [node name="rocket" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )

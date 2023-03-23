@@ -19,11 +19,13 @@ public class Settings : VBoxContainer
         if (!QHD)
         {
             OS.WindowSize = new Vector2(1920, 1080);
+            GetTree().SetScreenStretch(SceneTree.StretchMode.Viewport, SceneTree.StretchAspect.Keep, new Vector2(1920, 1080));
             ResButton.Text = "1920x1080";
         }
         else
         {
             OS.WindowSize = new Vector2(2560, 1440);
+            GetTree().SetScreenStretch(SceneTree.StretchMode.Viewport, SceneTree.StretchAspect.Keep, new Vector2(2560, 1440));
             ResButton.Text = "2560x1440";
         }
         if (!Fullscreen)
