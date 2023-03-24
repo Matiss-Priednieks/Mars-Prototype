@@ -34,7 +34,7 @@ public class MainCam : Spatial
             Rotating = false;
             PrevMousePos = Vector3.Zero;
         }
-        if (Input.IsActionJustPressed("ui_escape"))
+        if (Input.IsActionJustPressed("reset_rotation"))
         {
             Snapback.InterpolateProperty(this, "rotation_degrees", RotationDegrees, new Vector3(0, 0, 0), 0.5f, Tween.TransitionType.Elastic, Tween.EaseType.InOut);
             Snapback.Start();

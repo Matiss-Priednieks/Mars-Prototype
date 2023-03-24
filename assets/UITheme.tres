@@ -1,59 +1,15 @@
-[gd_resource type="Theme" load_steps=13 format=2]
+[gd_resource type="Theme" load_steps=18 format=2]
 
+[ext_resource path="res://assets/UIElements/MenuPanel.tres" type="StyleBox" id=1]
 [ext_resource path="res://assets/UIFont.tres" type="DynamicFont" id=2]
 [ext_resource path="res://assets/buttonDefault.tres" type="StyleBox" id=3]
-
-[sub_resource type="StyleBoxFlat" id=12]
-bg_color = Color( 0.278431, 0.101961, 0.172549, 1 )
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color( 0.85098, 0.156863, 0.101961, 1 )
-border_blend = true
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id=13]
-bg_color = Color( 0.552941, 0.0117647, 0.223529, 1 )
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color( 0.85098, 0.152941, 0.101961, 1 )
-border_blend = true
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id=14]
-bg_color = Color( 0.701961, 0.0156863, 0.278431, 1 )
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color( 0.85098, 0.156863, 0.101961, 1 )
-border_blend = true
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id=15]
-bg_color = Color( 0.419608, 0.00784314, 0.164706, 1 )
-border_width_left = 10
-border_width_top = 10
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color( 0.85098, 0.156863, 0.101961, 1 )
-border_blend = true
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[ext_resource path="res://assets/UIElements/Panel.tres" type="StyleBox" id=4]
+[ext_resource path="res://assets/UIElements/MenuPanelDisabled.tres" type="StyleBox" id=5]
+[ext_resource path="res://assets/UIElements/DisabledButton.tres" type="StyleBox" id=6]
+[ext_resource path="res://assets/UIElements/HoverButton.tres" type="StyleBox" id=7]
+[ext_resource path="res://assets/UIElements/FocusButton.tres" type="StyleBox" id=8]
+[ext_resource path="res://assets/UIElements/PressedButton.tres" type="StyleBox" id=9]
+[ext_resource path="res://assets/PT Astra Sans_Bold.ttf" type="DynamicFontData" id=10]
 
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.552941, 0.0117647, 0.223529, 1 )
@@ -81,18 +37,16 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id=11]
-bg_color = Color( 0.552941, 0.0117647, 0.223529, 0.588235 )
-border_width_left = 20
-border_width_top = 20
-border_width_right = 20
-border_width_bottom = 20
-border_color = Color( 0.85098, 0.156863, 0.101961, 0.588235 )
-border_blend = true
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="DynamicFont" id=10]
+size = 15
+outline_size = 3
+outline_color = Color( 0.552941, 0.0117647, 0.223529, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 10 )
+
+[sub_resource type="StyleBoxLine" id=9]
+color = Color( 1, 0, 0.141176, 1 )
 
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.85098, 0.156863, 0.101961, 1 )
@@ -122,17 +76,32 @@ corner_radius_bottom_left = 8
 [resource]
 Button/constants/hseparation = 4
 Button/fonts/font = ExtResource( 2 )
-Button/styles/disabled = SubResource( 12 )
-Button/styles/focus = SubResource( 13 )
-Button/styles/hover = SubResource( 14 )
+Button/styles/disabled = ExtResource( 6 )
+Button/styles/focus = ExtResource( 8 )
+Button/styles/hover = ExtResource( 7 )
 Button/styles/normal = ExtResource( 3 )
-Button/styles/pressed = SubResource( 15 )
+Button/styles/pressed = ExtResource( 9 )
 GridContainer/constants/hseparation = 110
 HSlider/styles/grabber_area = SubResource( 4 )
 HSlider/styles/grabber_area_highlight = SubResource( 5 )
 HSlider/styles/slider = SubResource( 6 )
 Label/fonts/font = ExtResource( 2 )
-Panel/styles/panel = SubResource( 11 )
+MenuButton/styles/disabled = ExtResource( 3 )
+MenuButton/styles/focus = ExtResource( 3 )
+MenuButton/styles/hover = ExtResource( 3 )
+MenuButton/styles/normal = ExtResource( 3 )
+MenuButton/styles/pressed = ExtResource( 3 )
+OptionButton/styles/disabled = ExtResource( 6 )
+OptionButton/styles/focus = ExtResource( 8 )
+OptionButton/styles/hover = ExtResource( 7 )
+OptionButton/styles/normal = ExtResource( 3 )
+OptionButton/styles/pressed = ExtResource( 9 )
+Panel/styles/panel = ExtResource( 4 )
+PopupMenu/fonts/font = SubResource( 10 )
+PopupMenu/styles/hover = ExtResource( 7 )
+PopupMenu/styles/panel = ExtResource( 1 )
+PopupMenu/styles/panel_disabled = ExtResource( 5 )
+PopupMenu/styles/separator = SubResource( 9 )
 ProgressBar/fonts/font = ExtResource( 2 )
 ProgressBar/styles/bg = SubResource( 7 )
 ProgressBar/styles/fg = SubResource( 8 )

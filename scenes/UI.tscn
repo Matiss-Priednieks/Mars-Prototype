@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scripts/GUI.cs" type="Script" id=1]
 [ext_resource path="res://assets/Aquire-BW0ox.otf" type="DynamicFontData" id=2]
@@ -15,6 +15,12 @@
 [ext_resource path="res://scripts/MissionProgressBar.cs" type="Script" id=13]
 [ext_resource path="res://assets/buttons/closeBtnHover.png" type="Texture" id=14]
 [ext_resource path="res://assets/buttons/closeBtnDisabled.png" type="Texture" id=15]
+[ext_resource path="res://scripts/Settings.cs" type="Script" id=16]
+[ext_resource path="res://MainMenuButtonFont.tres" type="DynamicFont" id=17]
+[ext_resource path="res://assets/back.png" type="Texture" id=18]
+[ext_resource path="res://assets/screen.png" type="Texture" id=19]
+[ext_resource path="res://assets/size.png" type="Texture" id=20]
+[ext_resource path="res://scripts/PauseMenu.cs" type="Script" id=21]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -29,6 +35,46 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_vertical_guides_": [ 512.0 ]
 }
+
+[node name="TimeScale" type="Panel" parent="."]
+margin_right = 527.0
+margin_bottom = 100.0
+theme = ExtResource( 5 )
+
+[node name="LeftUI" type="VBoxContainer" parent="TimeScale"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -242.5
+margin_top = -38.5
+margin_right = 242.5
+margin_bottom = 38.5
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource( 5 )
+
+[node name="HSplitContainer" type="VSplitContainer" parent="TimeScale/LeftUI"]
+margin_right = 485.0
+margin_bottom = 62.0
+
+[node name="Label" type="Label" parent="TimeScale/LeftUI/HSplitContainer"]
+margin_right = 485.0
+margin_bottom = 34.0
+size_flags_horizontal = 15
+size_flags_vertical = 11
+theme = ExtResource( 5 )
+text = "Time Scale Slider"
+
+[node name="HSlider" type="HSlider" parent="TimeScale/LeftUI/HSplitContainer"]
+margin_top = 46.0
+margin_right = 485.0
+margin_bottom = 62.0
+theme = ExtResource( 5 )
+min_value = 1.0
+max_value = 50.0
+value = 1.0
+ticks_on_borders = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 visible = false
@@ -47,39 +93,8 @@ text = "Get Weather Data"
 
 [node name="WeatherData" type="Label" parent="VBoxContainer"]
 margin_right = 500.0
-margin_bottom = 14.0
-autowrap = true
-
-[node name="LeftUI" type="VBoxContainer" parent="."]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 505.0
-margin_bottom = 97.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-theme = ExtResource( 5 )
-
-[node name="HSplitContainer" type="VSplitContainer" parent="LeftUI"]
-margin_right = 485.0
-margin_bottom = 62.0
-
-[node name="Label" type="Label" parent="LeftUI/HSplitContainer"]
-margin_right = 485.0
 margin_bottom = 34.0
-size_flags_horizontal = 15
-size_flags_vertical = 11
-theme = ExtResource( 5 )
-text = "Time Scale Slider"
-
-[node name="HSlider" type="HSlider" parent="LeftUI/HSplitContainer"]
-margin_top = 46.0
-margin_right = 485.0
-margin_bottom = 62.0
-theme = ExtResource( 5 )
-min_value = 1.0
-max_value = 50.0
-value = 1.0
-ticks_on_borders = true
+autowrap = true
 
 [node name="RightUI" type="Panel" parent="."]
 anchor_left = 1.0
@@ -262,6 +277,7 @@ theme = ExtResource( 5 )
 text = "Fuel: "
 
 [node name="ResearchAndDev" type="Panel" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -287,9 +303,9 @@ expand = true
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -163.0
-margin_top = 20.0
+margin_top = 50.0
 margin_right = 163.0
-margin_bottom = 54.0
+margin_bottom = 84.0
 text = "Research & Development"
 
 [node name="RnDButtons" type="VBoxContainer" parent="ResearchAndDev"]
@@ -298,9 +314,10 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -300.0
-margin_top = -56.0
+margin_top = -131.0
 margin_right = 300.0
-margin_bottom = 56.0
+margin_bottom = 131.0
+custom_constants/separation = 50
 
 [node name="Research" type="Button" parent="ResearchAndDev/RnDButtons"]
 margin_right = 600.0
@@ -308,21 +325,134 @@ margin_bottom = 54.0
 text = "Research Electrolysis | 4 Research Points"
 
 [node name="Recovery" type="Button" parent="ResearchAndDev/RnDButtons"]
-margin_top = 58.0
+margin_top = 104.0
 margin_right = 600.0
-margin_bottom = 112.0
+margin_bottom = 158.0
 text = "Recover Rover | 2 Recovery Points + 3 Scrap"
 
 [node name="CraftFuel" type="Button" parent="ResearchAndDev/RnDButtons"]
-margin_top = 116.0
+margin_top = 208.0
 margin_right = 600.0
-margin_bottom = 170.0
+margin_bottom = 262.0
 text = "Craft Fuel | 1 H2O -> 20 Fuel"
 
-[connection signal="value_changed" from="LeftUI/HSplitContainer/HSlider" to="." method="_on_HSlider_value_changed"]
-[connection signal="value_changed" from="LeftUI/HSplitContainer/HSlider" to="AudioStreamPlayer" method="_on_HSlider_value_changed"]
+[node name="PauseMenu" type="Panel" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -299.0
+margin_top = -312.5
+margin_right = 299.0
+margin_bottom = 312.5
+theme = ExtResource( 5 )
+script = ExtResource( 21 )
+
+[node name="Label" type="Label" parent="PauseMenu"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -159.0
+margin_top = 50.0
+margin_right = 159.0
+margin_bottom = 34.0
+theme = ExtResource( 5 )
+text = "Menu"
+align = 1
+
+[node name="Menu" type="VBoxContainer" parent="PauseMenu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -159.0
+margin_top = -192.0
+margin_right = 159.0
+margin_bottom = 192.0
+custom_constants/separation = 56
+
+[node name="Resume" type="Button" parent="PauseMenu/Menu"]
+margin_right = 318.0
+margin_bottom = 54.0
+text = "Resume"
+
+[node name="Settings" type="Button" parent="PauseMenu/Menu"]
+margin_top = 110.0
+margin_right = 318.0
+margin_bottom = 164.0
+text = "Settings"
+
+[node name="Help" type="Button" parent="PauseMenu/Menu"]
+margin_top = 220.0
+margin_right = 318.0
+margin_bottom = 274.0
+text = "Help"
+
+[node name="SaveExit" type="Button" parent="PauseMenu/Menu"]
+margin_top = 330.0
+margin_right = 318.0
+margin_bottom = 384.0
+text = "Save & Exit"
+
+[node name="Settings" type="VBoxContainer" parent="PauseMenu"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -270.0
+margin_top = -180.75
+margin_right = 270.0
+margin_bottom = 180.75
+theme = ExtResource( 5 )
+custom_constants/separation = 50
+script = ExtResource( 16 )
+
+[node name="Resolution" type="OptionButton" parent="PauseMenu/Settings"]
+margin_right = 540.0
+margin_bottom = 87.0
+focus_mode = 0
+theme = ExtResource( 5 )
+custom_fonts/font = ExtResource( 17 )
+enabled_focus_mode = 0
+text = "Resolution"
+icon = ExtResource( 20 )
+align = 1
+expand_icon = true
+
+[node name="WindowMode" type="OptionButton" parent="PauseMenu/Settings"]
+margin_top = 137.0
+margin_right = 540.0
+margin_bottom = 224.0
+focus_mode = 0
+theme = ExtResource( 5 )
+custom_fonts/font = ExtResource( 17 )
+enabled_focus_mode = 0
+text = "Window Mode"
+icon = ExtResource( 19 )
+align = 1
+expand_icon = true
+
+[node name="BackButton" type="Button" parent="PauseMenu/Settings"]
+margin_top = 274.0
+margin_right = 540.0
+margin_bottom = 361.0
+focus_mode = 0
+theme = ExtResource( 5 )
+custom_fonts/font = ExtResource( 17 )
+enabled_focus_mode = 0
+text = "Back"
+icon = ExtResource( 18 )
+expand_icon = true
+
+[connection signal="value_changed" from="TimeScale/LeftUI/HSplitContainer/HSlider" to="." method="_on_HSlider_value_changed"]
+[connection signal="value_changed" from="TimeScale/LeftUI/HSplitContainer/HSlider" to="AudioStreamPlayer" method="_on_HSlider_value_changed"]
 [connection signal="finished" from="AudioStreamPlayer" to="AudioStreamPlayer" method="_on_AudioStreamPlayer_finished"]
 [connection signal="pressed" from="ResearchAndDev/TextureButton" to="." method="CloseRDMenu"]
 [connection signal="pressed" from="ResearchAndDev/RnDButtons/Research" to="." method="_on_Research_pressed"]
 [connection signal="pressed" from="ResearchAndDev/RnDButtons/Recovery" to="." method="_on_Recovery_pressed"]
 [connection signal="pressed" from="ResearchAndDev/RnDButtons/CraftFuel" to="." method="_on_CraftFuel_pressed"]
+[connection signal="pressed" from="PauseMenu/Menu/Settings" to="PauseMenu" method="_on_Settings_pressed"]
+[connection signal="item_selected" from="PauseMenu/Settings/Resolution" to="PauseMenu/Settings" method="_on_Resolution_item_selected"]
+[connection signal="item_selected" from="PauseMenu/Settings/WindowMode" to="PauseMenu/Settings" method="_on_Fullscreen_item_selected"]
+[connection signal="pressed" from="PauseMenu/Settings/BackButton" to="PauseMenu" method="_on_BackButton_pressed"]

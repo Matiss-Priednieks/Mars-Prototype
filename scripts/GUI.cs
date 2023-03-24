@@ -11,7 +11,7 @@ class GUI : CanvasLayer
 
     Label H2O, Scrap, Research, Recovery, WeatherData;
     int H2Ocount, Scrapcount, Researchcount, Recoverycount;
-    Panel ResearchAndDev;
+    Panel ResearchAndDev, PauseMenu;
 
     Button ResearchButton, RecoveryButton, FuelButton;
     public override void _Ready()
@@ -24,7 +24,7 @@ class GUI : CanvasLayer
         this.Connect("AddFuel", GetNode<KinematicBody>("../%Player"), "AddFuel");
 
         ResearchAndDev = GetNode<Panel>("ResearchAndDev");
-        SliderData = GetNode<HSlider>("LeftUI/HSplitContainer/HSlider");
+        SliderData = GetNode<HSlider>("TimeScale/LeftUI/HSplitContainer/HSlider");
         WeatherData = GetNode<Label>("VBoxContainer/WeatherData");
         H2O = GetNode<Label>("ResourceUI/VBoxContainer/ResourceGrid/H2O");
         Scrap = GetNode<Label>("ResourceUI/VBoxContainer/ResourceGrid/SCRAP");
@@ -33,6 +33,9 @@ class GUI : CanvasLayer
 
         ResearchButton = ResearchAndDev.GetNode<Button>("RnDButtons/Research");
         RecoveryButton = ResearchAndDev.GetNode<Button>("RnDButtons/Recovery");
+
+        PauseMenu = GetNode<Panel>("PauseMenu");
+
         FuelButton = ResearchAndDev.GetNode<Button>("RnDButtons/CraftFuel");
 
     }
@@ -110,6 +113,13 @@ class GUI : CanvasLayer
             GD.Print(Visible);
             Visible = !Visible;
         }
+
+        if (Input.IsActionJustReleased("pause_menu"))
+        {
+            GD.Print(PauseMenu.Visible);
+            PauseMenu.Visible = !PauseMenu.Visible;
+        }
+
         if (Researchcount == 4)
         {
             ResearchButton.Disabled = false;

@@ -1,7 +1,8 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
-[ext_resource path="res://assets/MainMenuButtons.tres" type="Theme" id=1]
-[ext_resource path="res://scripts/MenuScript.cs" type="Script" id=3]
+[ext_resource path="res://MainMenuButtonFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/screen.png" type="Texture" id=2]
+[ext_resource path="res://assets/size.png" type="Texture" id=3]
 [ext_resource path="res://assets/models/rocket.glb" type="PackedScene" id=4]
 [ext_resource path="res://assets/Rumble.tres" type="Animation" id=5]
 [ext_resource path="res://assets/models/planetmars2.glb" type="PackedScene" id=6]
@@ -12,7 +13,7 @@
 [ext_resource path="res://assets/RocketParticle.tres" type="Material" id=11]
 [ext_resource path="res://scripts/RocketParticles.cs" type="Script" id=12]
 [ext_resource path="res://assets/OnToMars-Menu-Master-NOBG.png" type="Texture" id=13]
-[ext_resource path="res://scripts/Resolution.cs" type="Script" id=14]
+[ext_resource path="res://assets/back.png" type="Texture" id=14]
 [ext_resource path="res://scripts/Settings.cs" type="Script" id=15]
 [ext_resource path="res://assets/UITheme.tres" type="Theme" id=16]
 
@@ -200,7 +201,6 @@ __meta__ = {
 }
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-script = ExtResource( 3 )
 
 [node name="Panel" type="Panel" parent="CanvasLayer"]
 anchor_left = 1.0
@@ -230,55 +230,40 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -270.0
-margin_top = -109.5
+margin_top = -117.0
 margin_right = 270.0
-margin_bottom = 269.5
+margin_bottom = 262.0
 theme = ExtResource( 16 )
-custom_constants/separation = 0
+custom_constants/separation = 50
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Panel/MainMenu"]
+[node name="Button" type="Button" parent="CanvasLayer/Panel/MainMenu"]
 margin_right = 540.0
-margin_bottom = 126.0
-size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="CanvasLayer/Panel/MainMenu/MarginContainer"]
-margin_right = 540.0
-margin_bottom = 126.0
+margin_bottom = 87.0
 focus_mode = 0
-theme = ExtResource( 1 )
+theme = ExtResource( 16 )
+custom_fonts/font = ExtResource( 1 )
 enabled_focus_mode = 0
 text = "Play"
-flat = true
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Panel/MainMenu"]
-margin_top = 126.0
+[node name="Settings" type="Button" parent="CanvasLayer/Panel/MainMenu"]
+margin_top = 137.0
 margin_right = 540.0
-margin_bottom = 252.0
-size_flags_vertical = 3
-
-[node name="Settings" type="Button" parent="CanvasLayer/Panel/MainMenu/MarginContainer2"]
-margin_right = 540.0
-margin_bottom = 126.0
+margin_bottom = 224.0
 focus_mode = 0
-theme = ExtResource( 1 )
+theme = ExtResource( 16 )
+custom_fonts/font = ExtResource( 1 )
 enabled_focus_mode = 0
 text = "Settings"
-flat = true
 
-[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Panel/MainMenu"]
-margin_top = 252.0
+[node name="ExitButton" type="Button" parent="CanvasLayer/Panel/MainMenu"]
+margin_top = 274.0
 margin_right = 540.0
-margin_bottom = 379.0
-size_flags_vertical = 3
-
-[node name="ExitButton" type="Button" parent="CanvasLayer/Panel/MainMenu/MarginContainer3"]
-margin_right = 540.0
-margin_bottom = 127.0
+margin_bottom = 361.0
 focus_mode = 0
-theme = ExtResource( 1 )
+theme = ExtResource( 16 )
+custom_fonts/font = ExtResource( 1 )
 enabled_focus_mode = 0
 text = "Exit"
-flat = true
 
 [node name="Settings" type="VBoxContainer" parent="CanvasLayer/Panel"]
 anchor_left = 0.5
@@ -286,56 +271,49 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = 730.0
-margin_top = -101.0
+margin_top = -117.0
 margin_right = 1270.0
-margin_bottom = 260.499
+margin_bottom = 244.499
 theme = ExtResource( 16 )
+custom_constants/separation = 50
 script = ExtResource( 15 )
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Panel/Settings"]
+[node name="Resolution" type="OptionButton" parent="CanvasLayer/Panel/Settings"]
 margin_right = 540.0
-margin_bottom = 117.0
-size_flags_vertical = 3
-
-[node name="Resolution" type="Button" parent="CanvasLayer/Panel/Settings/MarginContainer"]
-margin_right = 540.0
-margin_bottom = 117.0
+margin_bottom = 87.0
 focus_mode = 0
-theme = ExtResource( 1 )
+theme = ExtResource( 16 )
+custom_fonts/font = ExtResource( 1 )
 enabled_focus_mode = 0
 text = "Resolution"
-flat = true
-script = ExtResource( 14 )
+icon = ExtResource( 3 )
+align = 1
+expand_icon = true
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Panel/Settings"]
-margin_top = 121.0
+[node name="WindowMode" type="OptionButton" parent="CanvasLayer/Panel/Settings"]
+margin_top = 137.0
 margin_right = 540.0
-margin_bottom = 239.0
-size_flags_vertical = 3
-
-[node name="Fullscreen" type="Button" parent="CanvasLayer/Panel/Settings/MarginContainer2"]
-margin_right = 540.0
-margin_bottom = 118.0
+margin_bottom = 224.0
 focus_mode = 0
-theme = ExtResource( 1 )
+theme = ExtResource( 16 )
+custom_fonts/font = ExtResource( 1 )
 enabled_focus_mode = 0
 text = "Fullscreen"
-flat = true
+icon = ExtResource( 2 )
+align = 1
+expand_icon = true
 
-[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Panel/Settings"]
-margin_top = 243.0
+[node name="BackButton" type="Button" parent="CanvasLayer/Panel/Settings"]
+margin_top = 274.0
 margin_right = 540.0
 margin_bottom = 361.0
-size_flags_vertical = 3
-
-[node name="BackButton" type="Button" parent="CanvasLayer/Panel/Settings/MarginContainer3"]
-margin_right = 540.0
-margin_bottom = 118.0
 focus_mode = 0
-theme = ExtResource( 1 )
+theme = ExtResource( 16 )
+custom_fonts/font = ExtResource( 1 )
 enabled_focus_mode = 0
 text = "Back"
-flat = true
+icon = ExtResource( 14 )
+expand_icon = true
 
 [node name="MenuSwap" type="Tween" parent="CanvasLayer/Panel"]
 
@@ -393,10 +371,10 @@ script = ExtResource( 7 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.39722, 49.2688, -142.418 )
 script = ExtResource( 12 )
 
-[connection signal="pressed" from="CanvasLayer/Panel/MainMenu/MarginContainer/Button" to="." method="_on_Button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Panel/MainMenu/MarginContainer2/Settings" to="." method="_on_Settings_pressed"]
-[connection signal="pressed" from="CanvasLayer/Panel/MainMenu/MarginContainer3/ExitButton" to="." method="_on_ExitButton_pressed"]
-[connection signal="pressed" from="CanvasLayer/Panel/Settings/MarginContainer/Resolution" to="CanvasLayer/Panel/Settings" method="_on_Resolution_pressed"]
-[connection signal="pressed" from="CanvasLayer/Panel/Settings/MarginContainer2/Fullscreen" to="CanvasLayer/Panel/Settings" method="_on_Fullscreen_pressed"]
-[connection signal="pressed" from="CanvasLayer/Panel/Settings/MarginContainer3/BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MainMenu/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MainMenu/Settings" to="." method="_on_Settings_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MainMenu/ExitButton" to="." method="_on_ExitButton_pressed"]
+[connection signal="item_selected" from="CanvasLayer/Panel/Settings/Resolution" to="CanvasLayer/Panel/Settings" method="_on_Resolution_item_selected"]
+[connection signal="item_selected" from="CanvasLayer/Panel/Settings/WindowMode" to="CanvasLayer/Panel/Settings" method="_on_Fullscreen_item_selected"]
+[connection signal="pressed" from="CanvasLayer/Panel/Settings/BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="animation_finished" from="rocket/LaunchPt2" to="." method="_on_LaunchPt2_animation_finished"]
