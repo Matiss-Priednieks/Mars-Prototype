@@ -421,7 +421,6 @@ margin_top = -131.0
 margin_bottom = 131.0
 
 [node name="Help" type="Panel" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -479,15 +478,13 @@ text = "--- General Info ---
 
 - Right click lets you move the rover to a given spot on the planet.
 
-- Holding Middle click (scroll wheel) lets you rotate the planet
+- Holding Middle click (scroll wheel) lets you rotate the planet.
 
 - Tab opens/closes Research and Development menu.
 
-- Ctrl+U hides/Unhides all UI
+- Ctrl+U hides/Unhides all UI.
 
-- Pressing R will rotate the planet back to its original rotation.
-
-- To exit use alt+f4 lol"
+- Pressing R will rotate the planet back to its original rotation."
 
 [node name="Control" parent="." instance=ExtResource( 17 )]
 

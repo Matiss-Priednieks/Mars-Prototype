@@ -5,10 +5,12 @@ public class Rocket : Spatial
 {
     Vector3 Direction;
     Spatial Planet;
+    PackedScene WinScreen;
     int Speed = 10;
     public override void _Ready()
     {
         Planet = GetNode<Spatial>("../Mars");
+        WinScreen = (PackedScene)ResourceLoader.Load("res://scenes/WinScreen.tscn");
         Direction = (GlobalTranslation - Planet.Translation).Normalized();
 
     }
@@ -22,6 +24,6 @@ public class Rocket : Spatial
 
     public void _on_Timer_timeout()
     {
-        GetTree().ChangeScene("res://scenes/WinScreen.tscn");
+        GetTree().ChangeSceneTo(WinScreen);
     }
 }
