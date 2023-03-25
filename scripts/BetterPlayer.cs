@@ -11,10 +11,13 @@ public class BetterPlayer : KinematicBody
     [Signal] public delegate void MissionRewards(string rewardType, int rewardAmount);
     [Export(PropertyHint.Range, "1, 50")] int timeScale = 1;
 
+
     //object references
     Spatial PlayerModel, PlanetMars;
     Material RoverMat;
     Label3D MissionLabel;
+    PackedScene Rocket;
+    Panel LockedMsg;
 
     Label FuelLabel;
     ProgressBar MissionProgressBar;
@@ -27,7 +30,7 @@ public class BetterPlayer : KinematicBody
 
     int H2O, Scrap, ResearchPoints, Recovery = 0;
 
-    double Fuel = 100;
+    double Fuel;
 
     //vectors
     Vector3 LocalGravity, targetLocation = Vector3.Zero;
@@ -40,10 +43,13 @@ public class BetterPlayer : KinematicBody
 
     public override void _Ready()
     {
+        LockedMsg = GetNode<Panel>("../GUI/LockedMsg");
+        Rocket = (PackedScene)ResourceLoader.Load("res://scenes/Rocket.tscn");
         this.Connect("MissionComplete", GetNode<Spatial>("../MissionGenerator"), "MissionCompleted");
         this.Connect("MissionRewards", GetNode<CanvasLayer>("../GUI"), "UpdateResources");
 
         //object references
+
         PlayerModel = GetNode<Spatial>("Rover");
         MissionLabel = GetNode<Label3D>("Mission");
         MissionTimer = GetNode<Timer>("MissionTimer");
@@ -125,7 +131,7 @@ public class BetterPlayer : KinematicBody
                 MoveAndSlide(MovementDirection * MoveSpeed * timeScale, normal);
             }
             LookAt(MovementDirection, -GravityVector());
-            // if (Fuel > 0) Fuel -= 0.01f * (timeScale * 0.15f);
+
         }
         if (((destination.DistanceTo(Transform.origin) <= 0.5f && onMission) || destination.DistanceTo(Transform.origin) <= 0.1f) && ClickMoving)
         {
@@ -156,16 +162,35 @@ public class BetterPlayer : KinematicBody
 
     public void AttemptMission(InputEvent inputEvent, Vector3 position, string selectedMission, string selectedMissionType, Vector3 normal, string missionID)
     {
+
         if (inputEvent.IsActionReleased("click_to_move") && Selected && !isMissionStarted)
         {
-            targetNormal = normal;
-            targetLocation = position;
-            ClickMoving = true;
-            RoverMovementSound.Play();
-            MissionClick = true;
-            tempMissionTitle = selectedMission;
-            tempMissionType = selectedMissionType;
-            MissionID = missionID;
+            if (selectedMission == "Recovery" && !ResearchComplete)
+            {
+                LockedMsg.Show();
+                LockedMsg.GetNode<Timer>("Timer").Start();
+                LockedMsg.GetNode<Label>("Panel/FuelError").Hide();
+                LockedMsg.GetNode<Label>("Panel/ResearchError").Show();
+
+            }
+            else if (selectedMission == "Recovery" && Fuel < 20)
+            {
+                LockedMsg.Show();
+                LockedMsg.GetNode<Timer>("Timer").Start();
+                LockedMsg.GetNode<Label>("Panel/ResearchError").Hide();
+                LockedMsg.GetNode<Label>("Panel/FuelError").Show();
+            }
+            else
+            {
+                targetNormal = normal;
+                targetLocation = position;
+                ClickMoving = true;
+                RoverMovementSound.Play();
+                MissionClick = true;
+                tempMissionTitle = selectedMission;
+                tempMissionType = selectedMissionType;
+                MissionID = missionID;
+            }
         }
     }
 
@@ -195,6 +220,10 @@ public class BetterPlayer : KinematicBody
     public void _on_MissionTimer_timeout()
     {
         EmitSignal("MissionComplete", CurrentMission, MissionID);
+        if (CurrentMission == "Recovery")
+        {
+            Fuel -= 20;
+        }
         MissionCompleteSound.Play();
 
         isMissionStarted = false;
@@ -238,11 +267,21 @@ public class BetterPlayer : KinematicBody
     {
         ResearchComplete = true;
         ResearchPoints = 0;
+        EmitSignal("MissionRewards", "Research", ResearchPoints);
+
     }
     public void AddFuel()
     {
         Fuel += 20;
         H2O--;
         EmitSignal("MissionRewards", "H2O", H2O);
+    }
+
+    public void RecoveryMission()
+    {
+        var RocketInstance = Rocket.Instance<Spatial>();
+        var tempOrigin = Transform;
+        RocketInstance.Transform = tempOrigin;
+        GetParent().AddChild(RocketInstance);
     }
 }

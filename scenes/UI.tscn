@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scripts/GUI.cs" type="Script" id=1]
 [ext_resource path="res://assets/Aquire-BW0ox.otf" type="DynamicFontData" id=2]
@@ -15,12 +15,9 @@
 [ext_resource path="res://scripts/MissionProgressBar.cs" type="Script" id=13]
 [ext_resource path="res://assets/buttons/closeBtnHover.png" type="Texture" id=14]
 [ext_resource path="res://assets/buttons/closeBtnDisabled.png" type="Texture" id=15]
-[ext_resource path="res://scripts/Settings.cs" type="Script" id=16]
-[ext_resource path="res://MainMenuButtonFont.tres" type="DynamicFont" id=17]
-[ext_resource path="res://assets/back.png" type="Texture" id=18]
-[ext_resource path="res://assets/screen.png" type="Texture" id=19]
-[ext_resource path="res://assets/size.png" type="Texture" id=20]
-[ext_resource path="res://scripts/PauseMenu.cs" type="Script" id=21]
+[ext_resource path="res://scenes/settings.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/versionNumber.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scripts/LockedMsg.cs" type="Script" id=18]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -347,7 +344,6 @@ margin_top = -312.5
 margin_right = 299.0
 margin_bottom = 312.5
 theme = ExtResource( 5 )
-script = ExtResource( 21 )
 
 [node name="Label" type="Label" parent="PauseMenu"]
 anchor_left = 0.5
@@ -360,90 +356,189 @@ theme = ExtResource( 5 )
 text = "Menu"
 align = 1
 
-[node name="Menu" type="VBoxContainer" parent="PauseMenu"]
+[node name="Menu" type="Panel" parent="PauseMenu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -217.0
+margin_top = -190.5
+margin_right = 217.0
+margin_bottom = 190.5
+
+[node name="Menu" type="VBoxContainer" parent="PauseMenu/Menu"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -159.0
-margin_top = -192.0
+margin_top = -145.5
 margin_right = 159.0
-margin_bottom = 192.0
-custom_constants/separation = 56
+margin_bottom = 145.5
+theme = ExtResource( 5 )
+custom_constants/separation = 25
 
-[node name="Resume" type="Button" parent="PauseMenu/Menu"]
+[node name="Resume" type="Button" parent="PauseMenu/Menu/Menu"]
 margin_right = 318.0
 margin_bottom = 54.0
+theme = ExtResource( 5 )
 text = "Resume"
 
-[node name="Settings" type="Button" parent="PauseMenu/Menu"]
-margin_top = 110.0
+[node name="Settings" type="Button" parent="PauseMenu/Menu/Menu"]
+margin_top = 79.0
 margin_right = 318.0
-margin_bottom = 164.0
+margin_bottom = 133.0
+theme = ExtResource( 5 )
 text = "Settings"
 
-[node name="Help" type="Button" parent="PauseMenu/Menu"]
-margin_top = 220.0
+[node name="Help" type="Button" parent="PauseMenu/Menu/Menu"]
+margin_top = 158.0
 margin_right = 318.0
-margin_bottom = 274.0
+margin_bottom = 212.0
+theme = ExtResource( 5 )
 text = "Help"
 
-[node name="SaveExit" type="Button" parent="PauseMenu/Menu"]
-margin_top = 330.0
+[node name="Exit" type="Button" parent="PauseMenu/Menu/Menu"]
+margin_top = 237.0
 margin_right = 318.0
-margin_bottom = 384.0
-text = "Save & Exit"
+margin_bottom = 291.0
+theme = ExtResource( 5 )
+text = "Exit to Main Menu"
 
-[node name="Settings" type="VBoxContainer" parent="PauseMenu"]
+[node name="Settings" type="Panel" parent="PauseMenu"]
 visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -270.0
-margin_top = -180.75
-margin_right = 270.0
-margin_bottom = 180.75
-theme = ExtResource( 5 )
-custom_constants/separation = 50
-script = ExtResource( 16 )
+margin_left = -217.0
+margin_top = -190.5
+margin_right = 217.0
+margin_bottom = 190.5
 
-[node name="Resolution" type="OptionButton" parent="PauseMenu/Settings"]
-margin_right = 540.0
-margin_bottom = 87.0
-focus_mode = 0
+[node name="Settings" parent="PauseMenu/Settings" instance=ExtResource( 16 )]
+margin_top = -131.0
+margin_bottom = 131.0
+
+[node name="Help" type="Panel" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -397.5
+margin_top = -397.5
+margin_right = 397.5
+margin_bottom = 397.5
 theme = ExtResource( 5 )
-custom_fonts/font = ExtResource( 17 )
-enabled_focus_mode = 0
-text = "Resolution"
-icon = ExtResource( 20 )
+
+[node name="Label" type="Label" parent="Help"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -30.5
+margin_top = 50.0
+margin_right = 30.5
+margin_bottom = 84.0
+theme = ExtResource( 5 )
+text = "Help"
 align = 1
-expand_icon = true
 
-[node name="WindowMode" type="OptionButton" parent="PauseMenu/Settings"]
-margin_top = 137.0
-margin_right = 540.0
-margin_bottom = 224.0
-focus_mode = 0
-theme = ExtResource( 5 )
-custom_fonts/font = ExtResource( 17 )
-enabled_focus_mode = 0
-text = "Window Mode"
-icon = ExtResource( 19 )
-align = 1
-expand_icon = true
+[node name="HelpBox" type="Panel" parent="Help"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -290.5
+margin_top = -290.5
+margin_right = 290.5
+margin_bottom = 290.5
 
-[node name="BackButton" type="Button" parent="PauseMenu/Settings"]
-margin_top = 274.0
-margin_right = 540.0
-margin_bottom = 361.0
-focus_mode = 0
+[node name="HelpText" type="RichTextLabel" parent="Help/HelpBox"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -223.0
+margin_top = -223.0
+margin_right = 223.0
+margin_bottom = 223.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = ExtResource( 5 )
-custom_fonts/font = ExtResource( 17 )
-enabled_focus_mode = 0
-text = "Back"
-icon = ExtResource( 18 )
-expand_icon = true
+text = "--- General Info ---
+- Right clicking on a \"mission\" will start the mission once the rover has arrived at it.
+
+- Once a mission is finished, that missions resource will be added to your inventory.
+
+- There are 4 resources: Water, Scrap, Research Points and Recovery Points.
+
+- In version v1.0b, H2O is used for creating fuel, scrap is needed for the recovery action, and research points are needed to unlock the recovery action.
+
+--- Controls ---
+- Left click lets you select the rover, which should start in the center of your screen.
+
+- Right click lets you move the rover to a given spot on the planet.
+
+- Holding Middle click (scroll wheel) lets you rotate the planet
+
+- Tab opens/closes Research and Development menu.
+
+- Ctrl+U hides/Unhides all UI
+
+- Pressing R will rotate the planet back to its original rotation.
+
+- To exit use alt+f4 lol"
+
+[node name="Control" parent="." instance=ExtResource( 17 )]
+
+[node name="LockedMsg" type="Panel" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -444.0
+margin_top = -94.0
+margin_right = 290.0
+margin_bottom = 94.0
+theme = ExtResource( 5 )
+script = ExtResource( 18 )
+
+[node name="Panel" type="Panel" parent="LockedMsg"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -328.5
+margin_top = -64.0
+margin_right = 328.5
+margin_bottom = 64.0
+
+[node name="ResearchError" type="Label" parent="LockedMsg/Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -295.5
+margin_top = -17.0
+margin_right = 295.5
+margin_bottom = 17.0
+text = "Electrolysis Research must be completed first!"
+
+[node name="FuelError" type="Label" parent="LockedMsg/Panel"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -197.0
+margin_top = -17.0
+margin_right = 197.0
+margin_bottom = 17.0
+text = "You must have at least 20 fuel!"
+
+[node name="Timer" type="Timer" parent="LockedMsg"]
+wait_time = 2.0
 
 [connection signal="value_changed" from="TimeScale/LeftUI/HSplitContainer/HSlider" to="." method="_on_HSlider_value_changed"]
 [connection signal="value_changed" from="TimeScale/LeftUI/HSplitContainer/HSlider" to="AudioStreamPlayer" method="_on_HSlider_value_changed"]
@@ -452,7 +547,11 @@ expand_icon = true
 [connection signal="pressed" from="ResearchAndDev/RnDButtons/Research" to="." method="_on_Research_pressed"]
 [connection signal="pressed" from="ResearchAndDev/RnDButtons/Recovery" to="." method="_on_Recovery_pressed"]
 [connection signal="pressed" from="ResearchAndDev/RnDButtons/CraftFuel" to="." method="_on_CraftFuel_pressed"]
-[connection signal="pressed" from="PauseMenu/Menu/Settings" to="PauseMenu" method="_on_Settings_pressed"]
-[connection signal="item_selected" from="PauseMenu/Settings/Resolution" to="PauseMenu/Settings" method="_on_Resolution_item_selected"]
-[connection signal="item_selected" from="PauseMenu/Settings/WindowMode" to="PauseMenu/Settings" method="_on_Fullscreen_item_selected"]
-[connection signal="pressed" from="PauseMenu/Settings/BackButton" to="PauseMenu" method="_on_BackButton_pressed"]
+[connection signal="pressed" from="PauseMenu/Menu/Menu/Resume" to="." method="_on_Resume_pressed"]
+[connection signal="pressed" from="PauseMenu/Menu/Menu/Settings" to="." method="_on_Settings_pressed"]
+[connection signal="pressed" from="PauseMenu/Menu/Menu/Help" to="." method="_on_Help_pressed"]
+[connection signal="pressed" from="PauseMenu/Menu/Menu/Exit" to="." method="_on_Exit_pressed"]
+[connection signal="pressed" from="PauseMenu/Settings/Settings/BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="timeout" from="LockedMsg/Timer" to="LockedMsg" method="_on_Timer_timeout"]
+
+[editable path="PauseMenu/Settings/Settings"]

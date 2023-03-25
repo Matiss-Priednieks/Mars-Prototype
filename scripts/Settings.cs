@@ -30,9 +30,14 @@ public class Settings : VBoxContainer
         ResArray = new Vector2[4];
         ResOptions = GetNode<OptionButton>("Resolution");
 
+
+        int optionIndex = 0;
+        int winOptionIndex = 0;
         foreach (var item in Resolutions)
         {
             ResOptions.AddItem(item.Key);
+            if (item.Value == GetViewport().Size) ResOptions.Selected = optionIndex;
+            optionIndex++;
         }
         Resolutions.Values.CopyTo(ResArray, 0);
 
@@ -41,8 +46,11 @@ public class Settings : VBoxContainer
         foreach (var item in WindowMode)
         {
             WinOptions.AddItem(item.Key);
+            if (item.Value == OS.WindowFullscreen) WinOptions.Selected = winOptionIndex;
+            winOptionIndex++;
         }
         WindowMode.Values.CopyTo(WinModeArray, 0);
+
     }
 
 

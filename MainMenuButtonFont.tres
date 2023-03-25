@@ -3,7 +3,7 @@
 [ext_resource path="res://assets/PT Astra Sans_Bold.ttf" type="DynamicFontData" id=1]
 
 [resource]
-size = 60
+size = 30
 outline_size = 3
 outline_color = Color( 0.552941, 0.0117647, 0.223529, 1 )
 use_mipmaps = true

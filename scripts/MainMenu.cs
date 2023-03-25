@@ -7,19 +7,19 @@ public class MainMenu : Spatial
     AnimationPlayer MenuSwapper;
     VBoxContainer MainMenuBox, Settings;
 
+    PackedScene MainGame;
     Tween MenuSwap, SettingsSwap;
     int Direction = 1;
     public override void _Ready()
     {
         LaunchPt2 = GetNode<AnimationPlayer>("rocket/LaunchPt2");
+        MainGame = (PackedScene)ResourceLoader.Load("scenes/Planet.tscn");
 
         MenuSwap = GetNode<Tween>("CanvasLayer/Panel/MenuSwap");
         SettingsSwap = GetNode<Tween>("CanvasLayer/Panel/SettingsSwap");
 
         MainMenuBox = GetNode<VBoxContainer>("CanvasLayer/Panel/MainMenu");
         Settings = GetNode<VBoxContainer>("CanvasLayer/Panel/Settings");
-
-
 
     }
     public void _on_Button_pressed()
@@ -29,7 +29,7 @@ public class MainMenu : Spatial
 
     public void _on_LaunchPt2_animation_finished(string anim)
     {
-        GetTree().ChangeScene("scenes/Planet.tscn");
+        GetTree().ChangeSceneTo(MainGame);
     }
 
     public void _on_Settings_pressed()
@@ -53,7 +53,5 @@ public class MainMenu : Spatial
     {
         GetTree().Quit();
     }
-
-
 
 }

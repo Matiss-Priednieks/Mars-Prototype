@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/back.png-515119acda62477b1fef7f62900af1e0.stex"
+path="res://.import/screen.png-293371ac9473570699761a0dfa089c1b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/back.png"
-dest_files=[ "res://.import/back.png-515119acda62477b1fef7f62900af1e0.stex" ]
+source_file="res://assets/UIElements/screen.png"
+dest_files=[ "res://.import/screen.png-293371ac9473570699761a0dfa089c1b.stex" ]
 
 [params]
 

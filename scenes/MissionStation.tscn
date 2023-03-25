@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/cartographer.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 1.07991, 1.07294, 1.93242 )
+extents = Vector3( 1.35632, 1.42676, 2.39119 )
 
 [sub_resource type="CubeMesh" id=2]
 size = Vector3( 2, 2, 3.392 )
@@ -25,14 +25,13 @@ use_filter = true
 font_data = ExtResource( 3 )
 
 [sub_resource type="BoxShape" id=4]
-extents = Vector3( 0.792565, 0.843195, 2.50506 )
+extents = Vector3( 0.792565, 0.843195, 12.4078 )
 
 [node name="MissionStation" type="StaticBody"]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-visible = false
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
@@ -59,7 +58,7 @@ texture = ExtResource( 2 )
 [node name="InternalCollisionChecker" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="InternalCollisionChecker"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.05353 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10.5391 )
 shape = SubResource( 4 )
 
 [connection signal="input_event" from="." to="." method="_on_MissionStation_input_event"]

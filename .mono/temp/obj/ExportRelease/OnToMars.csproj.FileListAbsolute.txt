@@ -1,0 +1,9 @@
+C:\Users\Matiss\Documents\On To Mars\.mono\temp\bin\ExportRelease\OnToMars.dll
+C:\Users\Matiss\Documents\On To Mars\.mono\temp\bin\ExportRelease\OnToMars.pdb
+C:\Users\Matiss\Documents\On To Mars\.mono\temp\obj\ExportRelease\OnToMars.csproj.AssemblyReference.cache
+C:\Users\Matiss\Documents\On To Mars\.mono\temp\obj\ExportRelease\OnToMars.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Matiss\Documents\On To Mars\.mono\temp\obj\ExportRelease\OnToMars.AssemblyInfoInputs.cache
+C:\Users\Matiss\Documents\On To Mars\.mono\temp\obj\ExportRelease\OnToMars.AssemblyInfo.cs
+C:\Users\Matiss\Documents\On To Mars\.mono\temp\obj\ExportRelease\OnToMars.csproj.CoreCompileInputs.cache
+C:\Users\Matiss\Documents\On To Mars\.mono\temp\obj\ExportRelease\OnToMars.dll
+C:\Users\Matiss\Documents\On To Mars\.mono\temp\obj\ExportRelease\OnToMars.pdb

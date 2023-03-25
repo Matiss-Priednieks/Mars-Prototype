@@ -3,50 +3,52 @@
 [ext_resource path="res://MainMenuButtonFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/UITheme.tres" type="Theme" id=2]
 [ext_resource path="res://scripts/Settings.cs" type="Script" id=3]
-[ext_resource path="res://assets/back.png" type="Texture" id=4]
-[ext_resource path="res://assets/screen.png" type="Texture" id=5]
-[ext_resource path="res://assets/size.png" type="Texture" id=6]
+[ext_resource path="res://assets/UIElements/back.png" type="Texture" id=4]
+[ext_resource path="res://assets/UIElements/screen.png" type="Texture" id=5]
+[ext_resource path="res://assets/UIElements/size.png" type="Texture" id=6]
 
 [node name="Settings" type="VBoxContainer"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 730.0
-margin_top = -117.0
-margin_right = 1270.0
-margin_bottom = 244.499
+margin_left = -159.0
+margin_top = -145.0
+margin_right = 159.0
+margin_bottom = 117.0
 theme = ExtResource( 2 )
 custom_constants/separation = 50
 script = ExtResource( 3 )
 
 [node name="Resolution" type="OptionButton" parent="."]
-margin_right = 540.0
-margin_bottom = 87.0
+margin_right = 318.0
+margin_bottom = 54.0
 focus_mode = 0
 theme = ExtResource( 2 )
 custom_fonts/font = ExtResource( 1 )
 enabled_focus_mode = 0
+text = "Resolution"
 icon = ExtResource( 6 )
 align = 1
 expand_icon = true
 
 [node name="WindowMode" type="OptionButton" parent="."]
-margin_top = 137.0
-margin_right = 540.0
-margin_bottom = 224.0
+margin_top = 104.0
+margin_right = 318.0
+margin_bottom = 158.0
 focus_mode = 0
 theme = ExtResource( 2 )
 custom_fonts/font = ExtResource( 1 )
 enabled_focus_mode = 0
+text = "Window Mode"
 icon = ExtResource( 5 )
 align = 1
 expand_icon = true
 
 [node name="BackButton" type="Button" parent="."]
-margin_top = 274.0
-margin_right = 540.0
-margin_bottom = 361.0
+margin_top = 208.0
+margin_right = 318.0
+margin_bottom = 262.0
 focus_mode = 0
 theme = ExtResource( 2 )
 custom_fonts/font = ExtResource( 1 )

@@ -9,21 +9,40 @@ class GUI : CanvasLayer
     [Signal] public delegate void ResearchFuel();
     [Signal] public delegate void AddFuel();
 
+    PackedScene MainMenu;
+    KinematicBody Player;
+    BetterPlayer PlayerClass;
+
     Label H2O, Scrap, Research, Recovery, WeatherData;
     int H2Ocount, Scrapcount, Researchcount, Recoverycount;
-    Panel ResearchAndDev, PauseMenu;
+    Panel ResearchAndDev, PauseMenu, HelpMenu;
+    Panel Settings, Menu;
+
+
+
+    bool isMenu, isSettings, isHelp;
 
     Button ResearchButton, RecoveryButton, FuelButton;
     public override void _Ready()
     {
+        Player = GetNode<KinematicBody>("../%Player");
+        PlayerClass = GetNode<BetterPlayer>("../%Player");
+        MainMenu = (PackedScene)ResourceLoader.Load("res://scenes/MainMenu.tscn");
+
         GetNode("VBoxContainer/HTTPRequest").Connect("request_completed", this, "OnRequestCompleted");
         GetNode("VBoxContainer/Button").Connect("pressed", this, "OnButtonPressed");
 
-        this.Connect("UpdateTimeScale", GetNode<KinematicBody>("../%Player"), "SetTimeScale");
-        this.Connect("ResearchFuel", GetNode<KinematicBody>("../%Player"), "SetResearchComplete");
-        this.Connect("AddFuel", GetNode<KinematicBody>("../%Player"), "AddFuel");
+        this.Connect("UpdateTimeScale", Player, "SetTimeScale");
+        this.Connect("ResearchFuel", Player, "SetResearchComplete");
+        this.Connect("AddFuel", Player, "AddFuel");
 
         ResearchAndDev = GetNode<Panel>("ResearchAndDev");
+        HelpMenu = GetNode<Panel>("Help");
+
+        Menu = GetNode<Panel>("PauseMenu/Menu");
+        Settings = GetNode<Panel>("PauseMenu/Settings");
+
+
         SliderData = GetNode<HSlider>("TimeScale/LeftUI/HSplitContainer/HSlider");
         WeatherData = GetNode<Label>("VBoxContainer/WeatherData");
         H2O = GetNode<Label>("ResourceUI/VBoxContainer/ResourceGrid/H2O");
@@ -116,8 +135,20 @@ class GUI : CanvasLayer
 
         if (Input.IsActionJustReleased("pause_menu"))
         {
-            GD.Print(PauseMenu.Visible);
-            PauseMenu.Visible = !PauseMenu.Visible;
+            GD.Print(isSettings);
+
+            // if any of these are visible when escape is pressed, hide them.
+            if (HelpMenu.Visible || Settings.Visible || ResearchAndDev.Visible)
+            {
+                ResearchAndDev.Hide();
+                HelpMenu.Hide();
+                Settings.Hide();
+                Menu.Show();
+            }
+            else
+            {
+                PauseMenu.Visible = !PauseMenu.Visible;
+            }
         }
 
         if (Researchcount == 4)
@@ -154,13 +185,47 @@ class GUI : CanvasLayer
 
     public void _on_Recovery_pressed()
     {
-
+        Recoverycount = 0;
+        Scrapcount = 0;
+        PlayerClass.RecoveryMission();
     }
 
     public void _on_CraftFuel_pressed()
     {
         EmitSignal("AddFuel");
         H2Ocount--;
+    }
+
+    public void _on_Resume_pressed()
+    {
+        PauseMenu.Hide();
+    }
+
+    public void _on_Settings_pressed()
+    {
+        isHelp = false;
+        isSettings = true;
+        Menu.Hide();
+        Settings.Show();
+    }
+
+    public void _on_BackButton_pressed()
+    {
+        Settings.Hide();
+        Menu.Show();
+    }
+
+    public void _on_Help_pressed()
+    {
+        isHelp = true;
+        isSettings = false;
+        HelpMenu.Show();
+        PauseMenu.Hide();
+    }
+
+    public void _on_Exit_pressed()
+    {
+        GetTree().ChangeSceneTo(MainMenu);
     }
 
 }

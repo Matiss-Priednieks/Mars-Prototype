@@ -1,8 +1,7 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://MainMenuButtonFont.tres" type="DynamicFont" id=1]
-[ext_resource path="res://assets/screen.png" type="Texture" id=2]
-[ext_resource path="res://assets/size.png" type="Texture" id=3]
+[ext_resource path="res://scenes/versionNumber.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/models/rocket.glb" type="PackedScene" id=4]
 [ext_resource path="res://assets/Rumble.tres" type="Animation" id=5]
 [ext_resource path="res://assets/models/planetmars2.glb" type="PackedScene" id=6]
@@ -13,9 +12,8 @@
 [ext_resource path="res://assets/RocketParticle.tres" type="Material" id=11]
 [ext_resource path="res://scripts/RocketParticles.cs" type="Script" id=12]
 [ext_resource path="res://assets/OnToMars-Menu-Master-NOBG.png" type="Texture" id=13]
-[ext_resource path="res://assets/back.png" type="Texture" id=14]
-[ext_resource path="res://scripts/Settings.cs" type="Script" id=15]
 [ext_resource path="res://assets/UITheme.tres" type="Theme" id=16]
+[ext_resource path="res://scenes/settings.tscn" type="PackedScene" id=17]
 
 [sub_resource type="StyleBoxFlat" id=23]
 bg_color = Color( 1, 0, 0.164706, 0.109804 )
@@ -232,13 +230,13 @@ anchor_bottom = 0.5
 margin_left = -270.0
 margin_top = -117.0
 margin_right = 270.0
-margin_bottom = 262.0
+margin_bottom = 145.0
 theme = ExtResource( 16 )
 custom_constants/separation = 50
 
 [node name="Button" type="Button" parent="CanvasLayer/Panel/MainMenu"]
 margin_right = 540.0
-margin_bottom = 87.0
+margin_bottom = 54.0
 focus_mode = 0
 theme = ExtResource( 16 )
 custom_fonts/font = ExtResource( 1 )
@@ -246,9 +244,9 @@ enabled_focus_mode = 0
 text = "Play"
 
 [node name="Settings" type="Button" parent="CanvasLayer/Panel/MainMenu"]
-margin_top = 137.0
+margin_top = 104.0
 margin_right = 540.0
-margin_bottom = 224.0
+margin_bottom = 158.0
 focus_mode = 0
 theme = ExtResource( 16 )
 custom_fonts/font = ExtResource( 1 )
@@ -256,68 +254,35 @@ enabled_focus_mode = 0
 text = "Settings"
 
 [node name="ExitButton" type="Button" parent="CanvasLayer/Panel/MainMenu"]
-margin_top = 274.0
+margin_top = 208.0
 margin_right = 540.0
-margin_bottom = 361.0
+margin_bottom = 262.0
 focus_mode = 0
 theme = ExtResource( 16 )
 custom_fonts/font = ExtResource( 1 )
 enabled_focus_mode = 0
 text = "Exit"
 
-[node name="Settings" type="VBoxContainer" parent="CanvasLayer/Panel"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+[node name="Settings" parent="CanvasLayer/Panel" instance=ExtResource( 17 )]
 margin_left = 730.0
 margin_top = -117.0
 margin_right = 1270.0
-margin_bottom = 244.499
-theme = ExtResource( 16 )
-custom_constants/separation = 50
-script = ExtResource( 15 )
+margin_bottom = 145.0
 
-[node name="Resolution" type="OptionButton" parent="CanvasLayer/Panel/Settings"]
+[node name="Resolution" parent="CanvasLayer/Panel/Settings" index="0"]
 margin_right = 540.0
-margin_bottom = 87.0
-focus_mode = 0
-theme = ExtResource( 16 )
-custom_fonts/font = ExtResource( 1 )
-enabled_focus_mode = 0
-text = "Resolution"
-icon = ExtResource( 3 )
-align = 1
-expand_icon = true
 
-[node name="WindowMode" type="OptionButton" parent="CanvasLayer/Panel/Settings"]
-margin_top = 137.0
+[node name="WindowMode" parent="CanvasLayer/Panel/Settings" index="1"]
 margin_right = 540.0
-margin_bottom = 224.0
-focus_mode = 0
-theme = ExtResource( 16 )
-custom_fonts/font = ExtResource( 1 )
-enabled_focus_mode = 0
-text = "Fullscreen"
-icon = ExtResource( 2 )
-align = 1
-expand_icon = true
 
-[node name="BackButton" type="Button" parent="CanvasLayer/Panel/Settings"]
-margin_top = 274.0
+[node name="BackButton" parent="CanvasLayer/Panel/Settings" index="2"]
 margin_right = 540.0
-margin_bottom = 361.0
-focus_mode = 0
-theme = ExtResource( 16 )
-custom_fonts/font = ExtResource( 1 )
-enabled_focus_mode = 0
-text = "Back"
-icon = ExtResource( 14 )
-expand_icon = true
 
 [node name="MenuSwap" type="Tween" parent="CanvasLayer/Panel"]
 
 [node name="SettingsSwap" type="Tween" parent="CanvasLayer/Panel"]
+
+[node name="Control" parent="CanvasLayer" instance=ExtResource( 2 )]
 
 [node name="rocket" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
@@ -374,7 +339,7 @@ script = ExtResource( 12 )
 [connection signal="pressed" from="CanvasLayer/Panel/MainMenu/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Panel/MainMenu/Settings" to="." method="_on_Settings_pressed"]
 [connection signal="pressed" from="CanvasLayer/Panel/MainMenu/ExitButton" to="." method="_on_ExitButton_pressed"]
-[connection signal="item_selected" from="CanvasLayer/Panel/Settings/Resolution" to="CanvasLayer/Panel/Settings" method="_on_Resolution_item_selected"]
-[connection signal="item_selected" from="CanvasLayer/Panel/Settings/WindowMode" to="CanvasLayer/Panel/Settings" method="_on_Fullscreen_item_selected"]
 [connection signal="pressed" from="CanvasLayer/Panel/Settings/BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="animation_finished" from="rocket/LaunchPt2" to="." method="_on_LaunchPt2_animation_finished"]
+
+[editable path="CanvasLayer/Panel/Settings"]
