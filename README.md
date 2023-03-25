@@ -8,6 +8,9 @@ This project is a video game that initially had inspirations drawn from real-tim
 
 It was originally intended to be a completely realistic representation of Mars with accurate weather based off of NASA's InSight API, however this has changed as NASA's InSight lander was decomissioned in late December of 2022, consequently the API has no longer provides useful data.
 
+Please try the game out and let me know how it plays by filling out this feedback form!
+https://docs.google.com/forms/d/16_iLPFoBFTtjGIZ6A0_pYUBRoUyphgp2BN9IRxexybs
+
 ### v0.1a
 ![19XZ8nVn6y](https://user-images.githubusercontent.com/71713484/224451989-85d47a6b-6c72-47e8-a6af-ad3148a5e8a6.png)
 
