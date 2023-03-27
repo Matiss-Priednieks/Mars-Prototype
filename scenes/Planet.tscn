@@ -1,188 +1,21 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scripts/PlanetGen.cs" type="Script" id=1]
 [ext_resource path="res://assets/planet_atmosphere.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/UI.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/BetterPlayer.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/perlinnose.png" type="Texture" id=5]
+[ext_resource path="res://assets/cloudShader.tres" type="Material" id=5]
 [ext_resource path="res://scripts/MainCamController.cs" type="Script" id=6]
 [ext_resource path="res://textures/PanoramaStars.png" type="Texture" id=8]
 [ext_resource path="res://assets/models/Mars.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scripts/MainCam.cs" type="Script" id=10]
 [ext_resource path="res://assets/models/MarsPlanet.cs" type="Script" id=11]
 [ext_resource path="res://scripts/MissionGenerator.cs" type="Script" id=12]
+[ext_resource path="res://scripts/WeatherController.cs" type="Script" id=13]
 
 [sub_resource type="SphereMesh" id=13]
 radius = 2.8
 height = 5.6
-
-[sub_resource type="VisualShaderNodeScalarConstant" id=19]
-constant = 0.01
-
-[sub_resource type="VisualShaderNodeScalarOp" id=20]
-operator = 2
-
-[sub_resource type="VisualShaderNodeScalarOp" id=22]
-output_port_for_preview = 0
-default_input_values = [ 0, 0.0, 1, 2.0 ]
-operator = 3
-
-[sub_resource type="VisualShaderNodeVectorOp" id=23]
-output_port_for_preview = 0
-operator = 1
-
-[sub_resource type="VisualShaderNodeTexture" id=24]
-output_port_for_preview = 0
-texture = ExtResource( 5 )
-
-[sub_resource type="VisualShaderNodeScalarFunc" id=30]
-output_port_for_preview = 0
-function = 5
-
-[sub_resource type="VisualShaderNodeScalarOp" id=31]
-output_port_for_preview = 0
-default_input_values = [ 0, 0.0, 1, 1.0 ]
-
-[sub_resource type="VisualShaderNodeColorConstant" id=32]
-constant = Color( 0.742188, 0.379338, 0.220337, 1 )
-
-[sub_resource type="VisualShaderNodeScalarFunc" id=14]
-function = 26
-
-[sub_resource type="VisualShaderNodeScalarOp" id=33]
-default_input_values = [ 0, 0.0, 1, 0.2 ]
-operator = 2
-
-[sub_resource type="VisualShaderNodeScalarFunc" id=34]
-output_port_for_preview = 0
-function = 14
-
-[sub_resource type="VisualShaderNodeScalarConstant" id=18]
-output_port_for_preview = 0
-constant = 1.2
-
-[sub_resource type="VisualShaderNodeScalarOp" id=27]
-output_port_for_preview = 0
-operator = 3
-
-[sub_resource type="VisualShaderNodeInput" id=28]
-input_name = "time"
-
-[sub_resource type="VisualShaderNodeInput" id=29]
-input_name = "uv"
-
-[sub_resource type="VisualShader" id=16]
-code = "shader_type spatial;
-render_mode specular_schlick_ggx, async_visible;
-
-uniform sampler2D tex_frg_15;
-
-
-
-void vertex() {
-// Output:0
-
-}
-
-void fragment() {
-// Color:19
-	vec3 n_out19p0 = vec3(0.742188, 0.379338, 0.220337);
-	float n_out19p1 = 1.000000;
-
-// Scalar:4
-	float n_out4p0 = 1.200000;
-
-// ScalarFunc:2
-	float n_out2p0 = log2(n_out4p0);
-
-// Input:9
-	vec3 n_out9p0 = vec3(UV, 0.0);
-
-// Input:8
-	float n_out8p0 = TIME;
-
-// Scalar:10
-	float n_out10p0 = 0.010000;
-
-// ScalarOp:11
-	float n_out11p0 = n_out8p0 * n_out10p0;
-
-// ScalarOp:13
-	float n_in13p1 = 2.00000;
-	float n_out13p0 = n_out11p0 / n_in13p1;
-
-// VectorOp:14
-	vec3 n_out14p0 = n_out9p0 - vec3(n_out13p0);
-
-// Texture:15
-	vec4 tex_frg_15_read = texture(tex_frg_15, n_out14p0.xy);
-	vec3 n_out15p0 = tex_frg_15_read.rgb;
-	float n_out15p1 = tex_frg_15_read.a;
-
-// ScalarOp:7
-	float n_out7p0 = n_out2p0 / dot(n_out15p0, vec3(0.333333, 0.333333, 0.333333));
-
-// ScalarFunc:21
-	float n_out21p0 = floor(n_out7p0);
-
-// ScalarOp:18
-	float n_in18p1 = 1.00000;
-	float n_out18p0 = n_out21p0 + n_in18p1;
-
-// ScalarFunc:17
-	float n_out17p0 = atan(n_out18p0);
-
-// ScalarOp:20
-	float n_in20p1 = 0.20000;
-	float n_out20p0 = n_out17p0 * n_in20p1;
-
-// Output:0
-	ALBEDO = n_out19p0;
-	ALPHA = n_out20p0;
-
-}
-
-void light() {
-// Output:0
-
-}
-"
-graph_offset = Vector2( -423.627, -66.0993 )
-nodes/fragment/0/position = Vector2( 1240, 40 )
-nodes/fragment/2/node = SubResource( 14 )
-nodes/fragment/2/position = Vector2( -80, 120 )
-nodes/fragment/4/node = SubResource( 18 )
-nodes/fragment/4/position = Vector2( -340, 100 )
-nodes/fragment/7/node = SubResource( 27 )
-nodes/fragment/7/position = Vector2( 200, 140 )
-nodes/fragment/8/node = SubResource( 28 )
-nodes/fragment/8/position = Vector2( -1140, 420 )
-nodes/fragment/9/node = SubResource( 29 )
-nodes/fragment/9/position = Vector2( -560, 260 )
-nodes/fragment/10/node = SubResource( 19 )
-nodes/fragment/10/position = Vector2( -1140, 520 )
-nodes/fragment/11/node = SubResource( 20 )
-nodes/fragment/11/position = Vector2( -800, 460 )
-nodes/fragment/13/node = SubResource( 22 )
-nodes/fragment/13/position = Vector2( -500, 500 )
-nodes/fragment/14/node = SubResource( 23 )
-nodes/fragment/14/position = Vector2( -220, 420 )
-nodes/fragment/15/node = SubResource( 24 )
-nodes/fragment/15/position = Vector2( 20, 240 )
-nodes/fragment/17/node = SubResource( 30 )
-nodes/fragment/17/position = Vector2( 820, 200 )
-nodes/fragment/18/node = SubResource( 31 )
-nodes/fragment/18/position = Vector2( 640, 260 )
-nodes/fragment/19/node = SubResource( 32 )
-nodes/fragment/19/position = Vector2( 580, 20 )
-nodes/fragment/20/node = SubResource( 33 )
-nodes/fragment/20/position = Vector2( 1020, 100 )
-nodes/fragment/21/node = SubResource( 34 )
-nodes/fragment/21/position = Vector2( 400, 280 )
-nodes/fragment/connections = PoolIntArray( 2, 0, 7, 0, 10, 0, 11, 1, 8, 0, 11, 0, 9, 0, 14, 0, 14, 0, 15, 0, 4, 0, 2, 0, 19, 0, 0, 0, 13, 0, 14, 1, 11, 0, 13, 0, 20, 0, 0, 1, 15, 0, 7, 1, 17, 0, 20, 0, 7, 0, 21, 0, 21, 0, 18, 0, 18, 0, 17, 0 )
-
-[sub_resource type="ShaderMaterial" id=17]
-shader = SubResource( 16 )
 
 [sub_resource type="PanoramaSky" id=6]
 panorama = ExtResource( 8 )
@@ -209,7 +42,7 @@ script = ExtResource( 11 )
 visible = false
 
 [node name="PlanetAthmosphere" parent="Mars" instance=ExtResource( 2 )]
-planet_radius = 41.0
+planet_radius = 41.5
 atmosphere_height = 2.0
 sun_path = NodePath("../../Environment/DirectionalLight")
 shader_params/u_day_color0 = Color( 0.764706, 0.160784, 0.231373, 1 )
@@ -219,7 +52,16 @@ shader_params/u_night_color1 = Color( 0.223529, 0.0823529, 0, 1 )
 transform = Transform( 29, 0, 0, 0, 29, 0, 0, 0, 29, 0, 0, 0 )
 mesh = SubResource( 13 )
 skeleton = NodePath("")
-material/0 = SubResource( 17 )
+material/0 = ExtResource( 5 )
+
+[node name="WeatherController" type="Spatial" parent="Mars"]
+script = ExtResource( 13 )
+
+[node name="Timer" type="Timer" parent="Mars/WeatherController"]
+wait_time = 15.0
+autostart = true
+
+[node name="Tween" type="Tween" parent="Mars/WeatherController"]
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
 unique_name_in_owner = true
@@ -276,5 +118,6 @@ script = ExtResource( 12 )
 [connection signal="input_event" from="Mars/StaticBody" to="Player" method="_on_StaticBody_input_event"]
 [connection signal="mouse_entered" from="Mars/StaticBody" to="CameraPivot" method="_on_StaticBody_mouse_entered"]
 [connection signal="mouse_exited" from="Mars/StaticBody" to="CameraPivot" method="_on_StaticBody_mouse_exited"]
+[connection signal="timeout" from="Mars/WeatherController/Timer" to="Mars/WeatherController" method="_on_Timer_timeout"]
 
 [editable path="Mars"]

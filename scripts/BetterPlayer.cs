@@ -19,7 +19,7 @@ public class BetterPlayer : KinematicBody
     PackedScene Rocket;
     Panel LockedMsg;
 
-    Label FuelLabel;
+    Label FuelLabel, TemperatureLabel, PressureLabel, WindLabel;
     ProgressBar MissionProgressBar;
     AudioStreamPlayer3D RoverMovementSound, MissionCompleteSound;
     Timer MissionTimer;
@@ -53,8 +53,8 @@ public class BetterPlayer : KinematicBody
         PlayerModel = GetNode<Spatial>("Rover");
         MissionLabel = GetNode<Label3D>("Mission");
         MissionTimer = GetNode<Timer>("MissionTimer");
-        FuelLabel = GetNode<Label>("../GUI/ExtraInfo/MarginContainer/Fuel");
-        MissionProgressBar = GetNode<ProgressBar>("../GUI/ExtraInfo/MarginContainer/MissionProgressBar");
+        FuelLabel = GetNode<Label>("../GUI/ExtraInfo/MarginContainer/VBoxContainer/Fuel");
+        MissionProgressBar = GetNode<ProgressBar>("../GUI/ExtraInfo/MarginContainer/VBoxContainer/MissionProgressBar");
         PlanetMars = GetParent().GetNode<Spatial>("Mars");
 
         RoverMovementSound = GetNode<AudioStreamPlayer3D>("RoverMovement");

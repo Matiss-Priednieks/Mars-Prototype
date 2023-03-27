@@ -246,7 +246,8 @@ text = "0"
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -250.0
-margin_right = 500.0
+margin_right = 612.0
+size_flags_horizontal = 3
 theme = ExtResource( 5 )
 
 [node name="MarginContainer" type="MarginContainer" parent="ExtraInfo"]
@@ -255,23 +256,74 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -230.0
-margin_top = -105.0
+margin_top = -87.0
 margin_right = 230.0
-margin_bottom = 105.0
+margin_bottom = 87.0
+size_flags_horizontal = 3
 
-[node name="MissionProgressBar" type="ProgressBar" parent="ExtraInfo/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ExtraInfo/MarginContainer"]
+margin_right = 460.0
+margin_bottom = 174.0
+size_flags_horizontal = 3
+
+[node name="MissionProgressBar" type="ProgressBar" parent="ExtraInfo/MarginContainer/VBoxContainer"]
 margin_right = 460.0
 margin_bottom = 44.0
 rect_min_size = Vector2( 30, 30 )
 theme = ExtResource( 5 )
 script = ExtResource( 13 )
 
-[node name="Fuel" type="Label" parent="ExtraInfo/MarginContainer"]
-margin_top = 88.0
+[node name="HSeparator2" type="HSeparator" parent="ExtraInfo/MarginContainer/VBoxContainer"]
+margin_top = 48.0
 margin_right = 460.0
-margin_bottom = 122.0
+margin_bottom = 52.0
+theme = ExtResource( 5 )
+
+[node name="Fuel" type="Label" parent="ExtraInfo/MarginContainer/VBoxContainer"]
+margin_top = 56.0
+margin_right = 460.0
+margin_bottom = 90.0
 theme = ExtResource( 5 )
 text = "Fuel: "
+align = 1
+
+[node name="HSeparator" type="HSeparator" parent="ExtraInfo/MarginContainer/VBoxContainer"]
+margin_top = 94.0
+margin_right = 460.0
+margin_bottom = 98.0
+theme = ExtResource( 5 )
+
+[node name="Weather" type="Label" parent="ExtraInfo/MarginContainer/VBoxContainer"]
+margin_top = 102.0
+margin_right = 460.0
+margin_bottom = 136.0
+text = "Weather Data"
+align = 1
+
+[node name="WeatherLabels" type="HBoxContainer" parent="ExtraInfo/MarginContainer/VBoxContainer"]
+margin_top = 140.0
+margin_right = 460.0
+margin_bottom = 174.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Day" type="Label" parent="ExtraInfo/MarginContainer/VBoxContainer/WeatherLabels"]
+margin_left = 134.0
+margin_right = 174.0
+margin_bottom = 34.0
+text = "Sol"
+
+[node name="Temp" type="Label" parent="ExtraInfo/MarginContainer/VBoxContainer/WeatherLabels"]
+margin_left = 178.0
+margin_right = 250.0
+margin_bottom = 34.0
+text = "Temp"
+
+[node name="Wind" type="Label" parent="ExtraInfo/MarginContainer/VBoxContainer/WeatherLabels"]
+margin_left = 254.0
+margin_right = 325.0
+margin_bottom = 34.0
+text = "Wind"
 
 [node name="ResearchAndDev" type="Panel" parent="."]
 visible = false

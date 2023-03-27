@@ -6,9 +6,16 @@ using System.IO;
 public class Weather : Node
 {
     private Godot.Collections.Array objects;
+    Label TemperatureLabel, PressureLabel, WindLabel;
+
 
     public override void _Ready()
     {
+        TemperatureLabel = GetNode<Label>("../GUI/ExtraInfo/MarginContainer/VBoxContainer/WeatherLabels/Temp");
+        PressureLabel = GetNode<Label>("../GUI/ExtraInfo/MarginContainer/VBoxContainer/WeatherLabels/Pressure");
+        WindLabel = GetNode<Label>("../GUI/ExtraInfo/MarginContainer/VBoxContainer/WeatherLabels/Wind");
+
+
         var file = new Godot.File();
         file.Open("res://assets/weather.json", Godot.File.ModeFlags.Read);
         var jsonString = file.GetAsText();
@@ -27,7 +34,5 @@ public class Weather : Node
         }
         var randomKey = keys[random.Next(0, keys.Count)]; //change this to reflect what key I want (sol, pressure etc...)
         var randomValue = randomObject[randomKey]; // this will pick a random value from that key.
-
-
     }
 }
