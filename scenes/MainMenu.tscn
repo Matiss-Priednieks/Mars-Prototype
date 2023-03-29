@@ -1,7 +1,8 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://MainMenuButtonFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scenes/versionNumber.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/audio/penclick.mp3" type="AudioStream" id=3]
 [ext_resource path="res://assets/models/rocket.glb" type="PackedScene" id=4]
 [ext_resource path="res://assets/Rumble.tres" type="Animation" id=5]
 [ext_resource path="res://assets/models/planetmars2.glb" type="PackedScene" id=6]
@@ -282,6 +283,10 @@ margin_right = 540.0
 
 [node name="SettingsSwap" type="Tween" parent="CanvasLayer/Panel"]
 
+[node name="Click" type="AudioStreamPlayer" parent="CanvasLayer/Panel"]
+unique_name_in_owner = true
+stream = ExtResource( 3 )
+
 [node name="Control" parent="CanvasLayer" instance=ExtResource( 2 )]
 
 [node name="rocket" parent="." instance=ExtResource( 4 )]
@@ -339,6 +344,8 @@ script = ExtResource( 12 )
 [connection signal="pressed" from="CanvasLayer/Panel/MainMenu/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Panel/MainMenu/Settings" to="." method="_on_Settings_pressed"]
 [connection signal="pressed" from="CanvasLayer/Panel/MainMenu/ExitButton" to="." method="_on_ExitButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/Settings/Resolution" to="CanvasLayer/Panel/Settings" method="_on_Resolution_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/Settings/WindowMode" to="CanvasLayer/Panel/Settings" method="_on_WindowMode_pressed"]
 [connection signal="pressed" from="CanvasLayer/Panel/Settings/BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="animation_finished" from="rocket/LaunchPt2" to="." method="_on_LaunchPt2_animation_finished"]
 

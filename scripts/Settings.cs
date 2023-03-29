@@ -9,6 +9,7 @@ public class Settings : VBoxContainer
     Button FsButton;
 
     OptionButton ResOptions, WinOptions;
+    AudioStreamPlayer ButtonClick;
 
     Vector2[] ResArray;
     bool[] WinModeArray;
@@ -27,6 +28,7 @@ public class Settings : VBoxContainer
 
     public override void _Ready()
     {
+        ButtonClick = GetNode<AudioStreamPlayer>("%Click");
         ResArray = new Vector2[4];
         ResOptions = GetNode<OptionButton>("Resolution");
 
@@ -56,11 +58,22 @@ public class Settings : VBoxContainer
 
     public void _on_Resolution_item_selected(int index)
     {
+        ButtonClick.Play();
         OS.WindowSize = ResArray[index];
         GetTree().SetScreenStretch(SceneTree.StretchMode.Viewport, SceneTree.StretchAspect.Keep, ResArray[index]);
     }
     public void _on_Fullscreen_item_selected(int index)
     {
+        ButtonClick.Play();
         OS.WindowFullscreen = WinModeArray[index];
+    }
+
+    public void _on_Resolution_pressed()
+    {
+        ButtonClick.Play();
+    }
+    public void _on_WindowMode_pressed()
+    {
+        ButtonClick.Play();
     }
 }

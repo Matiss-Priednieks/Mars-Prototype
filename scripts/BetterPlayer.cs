@@ -171,6 +171,7 @@ public class BetterPlayer : KinematicBody
                 LockedMsg.GetNode<Timer>("Timer").Start();
                 LockedMsg.GetNode<Label>("Panel/FuelError").Hide();
                 LockedMsg.GetNode<Label>("Panel/ResearchError").Show();
+                LockedMsg.GetNode<AudioStreamPlayer>("Error").Play();
 
             }
             else if (selectedMission == "Recovery" && Fuel < 20)
@@ -179,6 +180,7 @@ public class BetterPlayer : KinematicBody
                 LockedMsg.GetNode<Timer>("Timer").Start();
                 LockedMsg.GetNode<Label>("Panel/ResearchError").Hide();
                 LockedMsg.GetNode<Label>("Panel/FuelError").Show();
+                LockedMsg.GetNode<AudioStreamPlayer>("Error").Play();
             }
             else
             {

@@ -13,18 +13,28 @@ class GUI : CanvasLayer
     KinematicBody Player;
     BetterPlayer PlayerClass;
 
-    Label H2O, Scrap, Research, Recovery, WeatherData;
+    Label H2O, Scrap, Research, Recovery, WeatherData, ResourceError, CompletedMsg;
     int H2Ocount, Scrapcount, Researchcount, Recoverycount;
-    Panel ResearchAndDev, PauseMenu, HelpMenu;
+    Panel ResearchAndDev, PauseMenu, HelpMenu, LockedMessage;
     Panel Settings, Menu;
+    AudioStreamPlayer Success, Error, ButtonClick;
 
-
+    Timer ErrorTimer;
+    bool FuelResearched = false;
 
     bool isMenu, isSettings, isHelp;
 
     Button ResearchButton, RecoveryButton, FuelButton;
     public override void _Ready()
     {
+        ButtonClick = GetNode<AudioStreamPlayer>("LockedMsg/Click");
+        Success = GetNode<AudioStreamPlayer>("LockedMsg/Success");
+        Error = GetNode<AudioStreamPlayer>("LockedMsg/Error");
+        LockedMessage = GetNode<Panel>("LockedMsg");
+        ResourceError = GetNode<Label>("LockedMsg/Panel/ResourceError");
+        ErrorTimer = GetNode<Timer>("LockedMsg/Timer");
+        CompletedMsg = GetNode<Label>("LockedMsg/Panel/Completed");
+
         Player = GetNode<KinematicBody>("../%Player");
         PlayerClass = GetNode<BetterPlayer>("../%Player");
         MainMenu = (PackedScene)ResourceLoader.Load("res://scenes/MainMenu.tscn");
@@ -119,24 +129,27 @@ class GUI : CanvasLayer
     public void CloseRDMenu()
     {
         //hide r&d menu
+        ButtonClick.Play();
         ResearchAndDev.Hide();
     }
     public override void _Process(float delta)
     {
         if (Input.IsActionJustReleased("R&D"))
         {
+            ButtonClick.Play();
             ResearchAndDev.Visible = !ResearchAndDev.Visible;
         }
         if (Input.IsActionJustReleased("HideUI"))
         {
+            ButtonClick.Play();
+
             GD.Print(Visible);
             Visible = !Visible;
         }
 
         if (Input.IsActionJustReleased("pause_menu"))
         {
-            GD.Print(isSettings);
-
+            ButtonClick.Play();
             // if any of these are visible when escape is pressed, hide them.
             if (HelpMenu.Visible || Settings.Visible || ResearchAndDev.Visible)
             {
@@ -167,7 +180,7 @@ class GUI : CanvasLayer
         {
             RecoveryButton.Disabled = true;
         }
-        if (H2Ocount > 0)
+        if (H2Ocount > 0 && FuelResearched)
         {
             FuelButton.Disabled = false;
         }
@@ -180,29 +193,42 @@ class GUI : CanvasLayer
     public void _on_Research_pressed()
     {
         EmitSignal("ResearchFuel");
+        ButtonClick.Play();
         Researchcount = 0;
+        FuelResearched = true;
+
+        ErrorTimer.Start();
+        LockedMessage.Show();
+        CompletedMsg.Show();
+        Success.Play();
     }
 
     public void _on_Recovery_pressed()
     {
+        ButtonClick.Play();
         Recoverycount = 0;
         Scrapcount = 0;
         PlayerClass.RecoveryMission();
+        Success.Play();
     }
 
     public void _on_CraftFuel_pressed()
     {
+        ButtonClick.Play();
         EmitSignal("AddFuel");
         H2Ocount--;
+        Success.Play();
     }
 
     public void _on_Resume_pressed()
     {
+        ButtonClick.Play();
         PauseMenu.Hide();
     }
 
     public void _on_Settings_pressed()
     {
+        ButtonClick.Play();
         isHelp = false;
         isSettings = true;
         Menu.Hide();
@@ -211,12 +237,14 @@ class GUI : CanvasLayer
 
     public void _on_BackButton_pressed()
     {
+        ButtonClick.Play();
         Settings.Hide();
         Menu.Show();
     }
 
     public void _on_Help_pressed()
     {
+        ButtonClick.Play();
         isHelp = true;
         isSettings = false;
         HelpMenu.Show();
@@ -225,7 +253,40 @@ class GUI : CanvasLayer
 
     public void _on_Exit_pressed()
     {
+        ButtonClick.Play();
         GetTree().ChangeSceneTo(MainMenu);
     }
-
+    public void _on_Research_gui_input(InputEvent @event)
+    {
+        if (@event.IsActionReleased("mousepress") && ResearchButton.Disabled)
+        {
+            ButtonClick.Play();
+            LockedMessage.Show();
+            ResourceError.Show();
+            ErrorTimer.Start();
+            Error.Play();
+        }
+    }
+    public void _on_CraftFuel_gui_input(InputEvent @event)
+    {
+        if (@event.IsActionReleased("mousepress") && FuelButton.Disabled)
+        {
+            ButtonClick.Play();
+            LockedMessage.Show();
+            ResourceError.Show();
+            ErrorTimer.Start();
+            Error.Play();
+        }
+    }
+    public void _on_Recovery_gui_input(InputEvent @event)
+    {
+        if (@event.IsActionReleased("mousepress") && RecoveryButton.Disabled)
+        {
+            ButtonClick.Play();
+            LockedMessage.Show();
+            ResourceError.Show();
+            ErrorTimer.Start();
+            Error.Play();
+        }
+    }
 }
