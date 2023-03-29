@@ -264,49 +264,49 @@ size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ExtraInfo/MarginContainer"]
 margin_right = 562.0
-margin_bottom = 200.0
+margin_bottom = 199.0
 size_flags_horizontal = 3
 alignment = 1
 
 [node name="MissionProgressBar" type="ProgressBar" parent="ExtraInfo/MarginContainer/VBoxContainer"]
-margin_top = 13.0
+margin_top = 12.0
 margin_right = 562.0
-margin_bottom = 57.0
+margin_bottom = 56.0
 rect_min_size = Vector2( 30, 30 )
 theme = ExtResource( 5 )
 script = ExtResource( 13 )
 
 [node name="HSeparator2" type="HSeparator" parent="ExtraInfo/MarginContainer/VBoxContainer"]
-margin_top = 61.0
+margin_top = 60.0
 margin_right = 562.0
-margin_bottom = 65.0
+margin_bottom = 64.0
 theme = ExtResource( 5 )
 
 [node name="Fuel" type="Label" parent="ExtraInfo/MarginContainer/VBoxContainer"]
-margin_top = 69.0
+margin_top = 68.0
 margin_right = 562.0
-margin_bottom = 103.0
+margin_bottom = 102.0
 theme = ExtResource( 5 )
 text = "Fuel: "
 align = 1
 
 [node name="HSeparator" type="HSeparator" parent="ExtraInfo/MarginContainer/VBoxContainer"]
-margin_top = 107.0
+margin_top = 106.0
 margin_right = 562.0
-margin_bottom = 111.0
+margin_bottom = 110.0
 theme = ExtResource( 5 )
 
 [node name="Weather" type="Label" parent="ExtraInfo/MarginContainer/VBoxContainer"]
-margin_top = 115.0
+margin_top = 114.0
 margin_right = 562.0
-margin_bottom = 149.0
+margin_bottom = 148.0
 text = "Weather Data"
 align = 1
 
 [node name="WeatherLabels" type="HBoxContainer" parent="ExtraInfo/MarginContainer/VBoxContainer"]
-margin_top = 153.0
+margin_top = 152.0
 margin_right = 562.0
-margin_bottom = 187.0
+margin_bottom = 186.0
 size_flags_horizontal = 3
 alignment = 1
 
@@ -622,6 +622,25 @@ volume_db = -1.0
 [node name="Click" type="AudioStreamPlayer" parent="LockedMsg"]
 unique_name_in_owner = true
 stream = ExtResource( 3 )
+
+[node name="SwitchCamTip" type="Panel" parent="."]
+margin_top = 120.0
+margin_right = 335.0
+margin_bottom = 213.0
+theme = ExtResource( 5 )
+
+[node name="Label" type="Label" parent="SwitchCamTip"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -143.5
+margin_top = -17.0
+margin_right = 143.5
+margin_bottom = 17.0
+text = "Press Q to switch view"
+align = 1
+valign = 1
 
 [connection signal="value_changed" from="TimeScale/LeftUI/HSplitContainer/HSlider" to="." method="_on_HSlider_value_changed"]
 [connection signal="value_changed" from="TimeScale/LeftUI/HSplitContainer/HSlider" to="AudioStreamPlayer" method="_on_HSlider_value_changed"]

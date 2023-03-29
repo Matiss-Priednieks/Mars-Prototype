@@ -1,12 +1,3 @@
-C:/Users/Matiss/Documents/On To Mars/.mono/temp/bin/ExportDebug/OnToMars.dll
-C:/Users/Matiss/Documents/On To Mars/.mono/temp/bin/ExportDebug/OnToMars.pdb
-C:/Users/Matiss/Documents/On To Mars/.mono/temp/obj/ExportDebug/OnToMars.csproj.AssemblyReference.cache
-C:/Users/Matiss/Documents/On To Mars/.mono/temp/obj/ExportDebug/OnToMars.GeneratedMSBuildEditorConfig.editorconfig
-C:/Users/Matiss/Documents/On To Mars/.mono/temp/obj/ExportDebug/OnToMars.AssemblyInfoInputs.cache
-C:/Users/Matiss/Documents/On To Mars/.mono/temp/obj/ExportDebug/OnToMars.AssemblyInfo.cs
-C:/Users/Matiss/Documents/On To Mars/.mono/temp/obj/ExportDebug/OnToMars.csproj.CoreCompileInputs.cache
-C:/Users/Matiss/Documents/On To Mars/.mono/temp/obj/ExportDebug/OnToMars.dll
-C:/Users/Matiss/Documents/On To Mars/.mono/temp/obj/ExportDebug/OnToMars.pdb
 /home/gurki/Desktop/FYP/Mars-Prototype/.mono/temp/bin/ExportDebug/OnToMars.dll
 /home/gurki/Desktop/FYP/Mars-Prototype/.mono/temp/bin/ExportDebug/OnToMars.pdb
 /home/gurki/Desktop/FYP/Mars-Prototype/.mono/temp/obj/ExportDebug/OnToMars.csproj.AssemblyReference.cache
@@ -16,3 +7,12 @@ C:/Users/Matiss/Documents/On To Mars/.mono/temp/obj/ExportDebug/OnToMars.pdb
 /home/gurki/Desktop/FYP/Mars-Prototype/.mono/temp/obj/ExportDebug/OnToMars.csproj.CoreCompileInputs.cache
 /home/gurki/Desktop/FYP/Mars-Prototype/.mono/temp/obj/ExportDebug/OnToMars.dll
 /home/gurki/Desktop/FYP/Mars-Prototype/.mono/temp/obj/ExportDebug/OnToMars.pdb
+C:\Users\Matiss\Documents\On To Mars\.mono\temp\bin\ExportDebug\OnToMars.dll
+C:\Users\Matiss\Documents\On To Mars\.mono\temp\bin\ExportDebug\OnToMars.pdb
+C:\Users\Matiss\Documents\On To Mars\.mono\temp\obj\ExportDebug\OnToMars.csproj.AssemblyReference.cache
+C:\Users\Matiss\Documents\On To Mars\.mono\temp\obj\ExportDebug\OnToMars.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Matiss\Documents\On To Mars\.mono\temp\obj\ExportDebug\OnToMars.AssemblyInfoInputs.cache
+C:\Users\Matiss\Documents\On To Mars\.mono\temp\obj\ExportDebug\OnToMars.AssemblyInfo.cs
+C:\Users\Matiss\Documents\On To Mars\.mono\temp\obj\ExportDebug\OnToMars.csproj.CoreCompileInputs.cache
+C:\Users\Matiss\Documents\On To Mars\.mono\temp\obj\ExportDebug\OnToMars.dll
+C:\Users\Matiss\Documents\On To Mars\.mono\temp\obj\ExportDebug\OnToMars.pdb

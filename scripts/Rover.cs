@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class BetterPlayer : KinematicBody
+public class Rover : KinematicBody
 {
     //signals and exported variables
     [Signal]

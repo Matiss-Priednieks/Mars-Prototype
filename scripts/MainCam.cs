@@ -8,6 +8,7 @@ public class MainCam : Spatial
     // private string b = "text";
     Vector2 MouseDelta;
     Vector3 NextMousePos, PrevMousePos;
+    Rover Player;
     bool MouseEntered = false;
     bool Rotating = false;
     public float rotationSpeed = 0.3f;
@@ -16,6 +17,7 @@ public class MainCam : Spatial
 
     public override void _Ready()
     {
+        Player = GetNode<Rover>("../Player");
         RotatingY = false;
         RotatingZ = false;
         Snapback = GetNode<Tween>("MainCam/Snapback");
@@ -36,7 +38,7 @@ public class MainCam : Spatial
         }
         if (Input.IsActionJustPressed("reset_rotation"))
         {
-            Snapback.InterpolateProperty(this, "rotation_degrees", RotationDegrees, new Vector3(0, 0, 0), 0.5f, Tween.TransitionType.Elastic, Tween.EaseType.InOut);
+            Snapback.InterpolateProperty(this, "rotation_degrees", RotationDegrees, Player.RotationDegrees, 0.5f, Tween.TransitionType.Circ, Tween.EaseType.InOut);
             Snapback.Start();
         }
 

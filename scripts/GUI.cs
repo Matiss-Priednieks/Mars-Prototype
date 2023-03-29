@@ -11,7 +11,7 @@ class GUI : CanvasLayer
 
     PackedScene MainMenu;
     KinematicBody Player;
-    BetterPlayer PlayerClass;
+    Rover PlayerClass;
 
     Label H2O, Scrap, Research, Recovery, WeatherData, ResourceError, CompletedMsg;
     int H2Ocount, Scrapcount, Researchcount, Recoverycount;
@@ -36,7 +36,7 @@ class GUI : CanvasLayer
         CompletedMsg = GetNode<Label>("LockedMsg/Panel/Completed");
 
         Player = GetNode<KinematicBody>("../%Player");
-        PlayerClass = GetNode<BetterPlayer>("../%Player");
+        PlayerClass = GetNode<Rover>("../%Player");
         MainMenu = (PackedScene)ResourceLoader.Load("res://scenes/MainMenu.tscn");
 
         GetNode("VBoxContainer/HTTPRequest").Connect("request_completed", this, "OnRequestCompleted");

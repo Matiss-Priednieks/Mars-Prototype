@@ -4,14 +4,19 @@ using System.Net;
 using System.IO;
 public class PlanetGen : Spatial
 {
+    Camera PlayerCam, MainCam;
     public override void _Ready()
     {
-
+        PlayerCam = GetNode<Camera>("Player/PlayerCamera");
+        MainCam = GetNode<Camera>("CameraPivot/MainCam");
     }
 
     public override void _Process(float delta)
     {
-
+        if (Input.IsActionJustReleased("switch_view"))
+        {
+            PlayerCam.Current = !PlayerCam.Current;
+        }
     }
 
 }
