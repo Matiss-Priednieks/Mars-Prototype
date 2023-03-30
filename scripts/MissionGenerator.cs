@@ -58,6 +58,7 @@ public class MissionGenerator : Spatial
                     MissionLocations[i] = new Vector3(rng.RandiRange(-1000, 1000), rng.RandiRange(-1000, 1000), rng.RandiRange(-1000, 1000)).Normalized();
                 }
             }
+
             MissionAdjustedLocations = (Vector3[])MissionLocations.Clone();
             MissionLocations[i] = MissionLocations[i] * DistanceFromCenter;
 

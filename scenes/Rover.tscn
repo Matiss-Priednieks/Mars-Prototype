@@ -44,6 +44,8 @@ one_shot = true
 
 [node name="PlayerCamera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.358393, 0.869686 )
+near = 0.01
+far = 600.0
 
 [connection signal="MissionStarted" from="." to="." method="_on_Player_MissionStarted"]
 [connection signal="input_event" from="." to="." method="_on_Player_input_event"]

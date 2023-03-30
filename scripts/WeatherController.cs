@@ -39,11 +39,6 @@ public class WeatherController : Spatial
         WindLabel.Text = "WindSpd: " + randomWeatherData()[3].ToString() + "km/h";
     }
 
-    public override void _Process(float delta)
-    {
-
-    }
-
     public List<object> randomWeatherData()
     {
         List<object> WeatherData = new List<object>();
@@ -77,8 +72,9 @@ public class WeatherController : Spatial
 
     public void _on_Timer_timeout()
     {
+        
         SpeedTransition.InterpolateProperty(AtmosphereShader, "shader_param/WindSpeed", LastWindSpeed, WindSpeed, 0.1f, Tween.TransitionType.Linear, Tween.EaseType.InOut);
-        GD.Print(LastWindSpeed, WindSpeed);
+
         LastWindSpeed = WindSpeed;
         randomWeatherData();
         DayLabel.Text = "Sol: " + randomWeatherData()[0].ToString();

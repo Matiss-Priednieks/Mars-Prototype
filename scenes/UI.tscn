@@ -31,9 +31,6 @@ default_font = SubResource( 1 )
 
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_vertical_guides_": [ 512.0 ]
-}
 
 [node name="TimeScale" type="Panel" parent="."]
 margin_right = 527.0
@@ -476,6 +473,7 @@ margin_top = -131.0
 margin_bottom = 131.0
 
 [node name="Help" type="Panel" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -622,25 +620,6 @@ volume_db = -1.0
 [node name="Click" type="AudioStreamPlayer" parent="LockedMsg"]
 unique_name_in_owner = true
 stream = ExtResource( 3 )
-
-[node name="SwitchCamTip" type="Panel" parent="."]
-margin_top = 120.0
-margin_right = 335.0
-margin_bottom = 213.0
-theme = ExtResource( 5 )
-
-[node name="Label" type="Label" parent="SwitchCamTip"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -143.5
-margin_top = -17.0
-margin_right = 143.5
-margin_bottom = 17.0
-text = "Press Q to switch view"
-align = 1
-valign = 1
 
 [connection signal="value_changed" from="TimeScale/LeftUI/HSplitContainer/HSlider" to="." method="_on_HSlider_value_changed"]
 [connection signal="value_changed" from="TimeScale/LeftUI/HSplitContainer/HSlider" to="AudioStreamPlayer" method="_on_HSlider_value_changed"]

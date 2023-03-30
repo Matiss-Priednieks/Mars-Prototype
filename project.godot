@@ -18,9 +18,7 @@ config/icon="res://assets/OnToMarsIcon.png"
 
 [autoload]
 
-Coordinates="*res://scripts/Coordinates.cs"
 Interactions="*res://scripts/Interactions.cs"
-ProgressTracker="*res://scripts/ProgressTracker.cs"
 
 [display]
 
