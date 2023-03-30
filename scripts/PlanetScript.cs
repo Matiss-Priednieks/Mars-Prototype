@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Net;
 using System.IO;
-public class PlanetGen : Spatial
+public class PlanetScript : Spatial
 {
     Camera PlayerCam, MainCam;
     public override void _Ready()

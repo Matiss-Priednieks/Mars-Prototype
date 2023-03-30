@@ -3,9 +3,7 @@ using System;
 
 public class MainCam : Spatial
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
+
     Vector2 MouseDelta;
     Vector3 NextMousePos, PrevMousePos;
     Rover Player;
