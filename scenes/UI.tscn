@@ -473,7 +473,6 @@ margin_top = -131.0
 margin_bottom = 131.0
 
 [node name="Help" type="Panel" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
